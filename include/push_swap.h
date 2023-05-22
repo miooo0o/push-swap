@@ -9,11 +9,12 @@
 # include <stdlib.h>
 # include <string.h>
 
-typedef struct		s_stack
-{
+typedef struct		s_stack{
 	int				data;
 	struct s_stack	*prev;
 	struct s_stack	*next;
 }					t_stack;
 
+typedef struct      s_store{
+};
 # endif
