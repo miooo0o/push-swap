@@ -9,6 +9,9 @@
 # include <stdlib.h>
 # include <string.h>
 
+/* define */
+# define MAX 1024
+
 typedef struct		s_stack{
 	int				data;
 	struct s_stack	*prev;
