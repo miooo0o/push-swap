@@ -32,5 +32,5 @@ void ft_error_basic()
 void    ft_error_one_2d_free(char *msg, char **target)
 {
 	ft_free_2d(target);
-	ft_error_basic();
+	ft_error_basic(msg);
 }

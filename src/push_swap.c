@@ -25,13 +25,6 @@ int    ft_isnumber_str(char *string)
 	return (1);
 }
 
-void    input_error_checker(int ac)
-{
-	if (ac == 1)
-		ft_error_basic();
-	return ;
-}
-
 int     get_malloc_size(char **num_temp)
 {
 	int i;
@@ -47,7 +40,6 @@ int     get_malloc_size(char **num_temp)
 	}
 	return (count);
 }
-
 
 void    parse_input(char **av, int ac, t_info *info)
 {
@@ -66,12 +58,16 @@ void    parse_input(char **av, int ac, t_info *info)
 		info->num[i] = ft_atoi(num_temp[i]);
 		ft_free_2d(num_temp);
 	}
+	info->malloc_size = size;
+	if (info->malloc_size)
+		ft_printf("all numbers stored.");
 }
 
 t_stack *init_input_to_stack_A(int ac, char **av, t_info *info)
 {
 	// input will parse to parse_input()
-	input_error_checker(ac);
+	if (ac == 1)
+		ft_error_basic("input number");
 	parse_input(av, ac, info);
 }
 
