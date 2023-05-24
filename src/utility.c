@@ -22,7 +22,7 @@ void    ft_free_2d(char **target)
 	free(target);
 }
 
-void    ft_error_basic(char *msg)
+void ft_error_basic()
 {
 	ft_printf("[ERROR] :");
 	ft_printf("%s\n");
@@ -32,5 +32,5 @@ void    ft_error_basic(char *msg)
 void    ft_error_one_2d_free(char *msg, char **target)
 {
 	ft_free_2d(target);
-	ft_error_basic(msg);
+	ft_error_basic();
 }

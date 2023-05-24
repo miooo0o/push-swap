@@ -43,7 +43,7 @@ WHITE	= \033[37m
 ###
 
 # sources
-SRC_FILES	=	push_swap
+SRC_FILES	=	push_swap utility
 
 SRCS		= 	$(addprefix $(SRCS_DIR), $(addsuffix .c, $(SRC_FILES)))
 OBJS		=	$(addprefix $(OBJS_DIR), $(addsuffix .o, $(SRC_FILES)))

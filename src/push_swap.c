@@ -28,7 +28,7 @@ int    ft_isnumber_str(char *string)
 void    input_error_checker(int ac)
 {
 	if (ac == 1)
-		ft_error_basic("blah");
+		ft_error_basic();
 	return ;
 }
 
@@ -42,7 +42,7 @@ int     get_malloc_size(char **num_temp)
 	while (num_temp[++i] != NULL)
 	{
 		if (ft_isnumber_str(num_temp[i]) == FALSE)
-			ft_error_basic("your input value include non-digit character.");
+			ft_error_basic();
 		count++;
 	}
 	return (count);
@@ -62,7 +62,7 @@ void    parse_input(char **av, int ac, t_info *info)
 		num_temp = NULL;
 		num_temp = ft_split(av[i], ' ');
 		if (get_malloc_size(num_temp) != 1)
-			ft_error_basic("input value error, more then one number");
+			ft_error_basic();
 		info->num[i] = ft_atoi(num_temp[i]);
 		ft_free_2d(num_temp);
 	}

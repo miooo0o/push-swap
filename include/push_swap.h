@@ -25,6 +25,6 @@ typedef struct      s_info{
 
 /* utility */
 void    ft_free_2d(char **target);
-void    ft_error_basic(char *msg);
+void ft_error_basic();
 void    ft_error_one_2d_free(char *msg, char **target);
 # endif
