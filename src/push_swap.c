@@ -12,7 +12,6 @@
 
 #include "push_swap.h"
 
-
 int    ft_isnumber_str(char *string)
 {
 	int i;
