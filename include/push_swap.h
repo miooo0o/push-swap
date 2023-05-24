@@ -18,6 +18,13 @@ typedef struct		s_stack{
 	struct s_stack	*next;
 }					t_stack;
 
-typedef struct      s_store{
-};
+typedef struct      s_info{
+	int num[MAX];
+	int malloc_size;
+}                   t_info;
+
+/* utility */
+void    ft_free_2d(char **target);
+void    ft_error_basic(char *msg);
+void    ft_error_one_2d_free(char *msg, char **target);
 # endif

@@ -1,6 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: minakim <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/24 16:16:05 by minakim           #+#    #+#             */
+/*   Updated: 2023/05/24 16:16:07 by minakim          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
-void    ft_error_basic(char *msg);
 
 int    ft_isnumber_str(char *string)
 {
@@ -37,31 +48,38 @@ int     get_malloc_size(char **num_temp)
 	return (count);
 }
 
-void    parse_input(char **av, int ac)
-{
-	int i;
-	char **num_temp;
 
+void    parse_input(char **av, int ac, t_info *info)
+{
+	int     i;
+	char    **num_temp;
+	int     size;
+
+	size = 0;
 	i = -1;
-	num_temp = NULL;
 	while (++i < ac)
 	{
+		num_temp = NULL;
 		num_temp = ft_split(av[i], ' ');
-
+		if (get_malloc_size(num_temp) != 1)
+			ft_error_basic("input value error, more then one number");
+		info->num[i] = ft_atoi(num_temp[i]);
+		ft_free_2d(num_temp);
 	}
 }
 
-t_stack *init_input_to_stack_A(int ac, char **av)
+t_stack *init_input_to_stack_A(int ac, char **av, t_info *info)
 {
 	// input will parse to parse_input()
 	input_error_checker(ac);
-	parse_input(av, ac);
+	parse_input(av, ac, info);
 }
 
 int main(int ac, char **av)
 {
     t_stack *stack_A;
     t_stack *stack_B;
+	t_info  info;
 
-	stack_A = init_input_to_stack_A(ac, av);
+	stack_A = init_input_to_stack_A(ac, av, &info);
 }

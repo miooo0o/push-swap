@@ -10,7 +10,6 @@
 #                                                                              #
 # **************************************************************************** #
 
-# TODO: put color on commend
 # define
 NAME		=	push_swap
 INCLUDE		=	-I./include
