@@ -14,31 +14,6 @@ int    ft_isnumber_str(char *string)
 	return (1);
 }
 
-static int  get_malloc_count(char **num_temp);
-// get how much malloc size i need
-
-
-void    parse_input(char **av, int end)
-{
-	// with ft_split, store value to int * or int[]
-	// in this care [ 1 23 "12 39 39" 12 ], how can I parse?
-	int i;
-	int count;
-	char **num_temp;
-
-	i = 0;
-	count = 0;
-	while (i < end)
-	{
-		num_temp = ft_split(av[i], ' ');
-		count = get_malloc_count();
-	}
-
-
-
-
-}
-
 void    input_error_checker(int ac)
 {
 	if (ac == 1)
@@ -46,12 +21,41 @@ void    input_error_checker(int ac)
 	return ;
 }
 
+int     get_malloc_size(char **num_temp)
+{
+	int i;
+	int count;
+
+	count = 0;
+	i = -1;
+	while (num_temp[++i] != NULL)
+	{
+		if (ft_isnumber_str(num_temp[i]) == FALSE)
+			ft_error_basic("your input value include non-digit character.");
+		count++;
+	}
+	return (count);
+}
+
+void    parse_input(char **av, int ac)
+{
+	int i;
+	char **num_temp;
+
+	i = -1;
+	num_temp = NULL;
+	while (++i < ac)
+	{
+		num_temp = ft_split(av[i], ' ');
+
+	}
+}
+
 t_stack *init_input_to_stack_A(int ac, char **av)
 {
 	// input will parse to parse_input()
 	input_error_checker(ac);
-	parse_input(av, ac - 1);
-
+	parse_input(av, ac);
 }
 
 int main(int ac, char **av)
