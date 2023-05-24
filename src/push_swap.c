@@ -34,7 +34,7 @@ int     get_malloc_size(char **num_temp)
 	while (num_temp[++i] != NULL)
 	{
 		if (ft_isnumber_str(num_temp[i]) == FALSE)
-			ft_error_basic();
+			ft_error_2d_free("oops", num_temp);
 		count++;
 	}
 	return (count);
@@ -53,13 +53,13 @@ void    parse_input(char **av, int ac, t_info *info)
 		num_temp = NULL;
 		num_temp = ft_split(av[i], ' ');
 		if (get_malloc_size(num_temp) != 1)
-			ft_error_basic();
+			ft_error_2d_free("input not valid", num_temp);
 		info->num[i] = ft_atoi(num_temp[i]);
 		ft_free_2d(num_temp);
 	}
 	info->malloc_size = size;
 	if (info->malloc_size)
-		ft_printf("all numbers stored.");
+		ft_printf("all numbers stored");
 }
 
 t_stack *init_input_to_stack_A(int ac, char **av, t_info *info)

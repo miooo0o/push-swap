@@ -22,14 +22,14 @@ void    ft_free_2d(char **target)
 	free(target);
 }
 
-void ft_error_basic()
+void    ft_error_basic(char *msg)
 {
 	ft_printf("[ERROR] :");
 	ft_printf("%s\n");
 	exit (1);
 }
 
-void    ft_error_one_2d_free(char *msg, char **target)
+void    ft_error_2d_free(char *msg, char **target)
 {
 	ft_free_2d(target);
 	ft_error_basic(msg);
