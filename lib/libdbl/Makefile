@@ -35,7 +35,9 @@ WHITE=\033[37m
 #sources
 SRC_FILES	=	$(MAIN) $(EXTRA)
 
-MAIN		=	dbl_lstnew dbl_lstadd_front dbl_lstlast
+MAIN		=	dbl_add_front dbl_add_back dbl_del dbl_listsize \
+				dbl_move_front dbl_move_last dbl_newnode \
+				dbl_isfront dbl_islast dbl_isadjac
 				
 
 SRCS		=	$(addprefix $(SRCS_DIR), $(addsuffix .c, $(SRC_FILES)))

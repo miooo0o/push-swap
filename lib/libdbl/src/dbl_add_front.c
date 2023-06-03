@@ -6,29 +6,33 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 14:10:36 by minakim           #+#    #+#             */
-/*   Updated: 2023/06/03 15:12:35 by minakim          ###   ########.fr       */
+/*   Updated: 2023/06/03 20:42:10 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/libdbl.h"
 #include "libdbl.h"
 
-int dbl_add_back(t_doubly **node, t_doubly *new_node)
+int dbl_add_front(t_lst *list, t_doubly *new_node)
 {
-	t_doubly *temp;
-
-	if (node == NULL || new_node == NULL)
+	if (list == NULL || new_node == NULL)
 		return (-1);
-	if (*node == NULL)
-	{
-		new_node->prev = NULL;
-		*node = new_node;
-	}
-	else
-	{
-		temp = dbl_move_last((*node));
-		temp->next = new_node;
-		new_node->prev = temp;
-	}
+	new_node->next = list->head;
+	if (list->head != NULL)
+		list->head->prev = new_node;
+	new_node->prev = NULL;
+	list->head = new_node;
 	return (0);
 }
+
+/*
+int dbl_add_front(t_doubly **head_node,t_doubly *new_node) {
+	if (head_node == NULL || new_node == NULL)
+		return (-1);
+	new_node->next = *head_node;
+	if (*head_node != NULL)
+		(*head_node)->prev = new_node;
+	new_node->prev = NULL;
+	*head_node = new_node;
+	return (0);
+}*/

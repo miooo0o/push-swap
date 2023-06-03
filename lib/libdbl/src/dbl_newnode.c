@@ -1,24 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   dbl_lstlast.c                                      :+:      :+:    :+:   */
+/*   ft_dbl_lstnew.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/03 14:55:05 by minakim           #+#    #+#             */
-/*   Updated: 2023/06/03 15:10:22 by minakim          ###   ########.fr       */
+/*   Created: 2023/06/03 14:10:36 by minakim           #+#    #+#             */
+/*   Updated: 2023/06/03 20:56:18 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/libdbl.h"
 #include "libdbl.h"
 
-t_doubly    *dbl_move_last(t_doubly *lst)
-{
-	t_doubly 	*temp;
 
-	temp = lst;
-	while (temp != NULL && temp->next != NULL)
-		temp = temp->next;
-	return (temp);
+t_doubly    *dbl_newnode(void *content)
+{
+	t_doubly *new_node;
+
+	new_node = (t_doubly *)malloc(sizeof (t_doubly));
+	if (!new_node)
+		return (NULL);
+	new_node->data = content;
+	new_node->prev = NULL;
+	new_node->next = NULL;
+	return (new_node);
 }
