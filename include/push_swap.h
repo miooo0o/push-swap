@@ -12,12 +12,6 @@
 /* define */
 # define MAX 1024
 
-typedef struct		s_stack{
-	int				data;
-	struct s_stack	*prev;
-	struct s_stack	*next;
-}					t_stack;
-
 typedef struct      s_info{
 	int num[MAX];
 	int malloc_size;

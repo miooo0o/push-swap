@@ -1,23 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstlast.c                                       :+:      :+:    :+:   */
+/*   dbl_lstsize.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minakim <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/24 14:20:29 by minakim           #+#    #+#             */
-/*   Updated: 2023/06/03 13:54:42 by minakim          ###   ########.fr       */
+/*   Created: 2023/06/03 15:07:04 by minakim           #+#    #+#             */
+/*   Updated: 2023/06/03 15:09:59 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../../include/libdbl.h"
+#include "libdbl.h"
 
-t_list	*ft_lstlast(t_list *lst)
+int	dbl_listsize(t_doubly *node)
 {
-	t_list	*temp;
+	int	size;
+	t_doubly *temp;
 
-	temp = lst;
-	while (temp != NULL && temp->next != NULL)
+	temp = node;
+	size = 0;
+	while (temp != NULL)
+	{
+		size++;
 		temp = temp->next;
-	return (temp);
+	}
+	return (size);
 }

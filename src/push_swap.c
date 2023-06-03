@@ -18,6 +18,8 @@ int    ft_isnumber_str(char *string)
 	i = -1;
 	while (string[++i] != '\0')
 	{
+		if (string[0] == '-' || string[0] == '+')
+			i++;
 		if (ft_isalnum(string[i]) != 1)
 			return (0);
 	}
@@ -59,7 +61,13 @@ void    parse_input(char **av, int ac, t_info *info)
 	}
 	info->malloc_size = size;
 	if (info->malloc_size)
-		ft_printf("all numbers stored");
+		ft_printf("all numbers are stored");
+}
+
+
+t_stack *make_new_stack_to_info(t_info *info)
+{
+
 }
 
 t_stack *init_input_to_stack_A(int ac, char **av, t_info *info)
@@ -68,7 +76,9 @@ t_stack *init_input_to_stack_A(int ac, char **av, t_info *info)
 	if (ac == 1)
 		ft_error_basic("input number");
 	parse_input(av, ac, info);
+	make_new_stack_to_info(info);
 }
+
 
 int main(int ac, char **av)
 {
