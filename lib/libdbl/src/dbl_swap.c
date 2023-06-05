@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 15:09:54 by minakim           #+#    #+#             */
-/*   Updated: 2023/06/03 21:50:14 by minakim          ###   ########.fr       */
+/*   Updated: 2023/06/05 21:49:08 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,13 @@
 void	dbl_swap(t_doubly **node_A, t_doubly **node_B, t_lst *list)
 {
 	if (*node_A == *node_B)
-		return ;
+		assert(!"Error: node_A and node_B are same");
 	else if (dbl_isfront(*node_A) || dbl_isfront(*node_B))
-		dbl_swap_with_front(dbl_swap_with_front(node_A, node_B, list));
+		dbl_swap_with_front(node_A, node_B, list);
 	else if (dbl_isadjac(*node_A, *node_B))
-		dbl_swap_adjac(node_A, node_B);
+		dbl_swap_adjac(*node_A, *node_B);
 	else if (dbl_islast(*node_A) || dbl_islast(*node_B))
-	{
-		// TODO: 여기부터 진행하면 됩니다 미나씨!
-	}
+		dbl_swap_with_last(node_A, node_B, list);
 	else
-
+		assert(!"Error: can not swap.");
 }

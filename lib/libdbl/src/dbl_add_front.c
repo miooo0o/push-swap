@@ -6,23 +6,22 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 14:10:36 by minakim           #+#    #+#             */
-/*   Updated: 2023/06/03 20:42:10 by minakim          ###   ########.fr       */
+/*   Updated: 2023/06/05 22:52:30 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/libdbl.h"
 #include "libdbl.h"
 
-int dbl_add_front(t_lst *list, t_doubly *new_node)
+void	dbl_add_front(t_lst *list, t_doubly **new_node)
 {
-	if (list == NULL || new_node == NULL)
-		return (-1);
-	new_node->next = list->head;
+	if (list == NULL || *new_node == NULL)
+		assert(!"Error: empty node input");
+	(*new_node)->next = list->head;
 	if (list->head != NULL)
-		list->head->prev = new_node;
-	new_node->prev = NULL;
-	list->head = new_node;
-	return (0);
+		list->head->prev = *new_node;
+	(*new_node)->prev = NULL;
+	list->head = *new_node;
 }
 
 /*

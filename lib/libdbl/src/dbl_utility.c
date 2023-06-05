@@ -6,13 +6,19 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 15:53:50 by minakim           #+#    #+#             */
-/*   Updated: 2023/06/03 15:57:11 by minakim          ###   ########.fr       */
+/*   Updated: 2023/06/05 22:57:53 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/libdbl.h"
 #include "libdbl.h"
 
+/*
+ * dbl_isfront - Checks if a given node is the front (first) node in a doubly linked list.
+ * @node: The node to check.
+ *
+ * Return: 1 if the node is the front node, 0 otherwise.
+ **/
 int	dbl_isfront(t_doubly *node)
 {
 	if (node->prev == NULL)
@@ -20,6 +26,12 @@ int	dbl_isfront(t_doubly *node)
 	return (0);
 }
 
+/*
+ * dbl_islast - Checks if a given node is the last node in a doubly linked list.
+ * @node: The node to check.
+ *
+ * Return: 1 if the node is the last node, 0 otherwise.
+ **/
 int	dbl_islast(t_doubly *node)
 {
 	if (node->next == NULL)
@@ -27,6 +39,13 @@ int	dbl_islast(t_doubly *node)
 	return (0);
 }
 
+/*
+ * dbl_isadjac - Checks if two given nodes are adjacent to each other in a doubly linked list.
+ * @node_A: The first node to check.
+ * @node_B: The second node to check.
+ *
+ * Return: 1 if the nodes are adjacent, 0 otherwise.
+ **/
 int dbl_isadjac(t_doubly *node_A, t_doubly *node_B)
 {
 	if (node_A->next == node_B || node_B->next == node_A)

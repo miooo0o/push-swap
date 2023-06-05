@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 14:11:50 by minakim           #+#    #+#             */
-/*   Updated: 2023/06/03 21:49:57 by minakim          ###   ########.fr       */
+/*   Updated: 2023/06/05 22:53:58 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 #define LIBDBL_H
 
 # include "libft.h"
+
+/* it should be deleted to use this library for 42 project */
+#include <assert.h>
 
 /*
  * This struct, 't_doubly', represents a node in a doubly linked list.
@@ -37,10 +40,10 @@ typedef struct 		s_lst{
 	t_doubly *last;
 }					t_lst;
 
-
-int			dbl_add_front(t_lst *list, t_doubly *new_node);
-int			dbl_add_back(t_lst *list, t_doubly *new_node);
-void		dbl_del(t_lst *list, t_doubly *node_to_delete);
+/* functions */
+void        dbl_add_back(t_lst *list, t_doubly **new_node);
+void        dbl_add_front(t_lst *list, t_doubly **new_node);
+void	dbl_del(t_lst *list, t_doubly **node_to_delete);
 int			dbl_listsize(t_doubly *node);
 t_doubly    *dbl_move_front(t_lst *list);
 t_doubly	*dbl_move_last(t_lst *list);
@@ -51,12 +54,15 @@ int			dbl_islast(t_doubly *node);
 int			dbl_isadjac(t_doubly *node_A, t_doubly *node_B);
 
 /* swap : front node and other node */
-void		dbl_swap_with_front(t_doubly **node_A, t_doubly **node_B, \
-t_lst *list);
-void		dbl_swap_front_and_other(t_doubly *front_node, t_doubly *other_node, \
-t_lst *list);
-void		dbl_swap_front_and_next(t_doubly *front_node, t_doubly *next_node, \t_lst *list);
-/* swap : adjacent nodes */
-void		dbl_swap_adjac(t_doubly *node_A, t_doubly *node_B)
+void		dbl_swap_with_front(t_doubly **node_A, t_doubly **node_B, t_lst *list);
+void	    dbl_swap_front_and_other(t_doubly **front_node_ptr, t_doubly **other_node_ptr, t_lst *list);
+void	    dbl_swap_front_and_next(t_doubly **front_node_ptr, t_doubly **next_node_ptr, t_lst *list);
 
+/* swap : adjacent nodes */
+void		dbl_swap_adjac(t_doubly *node_A, t_doubly *node_B);
+
+/*swap : last node and other node */
+void	    dbl_swap_with_last(t_doubly **node_A, t_doubly **node_B, t_lst *list);
+void	dbl_swap_last_and_other(t_doubly **last_node_ptr, t_doubly **other_node_ptr, t_lst *list);
+void	dbl_swap_last_and_prev(t_doubly **last_node_ptr, t_doubly **prev_node_ptr, t_lst *list);
 #endif

@@ -37,7 +37,8 @@ SRC_FILES	=	$(MAIN) $(EXTRA)
 
 MAIN		=	dbl_add_front dbl_add_back dbl_del dbl_listsize \
 				dbl_move_front dbl_move_last dbl_newnode \
-				dbl_isfront dbl_islast dbl_isadjac
+				dbl_swap dbl_swap_adjact dbl_swap_with_front dbl_swap_with_last \
+				dbl_utility
 				
 
 SRCS		=	$(addprefix $(SRCS_DIR), $(addsuffix .c, $(SRC_FILES)))
