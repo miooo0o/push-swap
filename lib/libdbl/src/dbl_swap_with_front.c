@@ -104,7 +104,8 @@ t_doubly *set_other_node(t_doubly *node_A, t_doubly *node_B)
 }
 
 /*
- * dbl_swap_with_front- Swaps two nodes with the front node in a doubly linked list.
+ * Swaps two nodes with the front node in a doubly linked list.
+ *
  * @node_A: Pointer to the first node to swap.
  * @node_B: Pointer to the second node to swap.
  * @list: Pointer to the doubly linked list.

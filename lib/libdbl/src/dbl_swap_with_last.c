@@ -14,8 +14,7 @@
 #include "libdbl.h"
 
 /*
- * dbl_swap_last_and_prev - Swaps the last node with a previous node
- * in a doubly linked list.
+ * Swaps the last node with a previous node in a doubly linked list.
  *
  * @last_node_ptr: Pointer to the last node pointer.
  * @prev_node_ptr: Pointer to the previous node pointer.
@@ -49,8 +48,8 @@ void	dbl_swap_last_and_prev(t_doubly **last_node_ptr, t_doubly **prev_node_ptr, 
 }
 
 /*
- * dbl_swap_last_and_other - Swaps the last node with another node
- * in a doubly linked list, updating pointers accordingly.
+ * Swaps the last node with another node in a doubly linked list,
+ * updating pointers accordingly.
  *
  * @last_node_ptr: Pointer to the last node pointer.
  * @other_node_ptr: Pointer to the other node pointer.
@@ -106,8 +105,7 @@ t_doubly *set_other_node(t_doubly *node_A, t_doubly *node_B)
 }
 
 /*
- * dbl_swap_with_last - Swaps two given nodes with the last node
- * in a doubly linked list.
+ * Swaps two given nodes with the last node in a doubly linked list.
  *
  * @node_A: Pointer to the first node to swap.
  * @node_B: Pointer to the second node to swap.
