@@ -1,8 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/06 21:04:15 by minakim           #+#    #+#             */
+/*   Updated: 2023/06/06 23:18:12 by minakim          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
 # include "libft.h"
 # include "ft_printf.h"
+# include "libdbl.h"
 
 /* library */
 # include <unistd.h>
@@ -12,10 +25,24 @@
 /* define */
 # define MAX 1024
 
-typedef struct      s_info{
-	int num[MAX];
-	int malloc_size;
-}                   t_info;
+/*
+typedef struct		s_doubly{
+	void            *data;
+	struct s_doubly	*prev;
+	struct s_doubly	*next;
+}					t_doubly;
+
+typedef struct 		s_lst{
+	t_doubly *head;
+	t_doubly *last;
+}					t_lst; */
+
+typedef struct      s_stack{
+	t_lst	*list;
+	int 	num[MAX];
+	int		total_size;
+}                   t_stack;
+
 
 /* utility */
 void    ft_free_2d(char **target);

@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 15:53:50 by minakim           #+#    #+#             */
-/*   Updated: 2023/06/05 22:57:53 by minakim          ###   ########.fr       */
+/*   Updated: 2023/06/06 21:06:55 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,3 +52,5 @@ int dbl_isadjac(t_doubly *node_A, t_doubly *node_B)
 		return (1);
 	return (0);
 }
+
+// TODO: 아직 에러 핸들링이 완료 되지 않음. 에러시 메세지만 출력되고 free하지 않는 상태.

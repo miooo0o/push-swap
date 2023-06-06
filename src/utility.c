@@ -6,7 +6,7 @@
 /*   By: minakim <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 16:17:02 by minakim           #+#    #+#             */
-/*   Updated: 2023/05/24 16:17:03 by minakim          ###   ########.fr       */
+/*   Updated: 2023/06/06 22:37:00 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@ void    ft_free_2d(char **target)
 
 void    ft_error_basic(char *msg)
 {
-	ft_printf("[ERROR] :");
-	ft_printf("%s\n");
+	ft_printf("[ERROR] : %s\n", msg);
 	exit (1);
 }
 

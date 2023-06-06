@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 20:54:48 by minakim           #+#    #+#             */
-/*   Updated: 2023/06/05 22:15:13 by minakim          ###   ########.fr       */
+/*   Updated: 2023/06/06 21:00:08 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	dbl_swap_last_and_prev(t_doubly **last_node_ptr, t_doubly **prev_node_ptr, 
 	prev_node->prev = last_node;
 	prev_node->next = last_node->next;
 	last_node->next = prev_node;
-	if (list->last == last_node_ptr)
+	if (list->last == *last_node_ptr)
 		list->last = prev_node;
 	else
 		assert(!"Error: last_node is not the last node in the list");
@@ -65,6 +65,8 @@ void	dbl_swap_last_and_other(t_doubly **last_node_ptr, t_doubly **other_node_ptr
 
 	if (last_node_ptr == NULL || other_node_ptr == NULL || list == NULL)
 		assert(!"Error: empty node input");
+	last_node = *last_node_ptr;
+	other_node = *other_node_ptr;
 	prev_of_last = last_node->prev;
 	last_node->prev = other_node->prev;
 	if (other_node->prev != NULL)
@@ -124,8 +126,8 @@ void	dbl_swap_with_last(t_doubly **node_A, t_doubly **node_B, t_lst *list)
 
 	if (node_A == NULL || node_B == NULL || list == NULL)
 		assert(!"Error: empty node input");
-	last_node = set_last_node(*node_A, node_B);
-	other_node = set_other_node(*node_A, node_B);
+	last_node = set_last_node(*node_A, *node_B);
+	other_node = set_other_node(*node_A, *node_B);
 	if (other_node->next == list->last)
 		dbl_swap_last_and_prev(&last_node, &other_node, list);
 	else

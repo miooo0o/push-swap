@@ -6,7 +6,7 @@
 /*   By: minakim <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 12:52:07 by minakim           #+#    #+#             */
-/*   Updated: 2023/02/04 18:54:58 by minakim          ###   ########.fr       */
+/*   Updated: 2023/06/06 22:56:38 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,15 +60,33 @@ char	**do_split(char const *s, char c, char **split)
 	return (split);
 }
 
+int	is_contains_trigger(char const *str, char trigger)
+{
+	int i;
+
+	i = -1;
+	while (str[++i] != '\0')
+	{
+		if (str[i] == trigger)
+			return (1);
+	}
+	return (0);
+}
+
 char	**ft_split(char const *s, char c)
 {
-	size_t	count;
-	char	**split;
+	size_t count;
+	char **split;
 
-	count = get_count(s, c);
-	split = (char **)malloc(sizeof(char *) * (count + 1));
-	if (!s || !split)
-		return (0);
-	split = do_split(s, c, split);
-	return (split);
+	if (ft_isprint(c))
+	{
+		is_contains_trigger(s, c);
+		count = get_count(s, c);
+		split = (char **) malloc(sizeof(char *) * (count + 1));
+		if (!s || !split)
+			return (0);
+		split = do_split(s, c, split);
+		return (split);
+	}
+	return (NULL);
 }

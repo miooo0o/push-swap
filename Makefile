@@ -17,14 +17,16 @@ INCLUDE		=	-I./include
 # directory
 SRCS_DIR	=	src/
 OBJS_DIR	=	obj/
-LAST_DIR	=	./lib/ft_printf
+LIB_DIR	=	./lib/libft ./lib/ft_printf ./lib/libdbl
+
 
 # path (.a file)
 LIBFT_PATH		=	lib/libft/libft.a
+LIBDBL_PATH		=	lib/libdbl/libdbl.a
 PRINTF_PATH		=	lib/ft_printf/libftprintf.a
 
 # all path (all .a file)
-LIB_PATH		=	$(LIBFT_PATH) $(PRINTF_PATH)
+LIB_PATH		=	$(LIBFT_PATH) $(PRINTF_PATH) $(LIBDBL_PATH)
 
 # executables
 AR			=	ar rcs
@@ -53,7 +55,7 @@ OBJS		=	$(addprefix $(OBJS_DIR), $(addsuffix .o, $(SRC_FILES)))
 all:		$(NAME)
 
 $(NAME):	$(OBJS)
-			@make -C $(LAST_DIR) 
+			@$(foreach dir,$(LIB_DIR),make -C $(dir);)
 			@echo "- $(BOLD)Compiling$(RESET) $(NAME)\n"	
 			$(CC) $(CFLAGS) $(OBJS) $(LIB_PATH) -o $(NAME)
 			@echo "	$(GREEN)$(BOLD)[push swap]$(RESET) $(WHITE)compiled!$(RESET)"	
@@ -67,7 +69,7 @@ $(OBJS_DIR)%.o : $(SRCS_DIR)%.c
 
 clean:
 			$(RM) -rf $(OBJS_DIR)
-			@make clean -C $(LAST_DIR)
+			@$(foreach dir,$(LIB_DIR),make clean -C $(dir);)
 			@echo "	$(BLUE)$(BOLD)[push swap]$(RESET) objects files $(BLUE)cleaned$(RESET)!"
 
 fclean:		clean

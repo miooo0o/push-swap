@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 #standard
-NAME		=	libdl.a
+NAME		=	libdbl.a
 INCLUDE		=	-I../../include
 SRCS_DIR	=	src/
 OBJS_DIR	=	obj/
@@ -37,7 +37,7 @@ SRC_FILES	=	$(MAIN) $(EXTRA)
 
 MAIN		=	dbl_add_front dbl_add_back dbl_del dbl_listsize \
 				dbl_move_front dbl_move_last dbl_newnode \
-				dbl_swap dbl_swap_adjact dbl_swap_with_front dbl_swap_with_last \
+				dbl_swap dbl_swap_adjac dbl_swap_with_front dbl_swap_with_last \
 				dbl_utility
 				
 
