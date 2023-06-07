@@ -6,64 +6,66 @@
 /*   By: minakim <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 16:16:05 by minakim           #+#    #+#             */
-/*   Updated: 2023/06/06 23:27:09 by minakim          ###   ########.fr       */
+/*   Updated: 2023/06/07 17:33:57 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int    ft_isnumber_str(char *string)
+int	ft_check(char c)
 {
-	int i;
-	i = -1;
-	while (string[++i] != '\0')
-	{
-		if (string[0] == '-' || string[0] == '+')
-			i++;
-		if (ft_isalnum(string[i]) != 1)
-			return (0);
-	}
-	return (1);
+	if (c == ' ' || c == '\n' || c == '\t'
+		|| c == '\v' || c == '\f' || c == '\r')
+		return (1);
+	else
+		return (0);
 }
 
-int     get_malloc_size(char **num_temp)
+long int	ft_atoi_pushswap(const char *str)
 {
-	int i;
-	int count;
+	long int	number;
+	long		sign;
+	size_t		i;
 
-	count = 0;
-	i = -1;
-	while (num_temp[++i] != NULL)
+	number = 0;
+	sign = 1;
+	i = 0;
+	if (str[i] == '+' || str[i] == '-')
 	{
-		ft_printf("%s", num_temp[i]);
-		if (ft_isnumber_str(num_temp[i]) == FALSE)
-			ft_error_2d_free("oops", num_temp);
-		count++;
+		if (str[i] == '-')
+			sign = -1;
+		i++;
 	}
-	return (count);
+	while ((str[i] >= '0' && str[i] <= '9') && (str[i] != '\0'))
+	{
+		number = (number * 10) + (str[i] - 48);
+		if (number > 2147483647 && sign == 1 || number > 2147483648 && sign == -1)
+			ft_error_basic("input is not valid");
+		i++;
+	}
+	if (str[i] && (str[i] < 48 || str[i] > 57))
+		ft_error_basic("input is not valid");
+	return (number * sign);
 }
 
-int	is_contains_trigger(char const *str, char trigger)
+static int compare_num(t_stack *stack_A)
 {
 	int i;
+	int j;
 
 	i = -1;
-	while (str[++i] != '\0')
+	while (++i < stack_A->total_size)
 	{
-		if (str[i] == trigger)
-			return (1);
+		j = i + 1;
+		while (j < stack_A->total_size)
+		{
+			if (stack_A->num[i] == stack_A->num[j])
+				ft_error_basic("same number");
+			j++;
+		}
 	}
 	return (0);
 }
-
-
-// TODO : parse_input 왜인지는 모르겠는데 이상하게 만들어놔서 지우고 새로 해야함
-void	parse_input(int ac, char** av, t_stack *stack_A);
-/* ac, av 적절하게 파싱
- * 1. 각 인풋이 적절한 형태를 띄고 있는지 확인 한 뒤
- * 2. 옳은 형태라면 stack->num에 저장
- * 3. 아니라면 에러 메세지 반환.
- * */
 
 
 void	init_new_stack(t_stack **stack_ptr)
@@ -89,36 +91,72 @@ void	init_new_stack(t_stack **stack_ptr)
 	ft_printf("Stack A is finished set up.");
 }
 
-
-void	init_input_to_stack_A(int ac, char **av, t_stack *stack_A)
+void	parse_input_and_init(int ac, char** av, t_stack *stack_A)
 {
-	// input will parse to parse_input()
-	if (ac < 2)
-		ft_error_basic("input number");
-	parse_input(ac, av, stack_A);
-	init_new_stack(stack_A);
+	int	i;
+	int	j;
+
+	i = 0;
+	j = -1;
+	stack_A->total_size = ac - 1;
+	while (av[++i])
+		stack_A->num[++j] = ft_atoi_pushswap(av[i]);
+	if (compare_num(stack_A))
+		init_new_stack(&stack_A);
+
 }
 
 
-int main(int ac, char **av)
+void	init_stack_A(int ac, char **av, t_stack *stack_A)
 {
-   	t_stack stack_A;
-    t_stack stack_B;
+	// input will parse to parse_input()
+	if (ac < 2)
+		ft_error_basic("input number should be bigger then");
+	parse_input_and_init(ac, av, stack_A);
+}
 
-	int i;
-	i = 0;
 
-	t_doubly *test = (t_doubly *) malloc(sizeof(t_doubly));
-	init_input_to_stack_A(ac, av, &stack_A);
-	while (stack_A.total_size > i)
-	{
-		test->data = stack_A.list->head->data;
-		ft_printf("Data at head of stack_A: %d\n", *(int*)test->data);
-		// you need to move to the next node in the list
-		stack_A.list->head = stack_A.list->head->next;
-		i++;
-	}
+//int main(int ac, char **av)
+//{
+//   	t_stack stack_A;
+//    t_stack stack_B;
+//
+//	int i;
+//	i = 0;
+//
+//	t_doubly *test = (t_doubly *) malloc(sizeof(t_doubly));
+//	init_stack_A(ac, av, &stack_A);
+//}
 
-	// Free the allocated memory
-	free(test);
+#include <assert.h>
+
+int main(int ac, char **av) {
+	t_stack stack_A;
+	t_stack stack_B;
+
+	/* init value */
+	stack_A.total_size = 0;
+	stack_B.total_size = 0;
+
+	/* Test ft_atoi_pushswap() */
+	assert(ft_atoi_pushswap("123") == 123);
+	assert(ft_atoi_pushswap("-123") == -123);
+	assert(ft_atoi_pushswap("0") == 0);
+	assert(ft_atoi_pushswap("+123") == 123);
+
+	/* Test case for init_stack_A */
+	char *test_case[] = {"./push_swap", "1", "2", "3"};
+	init_stack_A(4, test_case, &stack_A);
+	assert(stack_A.total_size == 3);
+	assert(stack_A.num[0] == 1);
+	assert(stack_A.num[1] == 2);
+	assert(stack_A.num[2] == 3);
+
+	/* //Duplicate number case
+	 char *test_case_duplicate[] = {"./push_swap", "2", "2"};
+	 init_stack_A(3, test_case_duplicate, &stack_A); // This should result in an error
+	*/
+
+	ft_printf("All tests passed.\n");
+	return 0;
 }

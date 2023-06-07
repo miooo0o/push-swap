@@ -31,7 +31,7 @@ LIB_PATH		=	$(LIBFT_PATH) $(PRINTF_PATH) $(LIBDBL_PATH)
 # executables
 AR			=	ar rcs
 RM			=	rm -f
-CC			=	cc -g3
+CC			=	cc -g
 CFLAGS		=	-Wall -Wextra -Werror
 
 ###
