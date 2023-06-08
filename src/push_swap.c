@@ -6,7 +6,7 @@
 /*   By: minakim <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 16:16:05 by minakim           #+#    #+#             */
-/*   Updated: 2023/06/07 17:33:57 by minakim          ###   ########.fr       */
+/*   Updated: 2023/06/08 12:30:10 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	ft_check(char c)
 long int	ft_atoi_pushswap(const char *str)
 {
 	long int	number;
-	long		sign;
+	int			sign;
 	size_t		i;
 
 	number = 0;
@@ -50,8 +50,8 @@ long int	ft_atoi_pushswap(const char *str)
 
 static int compare_num(t_stack *stack_A)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = -1;
 	while (++i < stack_A->total_size)
@@ -60,59 +60,82 @@ static int compare_num(t_stack *stack_A)
 		while (j < stack_A->total_size)
 		{
 			if (stack_A->num[i] == stack_A->num[j])
-				ft_error_basic("same number");
+				return (0);
 			j++;
 		}
 	}
-	return (0);
+	return (1);
 }
 
-
-void	init_new_stack(t_stack **stack_ptr)
+void	init_new_stack(t_stack *stack)
 {
 	t_doubly	*new_node;
 	t_doubly	*head_node;
-	t_stack		*stack;
 	int 		i;
 
-	stack = *stack_ptr;
 	i = -1;
 	head_node = NULL;
 	while (++i < stack->total_size)
 	{
-		new_node = dbl_newnode((int *)&stack->num[i]);
-		dbl_add_back(stack->list, &new_node);
+		new_node = NULL;
+		new_node = dbl_newnode((void *)(long int)stack->num[i]);
+		if (!new_node)
+			ft_error_basic("error, but didn't set free something.");
+		dbl_add_back(&(stack->list), &new_node);
 		if (i == 0 && head_node == NULL)
 			head_node = new_node;
 	}
-	if (stack->list->head != head_node || stack->list->last != new_node)
+	if (stack->list.head != head_node || stack->list.last != new_node)
 		ft_error_basic("I should free list");
-	*stack_ptr = stack;
 	ft_printf("Stack A is finished set up.");
 }
 
-void	parse_input_and_init(int ac, char** av, t_stack *stack_A)
+
+void parse_input_and_init(int ac, char** av, t_stack *stack_A)
 {
-	int	i;
-	int	j;
+	int i;
+	int j;
 
-	i = 0;
-	j = -1;
+	i = 1;
+	j = 0;
 	stack_A->total_size = ac - 1;
-	while (av[++i])
-		stack_A->num[++j] = ft_atoi_pushswap(av[i]);
+	while (i < ac && j < stack_A->total_size)
+		stack_A->num[j++] = ft_atoi_pushswap(av[i++]);
 	if (compare_num(stack_A))
-		init_new_stack(&stack_A);
-
+	{
+		init_new_stack(stack_A);
+	}
+	else
+		ft_error_basic("same number");
 }
 
+void dbl_free_all(t_lst *list)
+{
+	t_doubly *current = list->head;
+	t_doubly *next_node;
+
+	while (current != NULL) {
+		next_node = current->next;
+		free(current);
+		current = next_node;
+	}
+}
+
+void	init_stack_value(t_stack *stack)
+{
+	stack->list.head = NULL;
+	stack->list.last = NULL;
+	stack->total_size = 0;
+}
 
 void	init_stack_A(int ac, char **av, t_stack *stack_A)
 {
-	// input will parse to parse_input()
 	if (ac < 2)
 		ft_error_basic("input number should be bigger then");
+	init_stack_value(stack_A);
 	parse_input_and_init(ac, av, stack_A);
+	dbl_free_all(&(stack_A->list));
+
 }
 
 
@@ -127,6 +150,7 @@ void	init_stack_A(int ac, char **av, t_stack *stack_A)
 //	t_doubly *test = (t_doubly *) malloc(sizeof(t_doubly));
 //	init_stack_A(ac, av, &stack_A);
 //}
+
 
 #include <assert.h>
 
@@ -151,11 +175,6 @@ int main(int ac, char **av) {
 	assert(stack_A.num[0] == 1);
 	assert(stack_A.num[1] == 2);
 	assert(stack_A.num[2] == 3);
-
-	/* //Duplicate number case
-	 char *test_case_duplicate[] = {"./push_swap", "2", "2"};
-	 init_stack_A(3, test_case_duplicate, &stack_A); // This should result in an error
-	*/
 
 	ft_printf("All tests passed.\n");
 	return 0;
