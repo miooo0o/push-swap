@@ -6,7 +6,7 @@
 /*   By: minakim <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 16:17:02 by minakim           #+#    #+#             */
-/*   Updated: 2023/06/12 16:56:22 by minakim          ###   ########.fr       */
+/*   Updated: 2023/06/12 17:31:34 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,9 @@ void    ft_error_listfree(char *msg, t_lst *list)
 	dbl_listfree(list);
 	ft_printf("[ERROR] : %s\n", msg);
 	exit (1);
+}
+
+void	ft_progress(char *progress, char *msg)
+{
+	ft_printf("[%s] : %s\n", progress, msg);
 }

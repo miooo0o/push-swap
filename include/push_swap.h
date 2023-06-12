@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 21:04:15 by minakim           #+#    #+#             */
-/*   Updated: 2023/06/12 17:21:19 by minakim          ###   ########.fr       */
+/*   Updated: 2023/06/12 19:30:45 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,8 @@ typedef struct 		s_lst{
 }					t_lst; */
 
 typedef struct      s_stack{
-	t_lst		list;
-	long int 	array[MAX];
-	int	total_size;
+	t_lst	list;
+	int		total_size;
 }                   t_stack;
 
 
@@ -49,4 +48,6 @@ void    ft_free_2d(char **target);
 void    ft_error_basic(char *msg);
 void    ft_error_2d_free(char *msg, char **target);
 void    ft_error_listfree(char *msg, t_lst *list);
+void	ft_progress(char *progress, char *msg);
+
 # endif

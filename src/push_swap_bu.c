@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minakim <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/24 16:16:05 by minakim           #+#    #+#             */
-/*   Updated: 2023/06/12 19:50:08 by minakim          ###   ########.fr       */
+/*   Created: 2023/06/12 17:41:17 by minakim           #+#    #+#             */
+/*   Updated: 2023/06/12 17:42:12 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int ft_isspace(int c)
 	return (0);
 }
 
-int	ft_atoi_pushswap(const char *str)
+long int	ft_atoi_pushswap(const char *str)
 {
 	long long	number;
 	int			sign;
@@ -46,61 +46,32 @@ int	ft_atoi_pushswap(const char *str)
 	return ((int)number);
 }
 
-int ft_issort(int array[], int size)
-{
-	int i;
-	i = size - 1;
-	if (array[i] < array[i - 1])
-		return (0);
-	return (1);
-}
-
-void	check_argc(int ac)
-{
-	if (ac < 2)
-		ft_error_basic("empty argument.");
-	if (ac < 3)
-		ft_error_basic("there are not enough numbers to sort.");
-}
-
-void	av_to_array(int ac, char **av, int array[])
+static int compare_num(t_stack *stack_A)
 {
 	int	i;
 	int	j;
-	int	k;
-	int	total_size;
-	int	trigger;
+	int array_size;
 
-	check_argc(ac);
-	trigger = 0;
-	i = 1;
-	j = 0;
-	total_size = ac - 1;
-	while (i < ac && j < total_size)
+	i = -1;
+	array_size = 0;
+	while (++i < stack_A->total_size)
 	{
-		array[j++] = ft_atoi_pushswap(av[i++]);
-		if (j > 1 && ft_issort(array, j))
-			trigger++;
-		k = 0;
-		while (k < j - 1)
+		j = i + 1;
+		while (j < stack_A->total_size)
 		{
-			if (array[k] == array[j - 1])
-				ft_error_basic("same number.");
-			k++;
+			if (stack_A->array[j] > stack_A->array[j + 1])
+				array_size++;
+			if (stack_A->array[i] == stack_A->array[j])
+				return (0);
+			j++;
 		}
 	}
-	if (trigger == 0)
-		ft_error_basic("arguments are already sorted.");
+	if (array_size == 0)
+		ft_error_basic("");
+	return (1);
 }
 
-void	initialize_stack(t_stack *stack)
-{
-	stack->list.head = NULL;
-	stack->list.last = NULL;
-	stack->total_size = 0;
-}
-
-void	init_stack_a_with_arr(t_stack *stack, int array[], int ac)
+void	init_new_stack(t_stack *stack)
 {
 	t_doubly	*new_node;
 	t_doubly	*head_node;
@@ -108,11 +79,10 @@ void	init_stack_a_with_arr(t_stack *stack, int array[], int ac)
 
 	i = -1;
 	head_node = NULL;
-	stack->total_size = ac - 1;
 	while (++i < stack->total_size)
 	{
 		new_node = NULL;
-		new_node = dbl_newnode((void *)(intptr_t)array[i]);
+		new_node = dbl_newnode((void *)(long int)stack->array[i]);
 		if (!new_node)
 			ft_error_basic("error, but didn't set free something.");
 		dbl_add_back(&(stack->list), &new_node);
@@ -124,7 +94,50 @@ void	init_stack_a_with_arr(t_stack *stack, int array[], int ac)
 	ft_progress("done", "Stack A set up");
 }
 
-void	init_stack_b(t_stack *stack_A, t_stack *stack_B)
+char **parsing_av(int ac, char **av)
+{
+
+}
+
+void parse_input_and_init(int ac, char** av, t_stack *stack_A)
+{
+	int i;
+	int j;
+	char **parsed_results;
+
+	i = 1;
+	j = 0;
+	parsed_results = parsing_av(ac, av);
+	stack_A->total_size = ac - 1;
+	while (i < ac && j < stack_A->total_size)
+		stack_A->array[j++] = ft_atoi_pushswap(parsed_results[i++]);
+	ft_free_2d(parsed_results);
+	if (compare_num(stack_A))
+		init_new_stack(stack_A);
+	else
+		ft_error_listfree("same number in the list.", &(stack_A->list));
+}
+
+void	init_stack_value(t_stack *stack)
+{
+	stack->list.head = NULL;
+	stack->list.last = NULL;
+	stack->total_size = 0;
+}
+
+void	init_stack_A(int ac, char **av, t_stack *stack_A)
+{
+	if (ac < 2)
+		ft_error_basic("empty argument.");
+	if (ac < 3)
+		ft_error_basic("there is no numbers can sort.");
+	init_stack_value(stack_A);
+	parse_input_and_init(ac, av, stack_A);
+
+}
+
+
+void	init_stack_B(t_stack *stack_A, t_stack *stack_B)
 {
 	stack_B->total_size = stack_A->total_size;
 	stack_B->list.head = NULL;
@@ -203,14 +216,11 @@ int main(int ac, char **av)
 	t_stack stack_B;
 	int 	num[MAX];
 
-	initialize_stack(&stack_A);
-	av_to_array(ac, av, num);
-	init_stack_a_with_arr(&stack_A, num, ac);
-	init_stack_b(&stack_A, &stack_B);
-
-	/* free */
+	/* debug [OK] */
+	init_stack_A(ac, av, &stack_A);
+	init_stack_B(&stack_A, &stack_B);
 	dbl_listfree(&(stack_A.list));
-
+	/* TODO: debug */
 }
 
 /* test main */
