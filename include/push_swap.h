@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 21:04:15 by minakim           #+#    #+#             */
-/*   Updated: 2023/06/08 12:08:09 by minakim          ###   ########.fr       */
+/*   Updated: 2023/06/09 09:55:19 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,5 @@ typedef struct      s_stack{
 void    ft_free_2d(char **target);
 void    ft_error_basic(char *msg);
 void    ft_error_2d_free(char *msg, char **target);
+void    ft_error_listfree(char *msg, t_lst *list)
 # endif

@@ -6,7 +6,7 @@
 /*   By: minakim <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 16:16:05 by minakim           #+#    #+#             */
-/*   Updated: 2023/06/08 12:30:10 by minakim          ###   ########.fr       */
+/*   Updated: 2023/06/11 16:52:37 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ long int	ft_atoi_pushswap(const char *str)
 			ft_error_basic("input is not valid");
 		i++;
 	}
-	if (str[i] && (str[i] < 48 || str[i] > 57))
+	if (str[i] && (str[i] < '0' || str[i] > '9'))
 		ft_error_basic("input is not valid");
 	return (number * sign);
 }
@@ -86,7 +86,7 @@ void	init_new_stack(t_stack *stack)
 			head_node = new_node;
 	}
 	if (stack->list.head != head_node || stack->list.last != new_node)
-		ft_error_basic("I should free list");
+		ft_error_listfree("node set up fail.", &(stack->list));
 	ft_printf("Stack A is finished set up.");
 }
 
@@ -102,23 +102,9 @@ void parse_input_and_init(int ac, char** av, t_stack *stack_A)
 	while (i < ac && j < stack_A->total_size)
 		stack_A->num[j++] = ft_atoi_pushswap(av[i++]);
 	if (compare_num(stack_A))
-	{
 		init_new_stack(stack_A);
-	}
 	else
-		ft_error_basic("same number");
-}
-
-void dbl_free_all(t_lst *list)
-{
-	t_doubly *current = list->head;
-	t_doubly *next_node;
-
-	while (current != NULL) {
-		next_node = current->next;
-		free(current);
-		current = next_node;
-	}
+		ft_error_listfree("there is same number in list.", &(stack_A->list));
 }
 
 void	init_stack_value(t_stack *stack)
@@ -134,48 +120,62 @@ void	init_stack_A(int ac, char **av, t_stack *stack_A)
 		ft_error_basic("input number should be bigger then");
 	init_stack_value(stack_A);
 	parse_input_and_init(ac, av, stack_A);
-	dbl_free_all(&(stack_A->list));
+	dbl_listfree(&(stack_A->list)); // delete later
+
+}
+
+/* TODO: start this function */
+void	init_stack_B(t_stack *stack_A, t_stack *stack_B)
+{
+	stack_B->total_size = stack_A->total_size;
+	stack_B->list.head = NULL;
+	stack_B->list.last = NULL;
+}
+
+void	quicksort();
+{
+
 
 }
 
 
-//int main(int ac, char **av)
-//{
-//   	t_stack stack_A;
-//    t_stack stack_B;
+int main(int ac, char **av)
+{
+   	t_stack stack_A;
+    t_stack stack_B;
+
+	/* debug [OK] */
+	init_stack_A(ac, av, &stack_A);
+	init_stack_B(&stack_A, &stack_B);
+	/* TODO: debug */
+	quicksort();
+}
+
+/* test main */
+//#include <assert.h>
 //
-//	int i;
-//	i = 0;
+//int main(int ac, char **av) {
+//	t_stack stack_A;
+//	t_stack stack_B;
 //
-//	t_doubly *test = (t_doubly *) malloc(sizeof(t_doubly));
-//	init_stack_A(ac, av, &stack_A);
+//	/* init value */
+//	stack_A.total_size = 0;
+//	stack_B.total_size = 0;
+//
+//	/* Test ft_atoi_pushswap() */
+//	assert(ft_atoi_pushswap("123") == 123);
+//	assert(ft_atoi_pushswap("-123") == -123);
+//	assert(ft_atoi_pushswap("0") == 0);
+//	assert(ft_atoi_pushswap("+123") == 123);
+//
+//	/* Test case for init_stack_A */
+//	char *test_case[] = {"./push_swap", "1", "2", "3"};
+//	init_stack_A(4, test_case, &stack_A);
+//	assert(stack_A.total_size == 3);
+//	assert(stack_A.num[0] == 1);
+//	assert(stack_A.num[1] == 2);
+//	assert(stack_A.num[2] == 3);
+//
+//	ft_printf("All tests passed.\n");
+//	return 0;
 //}
-
-
-#include <assert.h>
-
-int main(int ac, char **av) {
-	t_stack stack_A;
-	t_stack stack_B;
-
-	/* init value */
-	stack_A.total_size = 0;
-	stack_B.total_size = 0;
-
-	/* Test ft_atoi_pushswap() */
-	assert(ft_atoi_pushswap("123") == 123);
-	assert(ft_atoi_pushswap("-123") == -123);
-	assert(ft_atoi_pushswap("0") == 0);
-	assert(ft_atoi_pushswap("+123") == 123);
-
-	/* Test case for init_stack_A */
-	char *test_case[] = {"./push_swap", "1", "2", "3"};
-	init_stack_A(4, test_case, &stack_A);
-	assert(stack_A.total_size == 3);
-	assert(stack_A.num[0] == 1);
-	assert(stack_A.num[1] == 2);
-	assert(stack_A.num[2] == 3);
-
-	ft_printf("All tests passed.\n");
-	return 0;
-}
