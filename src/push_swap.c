@@ -6,55 +6,68 @@
 /*   By: minakim <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 16:16:05 by minakim           #+#    #+#             */
-/*   Updated: 2023/06/12 16:57:01 by minakim          ###   ########.fr       */
+/*   Updated: 2023/06/12 17:24:38 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
+int ft_isspace(int c)
+{
+	if (c == ' ')
+		return (1);
+	return (0);
+}
+
 long int	ft_atoi_pushswap(const char *str)
 {
 	long long	number;
 	int			sign;
-	size_t		i;
+	int 		size_checker;
 
 	number = 0;
 	sign = 1;
-	i = 0;
-	if (str[i] == '+' || str[i] == '-')
+	size_checker = 0;
+	while (ft_isspace(*str))
+		str++;
+	if (*str == '-')
+		sign = -1;
+	if (*str == '+' || *str == '-')
+		str++;
+	while (ft_isdigit(*str))
 	{
-		if (str[i] == '-')
-			sign = -1;
-		i++;
+		number = (number * 10) + (*str - 48);
+		str++;
+		size_checker++;
 	}
-	while ((str[i] >= '0' && str[i] <= '9') && (str[i] != '\0'))
-	{
-		number = (number * 10) + (str[i] - 48);
-		if (number > 2147483647 && sign == 1 || number > 2147483648 && sign == -1)
-			ft_error_basic("input is not valid");
-		i++;
-	}
-	if (str[i] && (str[i] < '0' || str[i] > '9'))
+	number = number * sign;
+	if (*str != '\0' || size_checker > 10 || number > 2147483647 || number < -2147483648)
 		ft_error_basic("input is not valid");
-	return ((int)number * sign);
+	return ((int)number);
 }
 
 static int compare_num(t_stack *stack_A)
 {
 	int	i;
 	int	j;
+	int array_size;
 
 	i = -1;
+	array_size = 0;
 	while (++i < stack_A->total_size)
 	{
 		j = i + 1;
 		while (j < stack_A->total_size)
 		{
-			if (stack_A->size[i] == stack_A->size[j])
+			if (stack_A->array[j] > stack_A->array[j + 1])
+				array_size++;
+			if (stack_A->array[i] == stack_A->array[j])
 				return (0);
 			j++;
 		}
 	}
+	if (array_size == 0)
+		ft_error_basic("");
 	return (1);
 }
 
@@ -69,7 +82,7 @@ void	init_new_stack(t_stack *stack)
 	while (++i < stack->total_size)
 	{
 		new_node = NULL;
-		new_node = dbl_newnode((void *)(long int)stack->size[i]);
+		new_node = dbl_newnode((void *)(long int)stack->array[i]);
 		if (!new_node)
 			ft_error_basic("error, but didn't set free something.");
 		dbl_add_back(&(stack->list), &new_node);
@@ -78,7 +91,7 @@ void	init_new_stack(t_stack *stack)
 	}
 	if (stack->list.head != head_node || stack->list.last != new_node)
 		ft_error_listfree("node set up fail.", &(stack->list));
-	ft_printf("[done] : Stack A");
+	ft_printf("[done] : Stack A\n");
 }
 
 
@@ -91,7 +104,7 @@ void parse_input_and_init(int ac, char** av, t_stack *stack_A)
 	j = 0;
 	stack_A->total_size = ac - 1;
 	while (i < ac && j < stack_A->total_size)
-		stack_A->size[j++] = ft_atoi_pushswap(av[i++]);
+		stack_A->array[j++] = ft_atoi_pushswap(av[i++]);
 	if (compare_num(stack_A))
 		init_new_stack(stack_A);
 	else
@@ -111,19 +124,20 @@ void	init_stack_A(int ac, char **av, t_stack *stack_A)
 		ft_error_basic("input number should be bigger then");
 	init_stack_value(stack_A);
 	parse_input_and_init(ac, av, stack_A);
-	dbl_listfree(&(stack_A->list)); // delete later
 
 }
 
-/* TODO: start this function */
+
 void	init_stack_B(t_stack *stack_A, t_stack *stack_B)
 {
 	stack_B->total_size = stack_A->total_size;
 	stack_B->list.head = NULL;
 	stack_B->list.last = NULL;
-	ft_printf("[done] : Stack B");
+	ft_printf("[done] : Stack B\n");
 }
 
+
+/* TODO: start this function */
 /*
  *	sa (swap a): Swap the first 2 elements at the top of stack a.
  */
@@ -195,6 +209,7 @@ int main(int ac, char **av)
 	/* debug [OK] */
 	init_stack_A(ac, av, &stack_A);
 	init_stack_B(&stack_A, &stack_B);
+	dbl_listfree(&(stack_A.list));
 	/* TODO: debug */
 }
 
