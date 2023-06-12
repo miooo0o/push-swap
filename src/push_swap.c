@@ -6,24 +6,15 @@
 /*   By: minakim <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 16:16:05 by minakim           #+#    #+#             */
-/*   Updated: 2023/06/11 16:52:37 by minakim          ###   ########.fr       */
+/*   Updated: 2023/06/12 16:57:01 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	ft_check(char c)
-{
-	if (c == ' ' || c == '\n' || c == '\t'
-		|| c == '\v' || c == '\f' || c == '\r')
-		return (1);
-	else
-		return (0);
-}
-
 long int	ft_atoi_pushswap(const char *str)
 {
-	long int	number;
+	long long	number;
 	int			sign;
 	size_t		i;
 
@@ -45,7 +36,7 @@ long int	ft_atoi_pushswap(const char *str)
 	}
 	if (str[i] && (str[i] < '0' || str[i] > '9'))
 		ft_error_basic("input is not valid");
-	return (number * sign);
+	return ((int)number * sign);
 }
 
 static int compare_num(t_stack *stack_A)
@@ -59,7 +50,7 @@ static int compare_num(t_stack *stack_A)
 		j = i + 1;
 		while (j < stack_A->total_size)
 		{
-			if (stack_A->num[i] == stack_A->num[j])
+			if (stack_A->size[i] == stack_A->size[j])
 				return (0);
 			j++;
 		}
@@ -78,7 +69,7 @@ void	init_new_stack(t_stack *stack)
 	while (++i < stack->total_size)
 	{
 		new_node = NULL;
-		new_node = dbl_newnode((void *)(long int)stack->num[i]);
+		new_node = dbl_newnode((void *)(long int)stack->size[i]);
 		if (!new_node)
 			ft_error_basic("error, but didn't set free something.");
 		dbl_add_back(&(stack->list), &new_node);
@@ -87,7 +78,7 @@ void	init_new_stack(t_stack *stack)
 	}
 	if (stack->list.head != head_node || stack->list.last != new_node)
 		ft_error_listfree("node set up fail.", &(stack->list));
-	ft_printf("Stack A is finished set up.");
+	ft_printf("[done] : Stack A");
 }
 
 
@@ -100,7 +91,7 @@ void parse_input_and_init(int ac, char** av, t_stack *stack_A)
 	j = 0;
 	stack_A->total_size = ac - 1;
 	while (i < ac && j < stack_A->total_size)
-		stack_A->num[j++] = ft_atoi_pushswap(av[i++]);
+		stack_A->size[j++] = ft_atoi_pushswap(av[i++]);
 	if (compare_num(stack_A))
 		init_new_stack(stack_A);
 	else
@@ -130,25 +121,81 @@ void	init_stack_B(t_stack *stack_A, t_stack *stack_B)
 	stack_B->total_size = stack_A->total_size;
 	stack_B->list.head = NULL;
 	stack_B->list.last = NULL;
+	ft_printf("[done] : Stack B");
 }
 
-void	quicksort();
+/*
+ *	sa (swap a): Swap the first 2 elements at the top of stack a.
+ */
+void	sa(t_stack **stack_A)
 {
 
-
 }
+
+/*
+ * sb (swap b): Swap the first 2 elements at the top of stack b.
+ */
+void	sb();
+
+/*
+ * sa and sb at the same time.
+ */
+void	ss();
+
+/*
+ * pa (push a): Take the first element at the top of b and put it at the top of a.
+ */
+void	pa();
+
+/*
+ * pb (push b): Take the first element at the top of a and put it at the top of b.
+ */
+void	pb();
+
+/*
+ * ra (rotate a): Shift up all elements of stack a by 1.
+ * The first element becomes the last one.
+ */
+void	ra();
+
+/*
+ * rb (rotate b): Shift up all elements of stack b by 1.
+ * The first element becomes the last one.
+ */
+void	rb();
+
+/*
+ * ra and rb at the same time
+ */
+void	rr();
+
+/*
+ * rra (reverse rotate a): Shift down all elements of stack a by 1.
+ * The last element becomes the first one.
+ */
+void	rra();
+
+/*
+ * rrb (reverse rotate b): Shift down all elements of stack b by 1.
+ * The last element becomes the first one.
+ */
+void	rrb();
+
+/*
+ * rrr : rra and rrb at the same time.
+ */
+void	rrr();
 
 
 int main(int ac, char **av)
 {
-   	t_stack stack_A;
-    t_stack stack_B;
+	t_stack stack_A;
+	t_stack stack_B;
 
 	/* debug [OK] */
 	init_stack_A(ac, av, &stack_A);
 	init_stack_B(&stack_A, &stack_B);
 	/* TODO: debug */
-	quicksort();
 }
 
 /* test main */

@@ -34,3 +34,43 @@ void    parse_input(char **av, int end)
 		count = get_malloc_count();
 	}
 }
+
+int partition(int num[], int start, int end)
+{
+	int pivot;
+	int i;
+	int index;
+	int	temp;
+
+
+	pivot = num[end];
+	index = start;
+	i = start;
+	while (i < end)
+	{
+		if (num[i] <= pivot)
+		{
+			temp = num[i];
+			num[i] = num[index];
+			num[index] = temp;
+			index++;
+		}
+		i++;
+	}
+
+}
+
+void	quicksort(int num[], int start, int end)
+{
+	int index;
+	if (start < end)
+	{
+		index = partition(num, start, end);
+		quicksort(num, start, index - 1);
+		quicksort(num, index + 1, end);
+	}
+	else
+	{
+		return ;
+	}
+}
