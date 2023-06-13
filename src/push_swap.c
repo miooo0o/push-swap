@@ -6,7 +6,7 @@
 /*   By: minakim <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 16:16:05 by minakim           #+#    #+#             */
-/*   Updated: 2023/06/13 18:28:27 by minakim          ###   ########.fr       */
+/*   Updated: 2023/06/13 18:28:58 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,6 +176,7 @@ void	dbl_swap_a_front_b_front(t_stack **stack1, t_stack **stack2)
 	(*stack2)->list.head = node1;
 }
 
+/* TODO : error check, valgrind */
 void	dbl_put_top(t_stack **taken, t_stack **put)
 {
 	t_doubly *node;
@@ -204,6 +205,7 @@ void	dbl_put_top(t_stack **taken, t_stack **put)
 //		dbl_put_top(&stack_B, &stack_A);
 //}
 
+/* TODO : error check, valgrind */
 /*
  * pb (push b): Take the first element at the top of a and put it at the top of b.
  */
