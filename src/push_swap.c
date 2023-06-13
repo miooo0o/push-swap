@@ -6,7 +6,7 @@
 /*   By: minakim <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 16:16:05 by minakim           #+#    #+#             */
-/*   Updated: 2023/06/13 18:22:30 by minakim          ###   ########.fr       */
+/*   Updated: 2023/06/13 18:28:27 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -296,7 +296,7 @@ void print_list(t_lst *list)
 	}
 }
 
-
+/* test done */
 void test_dbl_swap(t_doubly **front_node_ptr, t_doubly **next_node_ptr, t_lst *list)
 {
 	t_doubly *front_node;
