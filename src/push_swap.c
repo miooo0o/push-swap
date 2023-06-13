@@ -6,7 +6,7 @@
 /*   By: minakim <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 16:16:05 by minakim           #+#    #+#             */
-/*   Updated: 2023/06/13 13:27:30 by minakim          ###   ########.fr       */
+/*   Updated: 2023/06/13 18:22:30 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,6 @@ void	init_stack_a_with_arr(t_stack *stack, int array[], int ac)
 	stack->total_size = ac - 1;
 	while (++i < stack->total_size)
 	{
-		new_node = NULL;
 		new_node = dbl_newnode((void *)(intptr_t)array[i]);
 		if (!new_node)
 			ft_error_basic("error, but didn't set free something.");
@@ -130,36 +129,99 @@ void	init_stack_b(t_stack *stack_B)
 	ft_progress("done", "Stack B set up");
 }
 
-
-/* TODO: start this function */
 /*
  *	sa (swap a): Swap the first 2 elements at the top of stack a.
  */
-//void sa(t_stack **stack_A)
-//{
-//	if((*stack_A)->list.head != NULL && (*stack_A)->list.head->next != NULL)
-//		dbl_swap_front_and_next(&((*stack_A)->list.head), &((*stack_A)->list.head->next), &((*stack_A)->list));
-//}
+void	sa(t_stack *stack_A)
+{
+	dbl_swap_front_and_next(&(stack_A->list.head), &(stack_A->list.head->next), &(stack_A->list));
+}
 
 /*
  * sb (swap b): Swap the first 2 elements at the top of stack b.
  */
-void	sb();
+
+void	sb(t_stack *stack_B)
+{
+	dbl_swap_front_and_next(&(stack_B->list.head), &(stack_B->list.head->next), &(stack_B->list));
+}
 
 /*
  * sa and sb at the same time.
  */
-void	ss();
+void	ss(t_stack *stack_A, t_stack *stack_B)
+{
+	dbl_swap_front_and_next(&(stack_A->list.head), &(stack_A->list.head->next), &(stack_A->list));
+	dbl_swap_front_and_next(&(stack_B->list.head), &(stack_B->list.head->next), &(stack_B->list));
+}
+
+void	dbl_swap_a_front_b_front(t_stack **stack1, t_stack **stack2)
+{
+	t_doubly *node1;
+	t_doubly *node2;
+	t_doubly *temp;
+
+	node1 = (*stack1)->list.head;
+	node2 = (*stack2)->list.head;
+	if (node1->prev != NULL || node2->prev != NULL)
+		ft_error_basic("input should be front node, [!] not free list");
+	temp = node1;
+	node1->next->prev = node2;
+	node2->next->prev = node1;
+	node1->prev = NULL;
+	node2->prev = NULL;
+	node1->next = node2->next;
+	node2->next = temp->next;
+	(*stack1)->list.head = node2;
+	(*stack2)->list.head = node1;
+}
+
+void	dbl_put_top(t_stack **taken, t_stack **put)
+{
+	t_doubly *node;
+	node = dbl_newnode((*taken)->list.head->data);
+	dbl_add_front(&(*put)->list, &node);
+	dbl_del(&(*taken)->list, &(*taken)->list.head);
+}
 
 /*
  * pa (push a): Take the first element at the top of b and put it at the top of a.
  */
-void	pa();
+/* TODO : FIX ERROR */
+//void	pa(t_stack *stack_A, t_stack *stack_B)
+//{
+//	t_doubly *node;
+//	if (stack_B->list.head == NULL && stack_B->list.last == NULL)
+//		ft_error_basic("nothing in the stack");
+//	if (stack_A->list.head == NULL)
+//	{
+//		node = dbl_newnode((void *)(intptr_t )stack_B->list.head->data);
+//		stack_A->list.head = node;
+//		stack_A->list.last = NULL;
+//		dbl_del(&(stack_B->list), &(stack_B)->list.head);
+//	}
+//	else
+//		dbl_put_top(&stack_B, &stack_A);
+//}
 
 /*
  * pb (push b): Take the first element at the top of a and put it at the top of b.
  */
-void	pb();
+void	pb(t_stack *stack_A, t_stack *stack_B)
+{
+	t_doubly *node;
+	if (stack_A->list.head == NULL && stack_A->list.last == NULL)
+		ft_error_basic("nothing in the stack");
+	if (stack_B->list.head == NULL)
+	{
+		node = dbl_newnode((void *)(intptr_t )stack_A->list.head->data);
+		stack_B->list.head = node;
+		stack_B->list.last = NULL;
+		dbl_del(&(stack_A->list), &(stack_A)->list.head);
+	}
+	else
+		dbl_put_top(&stack_A, &stack_B);
+}
 
 /*
  * ra (rotate a): Shift up all elements of stack a by 1.
@@ -239,51 +301,27 @@ void test_dbl_swap(t_doubly **front_node_ptr, t_doubly **next_node_ptr, t_lst *l
 {
 	t_doubly *front_node;
 	t_doubly *next_node;
-	t_doubly *prev_node;
 	t_doubly *next_next_node;
 
-	if (front_node_ptr == NULL || next_node_ptr == NULL || list == NULL || (*front_node_ptr)->next != (*next_node_ptr))
+	if (front_node_ptr == NULL || next_node_ptr == NULL || list == NULL \
+	|| (*front_node_ptr)->next != (*next_node_ptr) || front_node->prev != NULL)
 		assert(!"Error: empty node input");
-
 	front_node = *front_node_ptr;
 	next_node = (*front_node_ptr)->next;
 	next_next_node = next_node->next;
-	prev_node = front_node->prev;
-
-	if (prev_node != NULL)
-		assert(!"Error: given input is not front node");
-	ft_printf("step 1\n");
-	print_head(front_node);
-
-	next_node->prev = prev_node;
+	next_node->prev = front_node->prev;
 	next_node->next = front_node;
 	front_node->prev = next_node;
 	front_node->next = next_next_node;
-
-	ft_printf("\nstep 2\n");
-	print_head(next_node);
-
-
 	if (next_next_node != NULL)
 		next_next_node->prev = front_node;
 	else
 		list->last = front_node;
-
 	if (list->head == *front_node_ptr)
 		list->head = next_node;
-
-	*front_node_ptr = front_node;
-	*next_node_ptr = next_node;
+	front_node_ptr = &front_node;
+	next_node_ptr = &next_node;
 	(*front_node_ptr)->next = next_next_node;
-
-	ft_printf("\nstep 3\n");
-	print_head(*next_node_ptr);
-
-	ft_printf("\nstep 4\n");
-	print_head(*front_node_ptr);
-
-	print_list(list);
-
 }
 
 void print_stack(t_stack *stack)
@@ -295,17 +333,11 @@ void print_stack(t_stack *stack)
 	current = stack->list.head;
 	while (current != NULL)
 	{
-//		ft_printf("[%d] %d\n", i, (int)(intptr_t)current->data);
+		ft_printf("[%d] %d\n", i, (int)(intptr_t)current->data);
 		current = current->next;
 		i++;
 	}
 }
-
-void sa(t_stack *stack_A)
-{
-	test_dbl_swap(&(stack_A->list.head), &(stack_A->list.head->next), &(stack_A->list));
-}
-
 
 //
 //#include <stdio.h>
@@ -372,8 +404,18 @@ int main(int ac, char **av)
 	sa(&stack_A);
 	print_stack(&stack_A);
 
+	pb(&stack_A, &stack_B);
+
+	ft_printf("\nstact A\n");
+	print_stack(&stack_A);
+
+	ft_printf("\nstactB\n");
+	print_stack(&stack_B);
+
+
 	/* free */
-	dbl_listfree(&(stack_A.list));
+//	dbl_listfree(&(stack_A.list));
+//	dbl_listfree(&(stack_B.list));
 }
 
 

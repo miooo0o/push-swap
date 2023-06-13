@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 21:09:33 by minakim           #+#    #+#             */
-/*   Updated: 2023/06/13 12:50:45 by minakim          ###   ########.fr       */
+/*   Updated: 2023/06/13 15:31:16 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,28 +33,24 @@ void dbl_swap_front_and_next(t_doubly **front_node_ptr, t_doubly **next_node_ptr
 	t_doubly *next_node;
 	t_doubly *next_next_node;
 
-	if (front_node_ptr == NULL || next_node_ptr == NULL || list == NULL || (*front_node_ptr)->next != (*next_node_ptr))
-		assert(!"Error: empty node input");
-
 	front_node = *front_node_ptr;
+	if (front_node_ptr == NULL || next_node_ptr == NULL || list == NULL \
+	|| (*front_node_ptr)->next != (*next_node_ptr) || front_node->prev != NULL)
+		assert(!"Error: empty node input");
 	next_node = (*front_node_ptr)->next;
 	next_next_node = next_node->next;
-
 	next_node->prev = front_node->prev;
 	next_node->next = front_node;
 	front_node->prev = next_node;
 	front_node->next = next_next_node;
-
 	if (next_next_node != NULL)
 		next_next_node->prev = front_node;
 	else
 		list->last = front_node;
-
 	if (list->head == *front_node_ptr)
 		list->head = next_node;
-
-	*front_node_ptr = front_node;
-	*next_node_ptr = next_node;
+	front_node_ptr = &front_node;
+	next_node_ptr = &next_node;
 	(*front_node_ptr)->next = next_next_node;
 }
 
@@ -93,8 +89,8 @@ void	dbl_swap_front_and_other(t_doubly **front_node_ptr, t_doubly **other_node_p
 	other_node->prev = NULL;
 	if (list->head == *front_node_ptr)
 		list->head = other_node;
-	*front_node_ptr = front_node;
-	*other_node_ptr = other_node;
+	front_node_ptr = &front_node;
+	other_node_ptr = &other_node;
 }
 
 t_doubly *set_front_node(t_doubly *node_A, t_doubly *node_B)
@@ -130,6 +126,7 @@ t_doubly *set_other_node_front(t_doubly *node_A, t_doubly *node_B)
  *
  * Note: Assumes @node_A and @node_B are valid pointers and that the list is not empty.
  */
+
 void	dbl_swap_with_front(t_doubly **node_A, t_doubly **node_B, t_lst *list)
 {
 	t_doubly *front_node;
@@ -145,13 +142,13 @@ void	dbl_swap_with_front(t_doubly **node_A, t_doubly **node_B, t_lst *list)
 		dbl_swap_front_and_other(&front_node, &other_node, list);
 	if (front_node == *node_A)
 	{
-		*node_A = other_node;
-		*node_B = front_node;
+		node_A = &other_node;
+		node_B = &front_node;
 	}
 	else if (front_node == *node_B)
 	{
-		*node_A = front_node;
-		*node_B = other_node;
+		node_A = &front_node;
+		node_B = &other_node;
 	}
 	else
 		assert(!"Error: wrong node inited");
