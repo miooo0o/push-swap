@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 14:11:50 by minakim           #+#    #+#             */
-/*   Updated: 2023/06/12 16:09:38 by minakim          ###   ########.fr       */
+/*   Updated: 2023/06/13 12:44:31 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,6 @@ void		dbl_swap_adjac(t_doubly *node_A, t_doubly *node_B);
 void	    dbl_swap_with_last(t_doubly **node_A, t_doubly **node_B, t_lst *list);
 void		dbl_swap_last_and_other(t_doubly **last_node_ptr, t_doubly **other_node_ptr, t_lst *list);
 void		dbl_swap_last_and_prev(t_doubly **last_node_ptr, t_doubly **prev_node_ptr, t_lst *list);
+
+void		dbl_swap(t_doubly **node_A, t_doubly **node_B, t_lst *list);
 #endif

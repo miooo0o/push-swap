@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 20:54:48 by minakim           #+#    #+#             */
-/*   Updated: 2023/06/06 21:00:08 by minakim          ###   ########.fr       */
+/*   Updated: 2023/06/13 12:50:57 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ t_doubly *set_last_node(t_doubly *node_A, t_doubly *node_B)
 	return (NULL);
 }
 
-t_doubly *set_other_node(t_doubly *node_A, t_doubly *node_B)
+t_doubly *set_other_node_last(t_doubly *node_A, t_doubly *node_B)
 {
 	if (dbl_islast(node_A))
 		return (node_B);
@@ -127,7 +127,7 @@ void	dbl_swap_with_last(t_doubly **node_A, t_doubly **node_B, t_lst *list)
 	if (node_A == NULL || node_B == NULL || list == NULL)
 		assert(!"Error: empty node input");
 	last_node = set_last_node(*node_A, *node_B);
-	other_node = set_other_node(*node_A, *node_B);
+	other_node = set_other_node_last(*node_A, *node_B);
 	if (other_node->next == list->last)
 		dbl_swap_last_and_prev(&last_node, &other_node, list);
 	else

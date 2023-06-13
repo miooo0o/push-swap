@@ -6,7 +6,7 @@
 /*   By: minakim <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 16:16:05 by minakim           #+#    #+#             */
-/*   Updated: 2023/06/12 19:50:08 by minakim          ###   ########.fr       */
+/*   Updated: 2023/06/13 13:27:30 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,11 +124,9 @@ void	init_stack_a_with_arr(t_stack *stack, int array[], int ac)
 	ft_progress("done", "Stack A set up");
 }
 
-void	init_stack_b(t_stack *stack_A, t_stack *stack_B)
+void	init_stack_b(t_stack *stack_B)
 {
-	stack_B->total_size = stack_A->total_size;
-	stack_B->list.head = NULL;
-	stack_B->list.last = NULL;
+	initialize_stack(stack_B);
 	ft_progress("done", "Stack B set up");
 }
 
@@ -137,10 +135,11 @@ void	init_stack_b(t_stack *stack_A, t_stack *stack_B)
 /*
  *	sa (swap a): Swap the first 2 elements at the top of stack a.
  */
-void	sa(t_stack **stack_A)
-{
-
-}
+//void sa(t_stack **stack_A)
+//{
+//	if((*stack_A)->list.head != NULL && (*stack_A)->list.head->next != NULL)
+//		dbl_swap_front_and_next(&((*stack_A)->list.head), &((*stack_A)->list.head->next), &((*stack_A)->list));
+//}
 
 /*
  * sb (swap b): Swap the first 2 elements at the top of stack b.
@@ -197,6 +196,166 @@ void	rrb();
 void	rrr();
 
 
+/*
+ * test function. it will print "data"
+ * */
+
+
+void print_head(t_doubly *head)
+{
+	t_doubly	*current;
+	int 		i;
+
+	i = 0;
+	current = head;
+	while (current != NULL)
+	{
+		ft_printf("[%d] %d\n", i, (int)(intptr_t)current->data);
+		current = current->next;
+		i++;
+	}
+}
+
+void print_list(t_lst *list)
+{
+	t_doubly	*current;
+	int 		i;
+
+	if (list == NULL)
+		assert(!"Error: empty list input");
+	i = 0;
+	ft_printf("\nall list\n");
+	current = list->head;
+	while (current != NULL)
+	{
+		ft_printf("[%d] %d\n", i, (int)(intptr_t)current->data);
+		current = current->next;
+		i++;
+	}
+}
+
+
+void test_dbl_swap(t_doubly **front_node_ptr, t_doubly **next_node_ptr, t_lst *list)
+{
+	t_doubly *front_node;
+	t_doubly *next_node;
+	t_doubly *prev_node;
+	t_doubly *next_next_node;
+
+	if (front_node_ptr == NULL || next_node_ptr == NULL || list == NULL || (*front_node_ptr)->next != (*next_node_ptr))
+		assert(!"Error: empty node input");
+
+	front_node = *front_node_ptr;
+	next_node = (*front_node_ptr)->next;
+	next_next_node = next_node->next;
+	prev_node = front_node->prev;
+
+	if (prev_node != NULL)
+		assert(!"Error: given input is not front node");
+	ft_printf("step 1\n");
+	print_head(front_node);
+
+	next_node->prev = prev_node;
+	next_node->next = front_node;
+	front_node->prev = next_node;
+	front_node->next = next_next_node;
+
+	ft_printf("\nstep 2\n");
+	print_head(next_node);
+
+
+	if (next_next_node != NULL)
+		next_next_node->prev = front_node;
+	else
+		list->last = front_node;
+
+	if (list->head == *front_node_ptr)
+		list->head = next_node;
+
+	*front_node_ptr = front_node;
+	*next_node_ptr = next_node;
+	(*front_node_ptr)->next = next_next_node;
+
+	ft_printf("\nstep 3\n");
+	print_head(*next_node_ptr);
+
+	ft_printf("\nstep 4\n");
+	print_head(*front_node_ptr);
+
+	print_list(list);
+
+}
+
+void print_stack(t_stack *stack)
+{
+	t_doubly	*current;
+	int 		i;
+
+	i = 0;
+	current = stack->list.head;
+	while (current != NULL)
+	{
+//		ft_printf("[%d] %d\n", i, (int)(intptr_t)current->data);
+		current = current->next;
+		i++;
+	}
+}
+
+void sa(t_stack *stack_A)
+{
+	test_dbl_swap(&(stack_A->list.head), &(stack_A->list.head->next), &(stack_A->list));
+}
+
+
+//
+//#include <stdio.h>
+//#include <stdlib.h>
+//
+//int main()
+//{
+//	t_doubly *node1 = malloc(sizeof(t_doubly));
+//	t_doubly *node2 = malloc(sizeof(t_doubly));
+//	t_doubly *node3 = malloc(sizeof(t_doubly));
+//
+//	node1->data = (void *)1;
+//	node1->prev = NULL;
+//	node1->next = node2;
+//
+//	node2->data = (void *)2;
+//	node2->prev = node1;
+//	node2->next = node3;
+//
+//	node3->data = (void *)3;
+//	node3->prev = node2;
+//	node3->next = NULL;
+//
+//	t_lst list;
+//	list.head = node1;
+//	list.last = node3;
+//
+//	t_doubly *front_node_ptr = node1;
+//	t_doubly *next_node_ptr = node2;
+//	t_doubly *next_next_node_ptr = node3;
+//
+//	printf("Before swap:\n");
+//	printf("Node 1: %d\n", (int)(intptr_t)(front_node_ptr)->data);
+//	printf("Node 2: %d\n", (int)(intptr_t)(next_node_ptr)->data);
+//	printf("Node 3: %d\n", (int)(intptr_t)(next_next_node_ptr)->data);
+//
+//	dbl_swap_front_and_next(&front_node_ptr, &next_node_ptr, &list);
+//
+//	printf("\nAfter swap:\n");
+//	printf("Node 1: %d\n", (int)(intptr_t)(front_node_ptr)->data);
+//	printf("Node 2: %d\n", (int)(intptr_t)(next_node_ptr)->data);
+//	printf("Node 3: %d\n", (int)(intptr_t)(next_next_node_ptr)->data);
+//
+//	free(node1);
+//	free(node2);
+//	free(node3);
+//
+//	return 0;
+//}
+
 int main(int ac, char **av)
 {
 	t_stack stack_A;
@@ -206,12 +365,17 @@ int main(int ac, char **av)
 	initialize_stack(&stack_A);
 	av_to_array(ac, av, num);
 	init_stack_a_with_arr(&stack_A, num, ac);
-	init_stack_b(&stack_A, &stack_B);
+	init_stack_b(&stack_B);
+
+	/* print stack_A */
+	ft_printf("swap\n");
+	sa(&stack_A);
+	print_stack(&stack_A);
 
 	/* free */
 	dbl_listfree(&(stack_A.list));
-
 }
+
 
 /* test main */
 //#include <assert.h>
