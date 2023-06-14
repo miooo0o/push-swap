@@ -6,7 +6,7 @@
 /*   By: minakim <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 16:16:05 by minakim           #+#    #+#             */
-/*   Updated: 2023/06/13 18:28:58 by minakim          ###   ########.fr       */
+/*   Updated: 2023/06/14 16:00:52 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,7 +182,7 @@ void	dbl_put_top(t_stack **taken, t_stack **put)
 	t_doubly *node;
 	node = dbl_newnode((*taken)->list.head->data);
 	dbl_add_front(&(*put)->list, &node);
-	dbl_del(&(*taken)->list, &(*taken)->list.head);
+	dbl_del(&(*taken)->list, (*taken)->list.head);
 }
 
 /*
@@ -219,7 +219,7 @@ void	pb(t_stack *stack_A, t_stack *stack_B)
 		node = dbl_newnode((void *)(intptr_t )stack_A->list.head->data);
 		stack_B->list.head = node;
 		stack_B->list.last = NULL;
-		dbl_del(&(stack_A->list), &(stack_A)->list.head);
+		dbl_del(&(stack_A->list), stack_A->list.head);
 	}
 	else
 		dbl_put_top(&stack_A, &stack_B);
@@ -341,6 +341,49 @@ void print_stack(t_stack *stack)
 	}
 }
 
+int main(int ac, char **av)
+{
+	t_stack stack_A;
+	t_stack stack_B;
+	int 	num[MAX];
+
+	initialize_stack(&stack_A);
+	av_to_array(ac, av, num);
+	init_stack_a_with_arr(&stack_A, num, ac);
+	init_stack_b(&stack_B);
+
+
+	/* test function */
+	print_stack(&stack_A);
+	/* print stack_A */
+	ft_printf("swap\n");
+	sa(&stack_A);
+	print_stack(&stack_A);
+
+	ft_printf("\npb\n");
+	pb(&stack_A, &stack_B);
+
+	ft_printf("\nstact A\n");
+	print_stack(&stack_A);
+
+	ft_printf("\nstactB\n");
+	print_stack(&stack_B);
+
+	ft_printf("\npb pb\n");
+	pb(&stack_A, &stack_B);
+
+	ft_printf("\nstact A\n");
+	print_stack(&stack_A);
+
+	ft_printf("\nstactB\n");
+	print_stack(&stack_B);
+
+	/* free */
+	dbl_listfree(&(stack_A.list));
+	dbl_listfree(&(stack_B.list));
+}
+
+
 //
 //#include <stdio.h>
 //#include <stdlib.h>
@@ -389,36 +432,6 @@ void print_stack(t_stack *stack)
 //
 //	return 0;
 //}
-
-int main(int ac, char **av)
-{
-	t_stack stack_A;
-	t_stack stack_B;
-	int 	num[MAX];
-
-	initialize_stack(&stack_A);
-	av_to_array(ac, av, num);
-	init_stack_a_with_arr(&stack_A, num, ac);
-	init_stack_b(&stack_B);
-
-	/* print stack_A */
-	ft_printf("swap\n");
-	sa(&stack_A);
-	print_stack(&stack_A);
-
-	pb(&stack_A, &stack_B);
-
-	ft_printf("\nstact A\n");
-	print_stack(&stack_A);
-
-	ft_printf("\nstactB\n");
-	print_stack(&stack_B);
-
-
-	/* free */
-//	dbl_listfree(&(stack_A.list));
-//	dbl_listfree(&(stack_B.list));
-}
 
 
 /* test main */

@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 14:11:50 by minakim           #+#    #+#             */
-/*   Updated: 2023/06/13 12:44:31 by minakim          ###   ########.fr       */
+/*   Updated: 2023/06/14 15:54:34 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ typedef struct 		s_lst{
 /* functions */
 void        dbl_add_back(t_lst *list, t_doubly **new_node);
 void        dbl_add_front(t_lst *list, t_doubly **new_node);
-void		dbl_del(t_lst *list, t_doubly **node_to_delete);
+void	dbl_del(t_lst *list, t_doubly *node_to_delete);
 int			dbl_listsize(t_doubly *node);
 void		dbl_listfree(t_lst *list);
 t_doubly    *dbl_move_front(t_lst *list);
