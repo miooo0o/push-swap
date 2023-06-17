@@ -6,7 +6,7 @@
 /*   By: minakim <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 16:16:05 by minakim           #+#    #+#             */
-/*   Updated: 2023/06/15 15:58:37 by minakim          ###   ########.fr       */
+/*   Updated: 2023/06/17 10:35:26 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -251,8 +251,8 @@ void	ra(t_stack *stack_A)
 	ft_printf("ra\n");
 }
 
-/*
- * rb (rotate b): Shift up all elements of stack b by 1.
+/**
+ * @brief rb (rotate b): Shift up all elements of stack b by 1.
  * The first element becomes the last one.
  */
 void	rb(t_stack *stack_B)
@@ -301,8 +301,6 @@ void	rrr();
 /*
  * test function. it will print "data"
  * */
-
-
 void print_head(t_doubly *head)
 {
 	t_doubly	*current;
@@ -334,34 +332,6 @@ void print_list(t_lst *list)
 		current = current->next;
 		i++;
 	}
-}
-
-/* test done */
-void test_dbl_swap(t_doubly **front_node_ptr, t_doubly **next_node_ptr, t_lst *list)
-{
-	t_doubly *front_node;
-	t_doubly *next_node;
-	t_doubly *next_next_node;
-
-	if (front_node_ptr == NULL || next_node_ptr == NULL || list == NULL \
-	|| (*front_node_ptr)->next != (*next_node_ptr) || front_node->prev != NULL)
-		assert(!"Error: empty node input");
-	front_node = *front_node_ptr;
-	next_node = (*front_node_ptr)->next;
-	next_next_node = next_node->next;
-	next_node->prev = front_node->prev;
-	next_node->next = front_node;
-	front_node->prev = next_node;
-	front_node->next = next_next_node;
-	if (next_next_node != NULL)
-		next_next_node->prev = front_node;
-	else
-		list->last = front_node;
-	if (list->head == *front_node_ptr)
-		list->head = next_node;
-	front_node_ptr = &front_node;
-	next_node_ptr = &next_node;
-	(*front_node_ptr)->next = next_next_node;
 }
 
 void print_stack(t_stack *stack)

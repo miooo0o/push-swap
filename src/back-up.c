@@ -355,3 +355,32 @@ void	dbl_swap_a_front_b_front(t_stack **stack1, t_stack **stack2)
 	(*stack1)->list.head = node2;
 	(*stack2)->list.head = node1;
 }
+
+
+/* test done */
+void test_dbl_swap(t_doubly **front_node_ptr, t_doubly **next_node_ptr, t_lst *list)
+{
+	t_doubly *front_node;
+	t_doubly *next_node;
+	t_doubly *next_next_node;
+
+	if (front_node_ptr == NULL || next_node_ptr == NULL || list == NULL \
+	|| (*front_node_ptr)->next != (*next_node_ptr) || front_node->prev != NULL)
+		assert(!"Error: empty node input");
+	front_node = *front_node_ptr;
+	next_node = (*front_node_ptr)->next;
+	next_next_node = next_node->next;
+	next_node->prev = front_node->prev;
+	next_node->next = front_node;
+	front_node->prev = next_node;
+	front_node->next = next_next_node;
+	if (next_next_node != NULL)
+		next_next_node->prev = front_node;
+	else
+		list->last = front_node;
+	if (list->head == *front_node_ptr)
+		list->head = next_node;
+	front_node_ptr = &front_node;
+	next_node_ptr = &next_node;
+	(*front_node_ptr)->next = next_next_node;
+}
