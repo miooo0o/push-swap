@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 21:04:15 by minakim           #+#    #+#             */
-/*   Updated: 2023/06/12 19:30:45 by minakim          ###   ########.fr       */
+/*   Updated: 2023/06/15 13:21:36 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ typedef struct      s_stack{
 	t_lst	list;
 	int		total_size;
 }                   t_stack;
-
 
 /* utility */
 void    ft_free_2d(char **target);

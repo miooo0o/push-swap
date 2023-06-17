@@ -333,3 +333,25 @@ int main(int ac, char **av)
 //	ft_printf("All tests passed.\n");
 //	return 0;
 //}
+
+
+void	dbl_swap_a_front_b_front(t_stack **stack1, t_stack **stack2)
+{
+	t_doubly *node1;
+	t_doubly *node2;
+	t_doubly *temp;
+
+	node1 = (*stack1)->list.head;
+	node2 = (*stack2)->list.head;
+	if (node1->prev != NULL || node2->prev != NULL)
+		ft_error_basic("input should be front node, [!] not free list");
+	temp = node1;
+	node1->next->prev = node2;
+	node2->next->prev = node1;
+	node1->prev = NULL;
+	node2->prev = NULL;
+	node1->next = node2->next;
+	node2->next = temp->next;
+	(*stack1)->list.head = node2;
+	(*stack2)->list.head = node1;
+}

@@ -6,7 +6,7 @@
 /*   By: minakim <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 16:16:05 by minakim           #+#    #+#             */
-/*   Updated: 2023/06/14 16:00:52 by minakim          ###   ########.fr       */
+/*   Updated: 2023/06/15 15:58:37 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,32 @@ void	init_stack_b(t_stack *stack_B)
 	ft_progress("done", "Stack B set up");
 }
 
+/**
+ * @param target_stack : target stack which hold total size of stack.
+ * @param update : update total size value in target stack.
+ * but if update == 0, reset total size as 0.
+ */
+void	update_stack_size(t_stack *target_stack, int update)
+{
+	if (update == 0)
+		target_stack->total_size = 0;
+	else
+		target_stack->total_size += update;
+}
+
+/**
+ * @brief
+ * @param taken
+ * @param put
+ */
+void	dbl_put_top(t_stack **taken, t_stack **put)
+{
+	t_doubly *node;
+	node = dbl_newnode((*taken)->list.head->data);
+	dbl_add_front(&(*put)->list, &node);
+	dbl_del(&(*taken)->list, (*taken)->list.head);
+}
+
 /*
  *	sa (swap a): Swap the first 2 elements at the top of stack a.
  */
@@ -155,57 +181,29 @@ void	ss(t_stack *stack_A, t_stack *stack_B)
 	dbl_swap_front_and_next(&(stack_B->list.head), &(stack_B->list.head->next), &(stack_B->list));
 }
 
-void	dbl_swap_a_front_b_front(t_stack **stack1, t_stack **stack2)
-{
-	t_doubly *node1;
-	t_doubly *node2;
-	t_doubly *temp;
-
-	node1 = (*stack1)->list.head;
-	node2 = (*stack2)->list.head;
-	if (node1->prev != NULL || node2->prev != NULL)
-		ft_error_basic("input should be front node, [!] not free list");
-	temp = node1;
-	node1->next->prev = node2;
-	node2->next->prev = node1;
-	node1->prev = NULL;
-	node2->prev = NULL;
-	node1->next = node2->next;
-	node2->next = temp->next;
-	(*stack1)->list.head = node2;
-	(*stack2)->list.head = node1;
-}
-
-/* TODO : error check, valgrind */
-void	dbl_put_top(t_stack **taken, t_stack **put)
-{
-	t_doubly *node;
-	node = dbl_newnode((*taken)->list.head->data);
-	dbl_add_front(&(*put)->list, &node);
-	dbl_del(&(*taken)->list, (*taken)->list.head);
-}
-
 /*
  * pa (push a): Take the first element at the top of b and put it at the top of a.
  */
-/* TODO : FIX ERROR */
-//void	pa(t_stack *stack_A, t_stack *stack_B)
-//{
-//	t_doubly *node;
-//	if (stack_B->list.head == NULL && stack_B->list.last == NULL)
-//		ft_error_basic("nothing in the stack");
-//	if (stack_A->list.head == NULL)
-//	{
-//		node = dbl_newnode((void *)(intptr_t )stack_B->list.head->data);
-//		stack_A->list.head = node;
-//		stack_A->list.last = NULL;
-//		dbl_del(&(stack_B->list), &(stack_B)->list.head);
-//	}
-//	else
-//		dbl_put_top(&stack_B, &stack_A);
-//}
+void	pa(t_stack *stack_A, t_stack *stack_B)
+{
+	t_doubly *node;
+	if (stack_B->list.head == NULL && stack_B->list.last == NULL)
+		ft_error_basic("nothing in the stack");
+	if (stack_A->list.head == NULL && stack_A->total_size == 0)
+	{
+		node = dbl_newnode((void *)(intptr_t )stack_B->list.head->data);
+		stack_A->list.head = node;
+		stack_A->list.last = NULL;
+		dbl_del(&(stack_B->list), stack_B->list.head);
+	}
+	else
+	{
+		dbl_put_top(&stack_B, &stack_A);
+	}
+	update_stack_size(stack_A, +1);
+	update_stack_size(stack_B, -1);
+}
 
-/* TODO : error check, valgrind */
 /*
  * pb (push b): Take the first element at the top of a and put it at the top of b.
  */
@@ -223,24 +221,64 @@ void	pb(t_stack *stack_A, t_stack *stack_B)
 	}
 	else
 		dbl_put_top(&stack_A, &stack_B);
+	update_stack_size(stack_A, -1);
+	update_stack_size(stack_B, +1);
 }
 
-/*
- * ra (rotate a): Shift up all elements of stack a by 1.
+void	rotate_node(t_lst *lst, t_doubly **node_one, t_doubly **node_two)
+{
+	t_doubly *temp;
+
+	temp = *node_one;
+}
+
+/**
+ * @brief ra (rotate a): Shift up all elements of stack a by 1.
  * The first element becomes the last one.
  */
-void	ra();
+void	ra(t_stack *stack_A)
+{
+	t_doubly *temp;
+	if (stack_A->list.head == NULL || stack_A->list.last == NULL)
+		ft_error_basic("empty stack. can not rotate.");
+	temp = stack_A->list.head;
+	stack_A->list.head->next = stack_A->list.last->next;
+	stack_A->list.head->prev = stack_A->list.last->prev;
+	stack_A->list.last->next = temp->next;
+	stack_A->list.last->prev = temp->prev;
+	stack_A->list.head = stack_A->list.last;
+	stack_A->list.last = stack_A->list.head;
+	ft_printf("ra\n");
+}
 
 /*
  * rb (rotate b): Shift up all elements of stack b by 1.
  * The first element becomes the last one.
  */
-void	rb();
+void	rb(t_stack *stack_B)
+{
+	t_doubly *temp;
+	if (stack_B->list.head == NULL || stack_B->list.last == NULL)
+		ft_error_basic("empty stack. can not rotate.");
+	temp = stack_B->list.head;
+	stack_B->list.head->next = stack_B->list.last->next;
+	stack_B->list.head->prev = stack_B->list.last->prev;
+	stack_B->list.last->next = temp->next;
+	stack_B->list.last->prev = temp->prev;
+	stack_B->list.head = stack_B->list.last;
+	stack_B->list.last = stack_B->list.head;
+	ft_printf("rb\n");
+}
 
 /*
  * ra and rb at the same time
  */
-void	rr();
+void	rr(t_stack *stack_A, t_stack *stack_B)
+{
+	ra(stack_A);
+	rb(stack_B);
+	ft_printf("rr\n");
+}
 
 /*
  * rra (reverse rotate a): Shift down all elements of stack a by 1.
