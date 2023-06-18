@@ -6,11 +6,12 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 17:43:28 by minakim           #+#    #+#             */
-/*   Updated: 2023/06/18 17:43:44 by minakim          ###   ########.fr       */
+/*   Updated: 2023/06/18 17:55:09 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+#include "../include/push_swap.h"
 
 /**
  *	sa (swap a): Swap the first 2 elements at the top of stack a.
@@ -21,7 +22,8 @@ void	sa(t_stack *stack_A)
 		ft_error_basic("empty stack");
 	if (stack_A->list.head->next == NULL)
 		ft_error_listfree("there should be more than 2 node", &stack_A->list);
-	dbl_swap_front_and_next(&(stack_A->list.head), &(stack_A->list.head->next), &(stack_A->list));
+	dbl_swap_front_and_next(&(stack_A->list.head), &(stack_A->list.head->next), \
+	&(stack_A->list));
 }
 
 /**
@@ -34,7 +36,8 @@ void	sb(t_stack *stack_B)
 		ft_error_basic("empty stack");
 	if (stack_B->list.head->next == NULL)
 		ft_error_listfree("there should be more than 2 node", &stack_B->list);
-	dbl_swap_front_and_next(&(stack_B->list.head), &(stack_B->list.head->next), &(stack_B->list));
+	dbl_swap_front_and_next(&(stack_B->list.head), &(stack_B->list.head->next), \
+	&(stack_B->list));
 }
 
 /**

@@ -6,11 +6,12 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 17:47:31 by minakim           #+#    #+#             */
-/*   Updated: 2023/06/18 17:51:09 by minakim          ###   ########.fr       */
+/*   Updated: 2023/06/18 17:55:03 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+#include "../include/push_swap.h"
 
 /**
  * @brief rra (reverse rotate a): Shift down all elements of stack a by 1.
@@ -22,7 +23,8 @@ void	rra(t_stack *stack_A)
 {
 	t_doubly *last_node;
 
-	if (stack_A == NULL || stack_A->list.head == NULL || stack_A->list.head == stack_A->list.last)
+	if (stack_A == NULL || stack_A->list.head == NULL \
+		|| stack_A->list.head == stack_A->list.last)
 		return;
 	last_node = stack_A->list.last;
 	stack_A->list.last = last_node->prev;
@@ -42,7 +44,8 @@ void	rrb(t_stack *stack_B)
 {
 	t_doubly *last_node;
 
-	if (stack_B == NULL || stack_B->list.head == NULL || stack_B->list.head == stack_B->list.last)
+	if (stack_B == NULL || stack_B->list.head == NULL \
+		|| stack_B->list.head == stack_B->list.last)
 		return;
 	last_node = stack_B->list.last;
 	stack_B->list.last = last_node->prev;

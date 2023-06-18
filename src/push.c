@@ -6,11 +6,12 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 17:44:13 by minakim           #+#    #+#             */
-/*   Updated: 2023/06/18 17:45:42 by minakim          ###   ########.fr       */
+/*   Updated: 2023/06/18 17:54:54 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+#include "../include/push_swap.h"
 
 /**
  * @param target_stack : target stack which hold total size of stack.
@@ -41,7 +42,8 @@ void	dbl_put_top(t_stack **taken, t_stack **put)
 }
 
 /**
- * @brief pa (push a): Take the first element at the top of b and put it at the top of a.
+ * @brief pa (push a): Take the first element at the top of b and put it
+ * at the top of a.
  * @param
  * @param
  */
@@ -64,7 +66,8 @@ void	pa(t_stack *stack_A, t_stack *stack_B)
 }
 
 /**
- * @brief pb (push b): Take the first element at the top of a and put it at the top of b.
+ * @brief pb (push b): Take the first element at the top of a and put it
+ * at the top of b.
  * @param
  * @param
  */
