@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 16:16:05 by minakim           #+#    #+#             */
-/*   Updated: 2023/06/18 17:56:24 by minakim          ###   ########.fr       */
+/*   Updated: 2023/06/18 17:59:58 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,57 +84,6 @@ void	init_stack_b(t_stack *stack_B)
 {
 	initialize_stack(stack_B);
 	ft_progress("done", "Stack B set up");
-}
-
-/*
- * test function. it will print "data"
- * */
-void print_head(t_doubly *head)
-{
-	t_doubly	*current;
-	int 		i;
-
-	i = 0;
-	current = head;
-	while (current != NULL)
-	{
-		ft_printf("[%d] %d\n", i, (int)(intptr_t)current->data);
-		current = current->next;
-		i++;
-	}
-}
-
-void print_list(t_lst *list)
-{
-	t_doubly	*current;
-	int 		i;
-
-	if (list == NULL)
-		assert(!"Error: empty list input");
-	i = 0;
-	ft_printf("\nall list\n");
-	current = list->head;
-	while (current != NULL)
-	{
-		ft_printf("[%d] %d\n", i, (int)(intptr_t)current->data);
-		current = current->next;
-		i++;
-	}
-}
-
-void print_stack(t_stack *stack)
-{
-	t_doubly	*current;
-	int 		i;
-
-	i = 0;
-	current = stack->list.head;
-	while (current != NULL)
-	{
-		ft_printf("[%d] %d\n", i, (int)(intptr_t)current->data);
-		current = current->next;
-		i++;
-	}
 }
 
 int main(int ac, char **av)

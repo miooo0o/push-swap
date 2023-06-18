@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 21:04:15 by minakim           #+#    #+#             */
-/*   Updated: 2023/06/18 17:50:48 by minakim          ###   ########.fr       */
+/*   Updated: 2023/06/18 18:01:06 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,10 @@ void	rr(t_stack *stack_A, t_stack *stack_B);
 void	rra(t_stack *stack_A);
 void	rrb(t_stack *stack_B);
 void	rrr(t_stack *stack_A, t_stack *stack_B);
+
+
+/* test */
+void	print_head(t_doubly *head);
+void	print_list(t_lst *list);
+void	print_stack(t_stack *stack);
 # endif
