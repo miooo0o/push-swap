@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 17:43:28 by minakim           #+#    #+#             */
-/*   Updated: 2023/06/18 17:55:09 by minakim          ###   ########.fr       */
+/*   Updated: 2023/06/18 17:58:12 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "../include/push_swap.h"
 
 /**
- *	sa (swap a): Swap the first 2 elements at the top of stack a.
+ * @brief sa (swap a): Swap the first 2 elements at the top of stack a.
  */
 void	sa(t_stack *stack_A)
 {
@@ -27,7 +27,7 @@ void	sa(t_stack *stack_A)
 }
 
 /**
- * sb (swap b): Swap the first 2 elements at the top of stack b.
+ * @brief b (swap b): Swap the first 2 elements at the top of stack b.
  */
 
 void	sb(t_stack *stack_B)
@@ -41,7 +41,7 @@ void	sb(t_stack *stack_B)
 }
 
 /**
- * sa and sb at the same time.
+ * @brief sa and sb at the same time.
  */
 void	ss(t_stack *stack_A, t_stack *stack_B)
 {
