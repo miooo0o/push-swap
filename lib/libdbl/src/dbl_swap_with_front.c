@@ -6,38 +6,34 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 21:09:33 by minakim           #+#    #+#             */
-/*   Updated: 2023/06/13 15:31:16 by minakim          ###   ########.fr       */
+/*   Updated: 2023/06/18 12:55:54 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/libdbl.h"
 #include "libdbl.h"
 
-/*
- * Swaps the front node with the next node in a doubly linked list.
- *
- * @front_node_ptr: Pointer to the pointer of the front node.
- * @next_node_ptr: Pointer to the pointer of the next node.
- * @list: Pointer to the doubly linked list.
- *
- * Swaps the positions of the front node and the next node in the list @list.
+/**
+ * @brief Swaps the front node with the next node in a doubly linked list.
+ * Swaps the positions of the front node and the next node in the list 'list'.
  * Updates the necessary pointers to maintain the correct connections.
- * Assumes that @front_node_ptr and @next_node_ptr are valid pointers and
+ * @param front_ptr: Pointer to the pointer of the front node.
+ * @param next_ptr: Pointer to the pointer of the next node.
+ * @param list Pointer to the doubly linked list.
+ * @note Assumes that 'front_ptr' and 'next_ptr' are valid pointers and
  * that the list is not empty.
  */
-
-
-void dbl_swap_front_and_next(t_doubly **front_node_ptr, t_doubly **next_node_ptr, t_lst *list)
+void dbl_swap_front_and_next(t_doubly **front_ptr, t_doubly **next_ptr, t_lst *list)
 {
 	t_doubly *front_node;
 	t_doubly *next_node;
 	t_doubly *next_next_node;
 
-	front_node = *front_node_ptr;
-	if (front_node_ptr == NULL || next_node_ptr == NULL || list == NULL \
-	|| (*front_node_ptr)->next != (*next_node_ptr) || front_node->prev != NULL)
+	front_node = *front_ptr;
+	if (front_ptr == NULL || next_ptr == NULL || list == NULL \
+	|| (*front_ptr)->next != (*next_ptr) || front_node->prev != NULL)
 		assert(!"Error: empty node input");
-	next_node = (*front_node_ptr)->next;
+	next_node = (*front_ptr)->next;
 	next_next_node = next_node->next;
 	next_node->prev = front_node->prev;
 	next_node->next = front_node;
@@ -47,23 +43,21 @@ void dbl_swap_front_and_next(t_doubly **front_node_ptr, t_doubly **next_node_ptr
 		next_next_node->prev = front_node;
 	else
 		list->last = front_node;
-	if (list->head == *front_node_ptr)
+	if (list->head == *front_ptr)
 		list->head = next_node;
-	front_node_ptr = &front_node;
-	next_node_ptr = &next_node;
-	(*front_node_ptr)->next = next_next_node;
+	front_ptr = &front_node;
+	next_ptr = &next_node;
+	(*front_ptr)->next = next_next_node;
 }
 
-/*
- * Swaps the front node with another node in a doubly linked list.
- *
- * @front_node_ptr: Pointer to the pointer of the front node.
- * @other_node_ptr: Pointer to the pointer of the other node.
- * @list: Pointer to the doubly linked list.
- *
- * Swaps the positions of the front node and the other node in the list @list.
+/**
+ * @brief Swaps the front node with another node in a doubly linked list.
+ * Swaps the positions of the front node and the other node in the list 'list'.
  * Updates the necessary pointers to maintain the correct connections.
- * Assumes that @front_node_ptr and @other_node_ptr are valid pointers
+ * @param front_node_ptr Pointer to the pointer of the front node.
+ * @param other_node_ptr Pointer to the pointer of the other node.
+ * @param list Pointer to the doubly linked list.
+ * Assumes that 'front_ptr' and 'other_ptr' are valid pointers
  * and that the list is not empty.
  */
 void	dbl_swap_front_and_other(t_doubly **front_node_ptr, t_doubly **other_node_ptr, t_lst *list)
@@ -111,22 +105,19 @@ t_doubly *set_other_node_front(t_doubly *node_A, t_doubly *node_B)
 	return (NULL);
 }
 
-/*
- * Swaps two nodes with the front node in a doubly linked list.
- *
- * @node_A: Pointer to the first node to swap.
- * @node_B: Pointer to the second node to swap.
- * @list: Pointer to the doubly linked list.
- *
- * This function swaps the positions of the nodes @node_A and @node_B
- * with the front node in the doubly linked list @list.
- * It determines the front node and the other node between @node_A and @node_B.
+/**
+ * @brief Swaps two nodes with the front node in a doubly linked list.
+ * This function swaps the positions of the nodes 'node_A' and 'node_B'
+ * with the front node in the doubly linked list 'list'.
+ * It determines the front node and the other node between 'node_A' and 'node_B'.
  * Depending on adjacency, it calls the appropriate swapping function
  * and updates the node pointers.
- *
- * Note: Assumes @node_A and @node_B are valid pointers and that the list is not empty.
+ * @param node_A Pointer to the first node to swap.
+ * @param node_B Pointer to the second node to swap.
+ * @param list Pointer to the doubly linked list.
+ * @note: Assumes 'node_A' and 'node_B' are valid pointers and
+ * that the list is not empty.
  */
-
 void	dbl_swap_with_front(t_doubly **node_A, t_doubly **node_B, t_lst *list)
 {
 	t_doubly *front_node;

@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 21:04:15 by minakim           #+#    #+#             */
-/*   Updated: 2023/06/15 13:21:36 by minakim          ###   ########.fr       */
+/*   Updated: 2023/06/18 11:07:15 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,16 @@ typedef struct      s_stack{
 	int		total_size;
 }                   t_stack;
 
-/* utility */
+/* error */
 void    ft_free_2d(char **target);
 void    ft_error_basic(char *msg);
 void    ft_error_2d_free(char *msg, char **target);
 void    ft_error_listfree(char *msg, t_lst *list);
 void	ft_progress(char *progress, char *msg);
+
+/* utility */
+int ft_isspace(int c);
+int ft_issort(int array[], int size);
+int	ft_atoi_pushswap(const char *str);
 
 # endif

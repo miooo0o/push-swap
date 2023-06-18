@@ -6,31 +6,30 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 20:54:48 by minakim           #+#    #+#             */
-/*   Updated: 2023/06/13 15:01:49 by minakim          ###   ########.fr       */
+/*   Updated: 2023/06/18 12:46:13 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/libdbl.h"
 #include "libdbl.h"
 
-/*
- * Swaps the last node with a previous node in a doubly linked list.
- *
- * @last_node_ptr: Pointer to the last node pointer.
- * @prev_node_ptr: Pointer to the previous node pointer.
- * @list: Pointer to the doubly linked list.
- *
- * Swaps the position of the last node with the previous node in the list, updating pointers accordingly.
+/**
+ * @brief Swaps the last node with a previous node in a doubly linked list.
+ * @param last_node_ptr: Pointer to the last node pointer.
+ * @param prev_node_ptr: Pointer to the previous node pointer.
+ * @param list: Pointer to the doubly linked list.
+ * @note Swaps the position of the last node with the previous node in the list,
+ * updating pointers accordingly.
  **/
-void	dbl_swap_last_and_prev(t_doubly **last_node_ptr, t_doubly **prev_node_ptr, t_lst *list)
+void	dbl_swap_last_and_prev(t_doubly **last_ptr, t_doubly **prev_ptr, t_lst *list)
 {
 	t_doubly *last_node;
 	t_doubly *prev_node;
 
-	if (*last_node_ptr == NULL || *prev_node_ptr == NULL || list == NULL)
+	if (*last_ptr == NULL || *prev_ptr == NULL || list == NULL)
 		assert(!"Error: empty node input");
-	last_node = *last_node_ptr;
-	prev_node = *prev_node_ptr;
+	last_node = *last_ptr;
+	prev_node = *prev_ptr;
 	if (prev_node->prev != NULL)
 		prev_node->prev->next = last_node;
 	else
@@ -39,23 +38,21 @@ void	dbl_swap_last_and_prev(t_doubly **last_node_ptr, t_doubly **prev_node_ptr, 
 	prev_node->prev = last_node;
 	prev_node->next = last_node->next;
 	last_node->next = prev_node;
-	if (list->last == *last_node_ptr)
+	if (list->last == *last_ptr)
 		list->last = prev_node;
 	else
 		assert(!"Error: last_node is not the last node in the list");
-	last_node_ptr = &last_node;
-	prev_node_ptr = &prev_node;
+	last_ptr = &last_node;
+	prev_ptr = &prev_node;
 }
 
-/*
- * Swaps the last node with another node in a doubly linked list,
+/**
+ * @brief Swaps the last node with another node in a doubly linked list,
  * updating pointers accordingly.
- *
- * @last_node_ptr: Pointer to the last node pointer.
- * @other_node_ptr: Pointer to the other node pointer.
- * @list: Pointer to the doubly linked list.
- *
- * Note: Assumes valid pointers and a non-empty list.
+ * @param last_node_ptr: Pointer to the last node pointer.
+ * @param other_node_ptr: Pointer to the other node pointer.
+ * @param list: Pointer to the doubly linked list.
+ * @note Assumes valid pointers and a non-empty list.
  **/
 void	dbl_swap_last_and_other(t_doubly **last_node_ptr, t_doubly **other_node_ptr, t_lst *list)
 {
@@ -106,19 +103,17 @@ t_doubly *set_other_node_last(t_doubly *node_A, t_doubly *node_B)
 	return (NULL);
 }
 
-/*
- * Swaps two given nodes with the last node in a doubly linked list.
- *
- * @node_A: Pointer to the first node to swap.
- * @node_B: Pointer to the second node to swap.
- * @list: Pointer to the doubly linked list.
- *
- * Swaps the positions of @node_A and @node_B with the last node in the list @list.
- * Handles the case when the other node is adjacent to the last node or not.
- *
- * Note: Assumes @node_A and @node_B are valid pointers and that the list is not empty.
+/**
+ * @brief Swaps two given nodes with the last node in a doubly linked list.
+ * Swaps the positions of 'node_A' and 'node_B' with the last node in
+ * the list 'list'. Handles the case when the other node is adjacent to
+ * the last node or not.
+ * @param node_A: Pointer to the first node to swap.
+ * @param node_B: Pointer to the second node to swap.
+ * @param list: Pointer to the doubly linked list.
+ * @note Assumes 'node_A' and 'node_B' are valid pointers and
+ * that the list is not empty.
  */
-
 void	dbl_swap_with_last(t_doubly **node_A, t_doubly **node_B, t_lst *list)
 {
 	t_doubly *last_node;
