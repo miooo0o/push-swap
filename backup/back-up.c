@@ -222,8 +222,6 @@ void	init_stack_B(t_stack *stack_A, t_stack *stack_B)
 	ft_progress("done", "Stack B set up");
 }
 
-
-/* TODO: start this function */
 /*
  *	sa (swap a): Swap the first 2 elements at the top of stack a.
  */

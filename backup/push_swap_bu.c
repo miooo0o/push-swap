@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 17:41:17 by minakim           #+#    #+#             */
-/*   Updated: 2023/06/12 17:42:12 by minakim          ###   ########.fr       */
+/*   Updated: 2023/06/18 17:12:20 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,8 +145,6 @@ void	init_stack_B(t_stack *stack_A, t_stack *stack_B)
 	ft_progress("done", "Stack B set up");
 }
 
-
-/* TODO: start this function */
 /*
  *	sa (swap a): Swap the first 2 elements at the top of stack a.
  */
@@ -220,7 +218,6 @@ int main(int ac, char **av)
 	init_stack_A(ac, av, &stack_A);
 	init_stack_B(&stack_A, &stack_B);
 	dbl_listfree(&(stack_A.list));
-	/* TODO: debug */
 }
 
 /* test main */

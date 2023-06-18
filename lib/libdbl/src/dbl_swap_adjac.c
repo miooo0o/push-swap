@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 21:41:01 by minakim           #+#    #+#             */
-/*   Updated: 2023/06/18 12:50:01 by minakim          ###   ########.fr       */
+/*   Updated: 2023/06/18 17:12:31 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
  * @param
  * @note
  */
-/* FIXME : double pointer. change all */
 void	dbl_swap_adjac(t_doubly **node_A, t_doubly **node_B)
 {
 	t_doubly *first;

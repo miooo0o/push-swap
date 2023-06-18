@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 21:04:15 by minakim           #+#    #+#             */
-/*   Updated: 2023/06/18 11:07:15 by minakim          ###   ########.fr       */
+/*   Updated: 2023/06/18 17:50:48 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,28 @@ void    ft_error_listfree(char *msg, t_lst *list);
 void	ft_progress(char *progress, char *msg);
 
 /* utility */
-int ft_isspace(int c);
-int ft_issort(int array[], int size);
-int	ft_atoi_pushswap(const char *str);
+int		ft_isspace(int c);
+int		ft_issort(int array[], int size);
+int		ft_atoi_pushswap(const char *str);
 
+/* swap */
+void	sa(t_stack *stack_A);
+void	sb(t_stack *stack_B);
+void	ss(t_stack *stack_A, t_stack *stack_B);
+
+/* push */
+void	update_stack_size(t_stack *target_stack, int update);
+void	dbl_put_top(t_stack **taken, t_stack **put);
+void	pa(t_stack *stack_A, t_stack *stack_B);
+void	pb(t_stack *stack_A, t_stack *stack_B);
+
+/* rotate */
+void	ra(t_stack *stack_A);
+void	rb(t_stack *stack_B);
+void	rr(t_stack *stack_A, t_stack *stack_B);
+
+/* reverse rotate */
+void	rra(t_stack *stack_A);
+void	rrb(t_stack *stack_B);
+void	rrr(t_stack *stack_A, t_stack *stack_B);
 # endif
