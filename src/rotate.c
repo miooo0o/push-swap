@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 17:46:29 by minakim           #+#    #+#             */
-/*   Updated: 2023/06/20 14:47:53 by minakim          ###   ########.fr       */
+/*   Updated: 2023/06/21 00:23:32 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	ra(t_stack *stack_A)
 	stack_A->list.last->next = head_node;
 	head_node->next = NULL;
 	stack_A->list.last = head_node;
+	write(1, "ra\n", 4);
 }
 
 
@@ -54,6 +55,7 @@ void	rb(t_stack *stack_B)
 	stack_B->list.last->next = head_node;
 	head_node->next = NULL;
 	stack_B->list.last = head_node;
+	write(1, "rb\n", 4);
 }
 
 /**
@@ -63,4 +65,5 @@ void	rr(t_stack *stack_A, t_stack *stack_B)
 {
 	ra(stack_A);
 	rb(stack_B);
+	write(1, "rr\n", 4);
 }

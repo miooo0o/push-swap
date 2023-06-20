@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 16:16:05 by minakim           #+#    #+#             */
-/*   Updated: 2023/06/21 00:20:29 by minakim          ###   ########.fr       */
+/*   Updated: 2023/06/21 00:59:52 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,13 @@ void	divide_stack_into_three(t_stack *stack_A, t_stack *stack_B)
 	small_pivot = (stack_A->total_size * 30) / 100;
 	large_pivot = (stack_A->total_size * 60) / 100;
 	node = stack_A->list.head;
-	while (i < stack_A->total_size)
+	int count = stack_A->total_size;
+	while (i < count)
 	{
 		next_node = node->next;
-		if (small_pivot > (int)(intptr_t)node->data)
+		if ((int)(intptr_t)node->data == 0)
+			pb(stack_A,stack_B);
+		else if (small_pivot > (int)(intptr_t)node->data)
 			pb(stack_A,stack_B);
 		else if (large_pivot > (int)(intptr_t)node->data)
 		{
@@ -74,6 +77,8 @@ void	divide_stack_into_three(t_stack *stack_A, t_stack *stack_B)
 	}
 }
 
+/* 얼마나 움직여서 해결 가능한지 확인하는 함수들을 만들기 */
+
 int main(int ac, char **av)
 {
 	t_stack stack_A;
@@ -84,6 +89,7 @@ int main(int ac, char **av)
 	av_to_array(ac, av, &info);
 	init_stack_a_with_arr(&stack_A, &info, ac);
 	init_stack_b(&stack_B);
+
 	divide_stack_into_three(&stack_A, &stack_B);
 	print_all_stack(&stack_A, &stack_B);
 

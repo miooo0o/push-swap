@@ -32,6 +32,7 @@ void	rra(t_stack *stack_A)
 	stack_A->list.head->prev = last_node;
 	last_node->prev = NULL;
 	stack_A->list.head = last_node;
+	write(1, "rra\n", 5);
 }
 
 /**
@@ -53,6 +54,7 @@ void	rrb(t_stack *stack_B)
 	stack_B->list.head->prev = last_node;
 	last_node->prev = NULL;
 	stack_B->list.head = last_node;
+	write(1, "rrb\n", 5);
 }
 
 
@@ -65,5 +67,6 @@ void	rrr(t_stack *stack_A, t_stack *stack_B)
 {
 	rra(stack_A);
 	rrb(stack_B);
+	write(1, "rrr\n", 5);
 }
 
