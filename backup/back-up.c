@@ -222,138 +222,6 @@ void	init_stack_B(t_stack *stack_A, t_stack *stack_B)
 	ft_progress("done", "Stack B set up");
 }
 
-/*
- *	sa (swap a): Swap the first 2 elements at the top of stack a.
- */
-void	sa(t_stack **stack_A)
-{
-
-}
-
-/*
- * sb (swap b): Swap the first 2 elements at the top of stack b.
- */
-void	sb();
-
-/*
- * sa and sb at the same time.
- */
-void	ss();
-
-/*
- * pa (push a): Take the first element at the top of b and put it at the top of a.
- */
-void	pa();
-
-/*
- * pb (push b): Take the first element at the top of a and put it at the top of b.
- */
-void	pb();
-
-/*
- * ra (rotate a): Shift up all elements of stack a by 1.
- * The first element becomes the last one.
- */
-void	ra();
-
-/*
- * rb (rotate b): Shift up all elements of stack b by 1.
- * The first element becomes the last one.
- */
-void	rb();
-
-/*
- * ra and rb at the same time
- */
-void	rr();
-
-/*
- * rra (reverse rotate a): Shift down all elements of stack a by 1.
- * The last element becomes the first one.
- */
-void	rra();
-
-/*
- * rrb (reverse rotate b): Shift down all elements of stack b by 1.
- * The last element becomes the first one.
- */
-void	rrb();
-
-/*
- * rrr : rra and rrb at the same time.
- */
-void	rrr();
-
-
-int main(int ac, char **av)
-{
-	t_stack stack_A;
-	t_stack stack_B;
-	int 	result;
-	int 	*num;
-	num = av_to_array(ac, av);
-
-	int i = 0;
-	while ()
-	{
-		ft_printf("%d\n", num[i]);
-		i++;
-	}
-	init_stack_value(&stack_A);
-
-}
-
-/* test main */
-//#include <assert.h>
-//
-//int main(int ac, char **av) {
-//	t_stack stack_A;
-//	t_stack stack_B;
-//
-//	/* init value */
-//	stack_A.total_size = 0;
-//	stack_B.total_size = 0;
-//
-//	/* Test ft_atoi_pushswap() */
-//	assert(ft_atoi_pushswap("123") == 123);
-//	assert(ft_atoi_pushswap("-123") == -123);
-//	assert(ft_atoi_pushswap("0") == 0);
-//	assert(ft_atoi_pushswap("+123") == 123);
-//
-//	/* Test case for init_stack_A */
-//	char *test_case[] = {"./push_swap", "1", "2", "3"};
-//	init_stack_A(4, test_case, &stack_A);
-//	assert(stack_A.total_size == 3);
-//	assert(stack_A.num[0] == 1);
-//	assert(stack_A.num[1] == 2);
-//	assert(stack_A.num[2] == 3);
-//
-//	ft_printf("All tests passed.\n");
-//	return 0;
-//}
-
-
-void	dbl_swap_a_front_b_front(t_stack **stack1, t_stack **stack2)
-{
-	t_doubly *node1;
-	t_doubly *node2;
-	t_doubly *temp;
-
-	node1 = (*stack1)->list.head;
-	node2 = (*stack2)->list.head;
-	if (node1->prev != NULL || node2->prev != NULL)
-		ft_error_basic("input should be front node, [!] not free list");
-	temp = node1;
-	node1->next->prev = node2;
-	node2->next->prev = node1;
-	node1->prev = NULL;
-	node2->prev = NULL;
-	node1->next = node2->next;
-	node2->next = temp->next;
-	(*stack1)->list.head = node2;
-	(*stack2)->list.head = node1;
-}
-
 
 /* test done */
 void test_dbl_swap(t_doubly **front_node_ptr, t_doubly **next_node_ptr, t_lst *list)
@@ -382,3 +250,48 @@ void test_dbl_swap(t_doubly **front_node_ptr, t_doubly **next_node_ptr, t_lst *l
 	next_node_ptr = &next_node;
 	(*front_node_ptr)->next = next_next_node;
 }
+
+
+
+/* test function */
+print_stack(&stack_A);
+
+/* print stack_A */
+
+/* sa */
+ft_printf("\nsa\n");
+sa(&stack_A);
+print_stack(&stack_A);
+
+/* sa pb */
+ft_printf("\nsa pb\n");
+pb(&stack_A, &stack_B);
+ft_printf("\nstact A\n");
+print_stack(&stack_A);
+ft_printf("\nstactB\n");
+print_stack(&stack_B);
+
+/* sa pb pb */
+ft_printf("\nsa pb pb\n");
+pb(&stack_A, &stack_B);
+ft_printf("\nstact A\n");
+print_stack(&stack_A);
+ft_printf("\nstactB\n");
+print_stack(&stack_B);
+
+/* sa pb pb ra */
+ft_printf("\nsa pb pb ra\n");
+ra(&stack_A);
+ft_printf("\nstact A\n");
+print_stack(&stack_A);
+ft_printf("\nstactB\n");
+print_stack(&stack_B);
+
+/* sa pb pb ra rra */
+ft_printf("\nsa pb pb ra rra\n");
+rra(&stack_A);
+ft_printf("\nstact A\n");
+print_stack(&stack_A);
+ft_printf("\nstactB\n");
+print_stack(&stack_B);
+

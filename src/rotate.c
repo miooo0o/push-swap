@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 17:46:29 by minakim           #+#    #+#             */
-/*   Updated: 2023/06/18 17:55:06 by minakim          ###   ########.fr       */
+/*   Updated: 2023/06/20 14:47:53 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	ra(t_stack *stack_A)
 	t_doubly *head_node;
 
 	if (stack_A == NULL || stack_A->list.head == NULL \
+		|| stack_A->list.last == NULL \
 		|| stack_A->list.head == stack_A->list.last)
 		return ;
 	head_node = stack_A->list.head;
@@ -43,6 +44,7 @@ void	rb(t_stack *stack_B)
 	t_doubly *head_node;
 
 	if (stack_B == NULL || stack_B->list.head == NULL \
+		|| stack_B->list.last == NULL \
 		|| stack_B->list.head == stack_B->list.last)
 		return ;
 	head_node = stack_B->list.head;

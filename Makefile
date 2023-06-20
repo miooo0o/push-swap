@@ -47,6 +47,7 @@ WHITE	= \033[37m
 # sources
 SRC_FILES	=	push_swap utility ft_error \
 				swap push rotate reverse_rotate \
+				init_stack \
 				test
 
 SRCS		= 	$(addprefix $(SRCS_DIR), $(addsuffix .c, $(SRC_FILES)))
