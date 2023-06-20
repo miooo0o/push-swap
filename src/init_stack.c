@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 13:31:44 by minakim           #+#    #+#             */
-/*   Updated: 2023/06/20 16:09:04 by minakim          ###   ########.fr       */
+/*   Updated: 2023/06/20 23:50:27 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	check_argc(int ac)
 		ft_error_basic("there are not enough numbers to sort.");
 }
 
-void	av_to_array(int ac, char **av, int array[])
+void	av_to_array(int ac, char **av, t_info *info)
 {
 	int	i;
 	int	j;
@@ -37,13 +37,13 @@ void	av_to_array(int ac, char **av, int array[])
 	total_size = ac - 1;
 	while (i < ac && j < total_size)
 	{
-		array[j++] = ft_atoi_pushswap(av[i++]);
-		if (j > 1 && ft_issort(array, j))
+		info->array[j++] = ft_atoi_pushswap(av[i++]);
+		if (j > 1 && ft_issort(info->array, j))
 			trigger++;
 		k = 0;
 		while (k < j - 1)
 		{
-			if (array[k] == array[j - 1])
+			if (info->array[k] == info->array[j - 1])
 				ft_error_basic("same number.");
 			k++;
 		}
@@ -60,23 +60,61 @@ void	initialize_stack(t_stack *stack)
 	stack->total_size = 0;
 }
 
-void	find_max_and_min(int num[], int value[], int total_size)
+void	find_max_and_min(int array[], int value[], int length)
 {
 	int i;
 	i = 0;
-	value[Small] = num[i];
-	value[Large] = num[i];
-	while(i < total_size)
+	value[Small] = array[i];
+	value[Large] = array[i];
+	while(i < length)
 	{
-		if (value[Small] > num[i])
-			value[Small] = num[i];
-		if (value[Large] < num[i])
-			value[Large] = num[i];
+		if (value[Small] > array[i])
+			value[Small] = array[i];
+		if (value[Large] < array[i])
+			value[Large] = array[i];
 		i++;
 	}
 }
 
-void	init_stack_a_with_arr(t_stack *stack, int array[], int ac)
+void change_data_to_index(t_info *info, int length, int value[])
+{
+	int i;
+	int peek;
+	int rank;
+
+	peek = value[Small];
+	rank = 0;
+	while (peek <= value[Large])
+	{
+		i = 0;
+		while(i < length)
+		{
+			if (info->array[i] == peek)
+			{
+				info->index[i] = rank;
+				rank++;
+			}
+			i++;
+		}
+		peek++;
+	}
+}
+
+
+void	parsing_data_to_index(t_info *info, int length)
+{
+	int value[2];
+	int i;
+
+	i = -1;
+	while (++i < length)
+		info->index[i] = info->array[i];
+	find_max_and_min(info->array, value, length);
+	change_data_to_index(info, length, value);
+
+}
+
+void	init_stack_a_with_arr(t_stack *stack, t_info *info, int ac)
 {
 	t_doubly	*new_node;
 	t_doubly	*head_node;
@@ -85,9 +123,10 @@ void	init_stack_a_with_arr(t_stack *stack, int array[], int ac)
 	i = -1;
 	head_node = NULL;
 	stack->total_size = ac - 1;
+	parsing_data_to_index(info, stack->total_size);
 	while (++i < stack->total_size)
 	{
-		new_node = dbl_newnode((void *)(intptr_t)array[i]);
+		new_node = dbl_newnode((void *)(intptr_t)info->index[i]);
 		if (!new_node)
 			ft_error_basic("error, but didn't set free something.");
 		dbl_add_back(&(stack->list), &new_node);
@@ -96,7 +135,6 @@ void	init_stack_a_with_arr(t_stack *stack, int array[], int ac)
 	}
 	if (stack->list.head != head_node || stack->list.last != new_node)
 		ft_error_listfree("node set up fail.", &(stack->list));
-	find_max_and_min(array, stack->value, stack->total_size);
 	ft_progress("done", "Stack A set up");
 }
 

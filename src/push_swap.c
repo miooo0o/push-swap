@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 16:16:05 by minakim           #+#    #+#             */
-/*   Updated: 2023/06/20 16:02:30 by minakim          ###   ########.fr       */
+/*   Updated: 2023/06/21 00:20:29 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,31 +45,46 @@ int stack_size(t_stack *stack)
 	return (-1);
 }
 
-//void sort(t_stack *stack_A, t_stack *stack_B) {
-//	int pivot;
-//	int size;
-//	int	i;
-//
-//	if (is_empty(stack_A) || stack_size(stack_A) == 1)
-//		return ;
-//	pivot = peek(stack_A);
-//	size = stack_size(stack_A);
-//	if (size == -1)
-//		ft_error_basic("error");
-//	i = -1;
-//}
+void	divide_stack_into_three(t_stack *stack_A, t_stack *stack_B)
+{
+	int small_pivot;
+	int large_pivot;
+	int	i;
+	t_doubly *node;
+	t_doubly *next_node;
 
+	i = 0;
+	small_pivot = (stack_A->total_size * 30) / 100;
+	large_pivot = (stack_A->total_size * 60) / 100;
+	node = stack_A->list.head;
+	while (i < stack_A->total_size)
+	{
+		next_node = node->next;
+		if (small_pivot > (int)(intptr_t)node->data)
+			pb(stack_A,stack_B);
+		else if (large_pivot > (int)(intptr_t)node->data)
+		{
+			pb(stack_A, stack_B);
+			rb(stack_B);
+		}
+		else
+			ra(stack_A);
+		node = next_node;
+		i++;
+	}
+}
 
 int main(int ac, char **av)
 {
 	t_stack stack_A;
 	t_stack stack_B;
-	int 	num[MAX];
+	t_info	info;
 
 	initialize_stack(&stack_A);
-	av_to_array(ac, av, num);
-	init_stack_a_with_arr(&stack_A, num, ac);
+	av_to_array(ac, av, &info);
+	init_stack_a_with_arr(&stack_A, &info, ac);
 	init_stack_b(&stack_B);
+	divide_stack_into_three(&stack_A, &stack_B);
 	print_all_stack(&stack_A, &stack_B);
 
 	/* free */
