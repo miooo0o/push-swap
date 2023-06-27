@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 17:46:29 by minakim           #+#    #+#             */
-/*   Updated: 2023/06/27 22:30:44 by minakim          ###   ########.fr       */
+/*   Updated: 2023/06/27 22:37:23 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	ra(t_stack *stack_A)
 	ft_printf("ra\n");
 }
 
-// rotate 에 문제가 있어 보입니다!
+// rotate 에 문제가 있어 보입니다...
 
 /**
  * @brief rb (rotate b): Shift up all elements of stack b by 1.
@@ -45,6 +45,9 @@ void	rb(t_stack *stack)
 {
 	t_doubly *head_node;
 
+	// 이유는 알 수 없지만 이 컨디션에서 모조리 튕겨서 rb가 작동하지 않고 있음.
+	// 컨디션은 ra와 같기 때문에 문제가 있다면 다른 곳에서도 계속 생길 수 있음을 염두하여야 함.
+	// - 함수 내 컨디션을 삭제하고 메인 함수에서 조절하는게 나을 지도?
 	if (stack == NULL || stack->list.head == NULL \
 		|| stack->list.last == NULL \
 		|| stack->list.head == stack->list.last)
