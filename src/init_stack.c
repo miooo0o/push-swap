@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 13:31:44 by minakim           #+#    #+#             */
-/*   Updated: 2023/06/20 23:50:27 by minakim          ###   ########.fr       */
+/*   Updated: 2023/06/27 21:33:55 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,11 +135,11 @@ void	init_stack_a_with_arr(t_stack *stack, t_info *info, int ac)
 	}
 	if (stack->list.head != head_node || stack->list.last != new_node)
 		ft_error_listfree("node set up fail.", &(stack->list));
-	ft_progress("done", "Stack A set up");
+	//ft_progress("done", "Stack A set up");
 }
 
 void	init_stack_b(t_stack *stack_B)
 {
 	initialize_stack(stack_B);
-	ft_progress("done", "Stack B set up");
+	//ft_progress("done", "Stack B set up");
 }
