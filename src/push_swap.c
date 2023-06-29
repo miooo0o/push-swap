@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 16:16:05 by minakim           #+#    #+#             */
-/*   Updated: 2023/06/27 22:31:56 by minakim          ###   ########.fr       */
+/*   Updated: 2023/06/29 16:59:06 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,78 @@ int stack_size(t_stack *stack)
 	return (-1);
 }
 
+void	sort_two(t_stack *stack)
+{
+	if (stack->list.head->data > stack->list.head->next->data)
+		sa(stack);
+}
+
+int	ft_issort(t_stack *stack)
+{
+	t_doubly *node;
+
+	node = stack->list.head;
+	while (node != NULL && node->next != NULL)
+	{
+		if ((int)(intptr_t)node->data + 1 == (int)(intptr_t)node->next->data)
+			node = node->next;
+		else
+			return (0);
+	}
+	return (1);
+}
+
+/*
+1 2 3 // return ;
+3 2 1 //
+
+3 1 2 // ra
+
+2 3 1 // rra
+2 1 3 // sa
+1 3 2 //
+*/
+
+/*
+2 3 4 5 / 5 > a && a <= 100 (100) ratio 0.12 / <= 500 0.08 ratio
+		small num								large num
+*/
+
+void	sort_three(t_stack *stack)
+{
+	int	one;
+	int	two;
+	int three;
+
+	one = (int)(intptr_t)(stack)->list.head->data;
+	two = (int)(intptr_t)(stack)->list.head->next->data;
+	three = (int)(intptr_t)(stack)->list.head->next->next->data;
+	if (ft_issort(stack))
+		return ;
+	if (one > three && three > two)
+		ra(stack);
+	if (two > three && three < one)
+		rra(stack);
+	if (three > one && one > two)
+		sa(stack);
+}
+
+//void	divide_stack(t_stack *stack_A, t_stack *stack_B)
+//{
+//	int	ratio;
+//	int size;
+//
+//	size = stack_A->total_size;
+//
+//
+//	ratio = 0.12 * size;
+//
+//
+//	ratio + 0.12 * size
+//
+//
+//}
+
 void	divide_stack_into_three(t_stack *stack_A, t_stack *stack_B)
 {
 	int small_pivot;
@@ -69,33 +141,16 @@ void	divide_stack_into_three(t_stack *stack_A, t_stack *stack_B)
 		if ((int)(intptr_t)node->data < small_pivot || (int)(intptr_t)node->data == 0)
 		{
 			pb(stack_A, stack_B);
-			if (stack_B->total_size > 1)
-				rb(stack_B);
+			rb(stack_B);
 		}
 		else if ((int)(intptr_t)node->data >= small_pivot && (int)(intptr_t)node->data <= large_pivot)
-		{
 			pb(stack_A, stack_B);
-		}
 		else
 			ra(stack_A);
 		node = next_node;
 		i++;
 	}
 }
-
-/* 얼마나 움직여서 해결 가능한지 확인하는 함수들을 만들기 */
-
-void test_ra_operation(t_stack *stack_A)
-{
-	ft_printf("Before rotation:\n");
-	print_stack(stack_A); // Assuming you have a print function for stack_A
-
-	rb(stack_A);
-
-	ft_printf("After rotation:\n");
-	print_stack(stack_A); // Assuming you have a print function for stack_A
-}
-
 
 int main(int ac, char **av)
 {
@@ -108,14 +163,9 @@ int main(int ac, char **av)
 	init_stack_a_with_arr(&stack_A, &info, ac);
 	init_stack_b(&stack_B);
 
-	ft_printf("Before divide_stack_into_three:\n");
-	print_stack(&stack_B);
-
-	divide_stack_into_three(&stack_A, &stack_B);
-//	print_all_stack(&stack_A, &stack_B);
-	ft_printf("After divide_stack_into_three:\n");
-	print_stack(&stack_B);
-
+	print_all_stack(&stack_A, &stack_B);
+	sort_three(&stack_A);
+	print_all_stack(&stack_A, &stack_B);
 
 	/* free */
 	dbl_listfree(&(stack_A.list));

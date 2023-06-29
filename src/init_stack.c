@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 13:31:44 by minakim           #+#    #+#             */
-/*   Updated: 2023/06/27 21:33:55 by minakim          ###   ########.fr       */
+/*   Updated: 2023/06/29 16:43:35 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	av_to_array(int ac, char **av, t_info *info)
 	while (i < ac && j < total_size)
 	{
 		info->array[j++] = ft_atoi_pushswap(av[i++]);
-		if (j > 1 && ft_issort(info->array, j))
+		if (j > 1 && ft_issort_array(info->array, j))
 			trigger++;
 		k = 0;
 		while (k < j - 1)
@@ -99,7 +99,6 @@ void change_data_to_index(t_info *info, int length, int value[])
 		peek++;
 	}
 }
-
 
 void	parsing_data_to_index(t_info *info, int length)
 {

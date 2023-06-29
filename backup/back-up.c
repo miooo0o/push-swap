@@ -295,3 +295,45 @@ print_stack(&stack_A);
 ft_printf("\nstactB\n");
 print_stack(&stack_B);
 
+
+
+/*
+ *
+
+void	ra_1(t_stack *stack_A)
+{
+	t_doubly *head_node;
+
+	if (stack_A == NULL || stack_A->list.head == NULL \
+		|| stack_A->list.last == NULL \
+		|| stack_A->list.head == stack_A->list.last)
+		return ;
+	head_node = stack_A->list.head;
+	stack_A->list.head = head_node->next;
+	stack_A->list.head->prev = NULL;
+	head_node->prev = stack_A->list.last;
+	stack_A->list.last->next = head_node;
+	head_node->next = NULL;
+	stack_A->list.last = head_node;
+	ft_printf("ra\n");
+}
+
+void	rb_1(t_stack *stack)
+{
+	t_doubly *head_node;
+
+	if (stack == NULL || stack->list.head == NULL \
+	|| stack->list.last == NULL \
+		|| stack->list.head == stack->list.last)
+		return ;
+	head_node = stack->list.head;
+	stack->list.head = head_node->next;
+	stack->list.head->prev = NULL;
+	head_node->prev = stack->list.last;
+	stack->list.last->next = head_node;
+	head_node->next = NULL;
+	stack->list.last = head_node;
+	ft_printf("rb\n");
+}
+
+ */

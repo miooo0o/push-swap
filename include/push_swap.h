@@ -65,7 +65,7 @@ void	ft_progress(char *progress, char *msg);
 
 /* utility */
 int		ft_isspace(int c);
-int		ft_issort(int array[], int size);
+int		ft_issort_array(int array[], int size);
 int		ft_atoi_pushswap(const char *str);
 
 /* swap */

@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 11:05:55 by minakim           #+#    #+#             */
-/*   Updated: 2023/06/18 11:06:54 by minakim          ###   ########.fr       */
+/*   Updated: 2023/06/29 16:21:54 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	ft_atoi_pushswap(const char *str)
 	return ((int)number);
 }
 
-int ft_issort(int array[], int size)
+int ft_issort_array(int array[], int size)
 {
 	int i;
 	i = size - 1;
