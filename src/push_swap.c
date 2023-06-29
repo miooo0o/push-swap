@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 16:16:05 by minakim           #+#    #+#             */
-/*   Updated: 2023/06/29 22:18:20 by minakim          ###   ########.fr       */
+/*   Updated: 2023/06/30 01:32:28 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	sort_two(t_stack *stack)
 
 
 /**
- * @brief sort
+ * @brief
  * @param stack
  */
 void	sort_three(t_stack *stack)
@@ -46,8 +46,12 @@ void	sort_three(t_stack *stack)
 		sa(stack);
 }
 
-// TODO : hard-coding 끝내기, small, large로 나눠서 끝내기 (5 >= && 100 <=, <= 500)
+void	sort_four(t_stack *stack)
+{
 
+}
+
+// TODO : hard-coding 끝내기, small, large로 나눠서 끝내기 (5 >= && 100 <=, <= 500)
 
 // TODO: finish this function
 /*

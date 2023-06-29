@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 21:04:15 by minakim           #+#    #+#             */
-/*   Updated: 2023/06/20 23:40:49 by minakim          ###   ########.fr       */
+/*   Updated: 2023/06/30 01:31:51 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void	ft_progress(char *progress, char *msg);
 
 /* utility */
 int		ft_isspace(int c);
+int		ft_issort(t_stack *stack);
 int		ft_issort_array(int array[], int size);
 int		ft_atoi_pushswap(const char *str);
 

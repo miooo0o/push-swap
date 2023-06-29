@@ -6,16 +6,16 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 17:44:13 by minakim           #+#    #+#             */
-/*   Updated: 2023/06/29 22:23:17 by minakim          ###   ########.fr       */
+/*   Updated: 2023/06/30 01:31:10 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include "../include/push_swap.h"
 
-
-// TODO: print 'pa, pb...'
 // TODO: finish usage
+
+
 /**
  * @param target_stack : target stack which hold total size of stack.
  * @param update : update total size value in target stack.
