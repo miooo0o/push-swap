@@ -6,82 +6,27 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 16:16:05 by minakim           #+#    #+#             */
-/*   Updated: 2023/06/29 16:59:06 by minakim          ###   ########.fr       */
+/*   Updated: 2023/06/29 22:18:20 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	is_empty(t_stack *stack)
-{
-	if (stack->total_size == 0 && stack->list.head == NULL && stack->list.last == NULL)
-		return (1);
-	return (0);
-}
-
-int peek(t_stack *stack)
-{
-	return ((int)(intptr_t)stack->list.head->data);
-}
-
-int stack_size(t_stack *stack)
-{
-	t_doubly *node;
-	int count;
-
-	if (stack->list.head == NULL)
-		return (0);
-	if (stack->list.head == stack->list.last)
-		return (1);
-	node = stack->list.head;
-	count = 1;
-	while (node->next != NULL)
-	{
-		node = node->next;
-		count++;
-	}
-	if (count == stack->total_size)
-		return (count);
-	return (-1);
-}
-
+/**
+ * @brief
+ * @param stack
+ */
 void	sort_two(t_stack *stack)
 {
 	if (stack->list.head->data > stack->list.head->next->data)
 		sa(stack);
 }
 
-int	ft_issort(t_stack *stack)
-{
-	t_doubly *node;
 
-	node = stack->list.head;
-	while (node != NULL && node->next != NULL)
-	{
-		if ((int)(intptr_t)node->data + 1 == (int)(intptr_t)node->next->data)
-			node = node->next;
-		else
-			return (0);
-	}
-	return (1);
-}
-
-/*
-1 2 3 // return ;
-3 2 1 //
-
-3 1 2 // ra
-
-2 3 1 // rra
-2 1 3 // sa
-1 3 2 //
-*/
-
-/*
-2 3 4 5 / 5 > a && a <= 100 (100) ratio 0.12 / <= 500 0.08 ratio
-		small num								large num
-*/
-
+/**
+ * @brief sort
+ * @param stack
+ */
 void	sort_three(t_stack *stack)
 {
 	int	one;
@@ -101,56 +46,23 @@ void	sort_three(t_stack *stack)
 		sa(stack);
 }
 
-//void	divide_stack(t_stack *stack_A, t_stack *stack_B)
-//{
-//	int	ratio;
-//	int size;
-//
-//	size = stack_A->total_size;
-//
-//
-//	ratio = 0.12 * size;
-//
-//
-//	ratio + 0.12 * size
-//
-//
-//}
+// TODO : hard-coding 끝내기, small, large로 나눠서 끝내기 (5 >= && 100 <=, <= 500)
 
-void	divide_stack_into_three(t_stack *stack_A, t_stack *stack_B)
+
+// TODO: finish this function
+/*
+void	divide_stack(t_stack *stack_A, t_stack *stack_B)
 {
-	int small_pivot;
-	int large_pivot;
-	int	i;
-	int count;
-	t_doubly *node;
-	t_doubly *next_node;
+	int	ratio;
+	int size;
 
-	i = 0;
-	small_pivot = (stack_A->total_size * 1) / 3;
-	large_pivot = (stack_A->total_size * 2) / 3;
-	ft_printf("small :%d\n", small_pivot);
-	ft_printf("large :%d\n", large_pivot);
+	size = stack_A->total_size;
+	ratio = 0.12 * size;
+	ratio + 0.12 * size
 
-	node = stack_A->list.head;
-	count = stack_A->total_size;
-
-	while (i < count)
-	{
-		next_node = node->next;
-		if ((int)(intptr_t)node->data < small_pivot || (int)(intptr_t)node->data == 0)
-		{
-			pb(stack_A, stack_B);
-			rb(stack_B);
-		}
-		else if ((int)(intptr_t)node->data >= small_pivot && (int)(intptr_t)node->data <= large_pivot)
-			pb(stack_A, stack_B);
-		else
-			ra(stack_A);
-		node = next_node;
-		i++;
-	}
 }
+*/
+
 
 int main(int ac, char **av)
 {

@@ -6,19 +6,30 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 11:05:55 by minakim           #+#    #+#             */
-/*   Updated: 2023/06/29 16:21:54 by minakim          ###   ########.fr       */
+/*   Updated: 2023/06/29 22:19:06 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
+//TODO: usage 완성하기
+
+/**
+ *
+ * @param c
+ * @return
+ */
 int ft_isspace(int c)
 {
 	if (c == ' ')
 		return (1);
 	return (0);
 }
-
+/**
+ *
+ * @param str
+ * @return
+ */
 int	ft_atoi_pushswap(const char *str)
 {
 	long long	number;
@@ -46,11 +57,37 @@ int	ft_atoi_pushswap(const char *str)
 	return ((int)number);
 }
 
+/**
+ *
+ * @param array
+ * @param size
+ * @return
+ */
 int ft_issort_array(int array[], int size)
 {
 	int i;
 	i = size - 1;
 	if (array[i] < array[i - 1])
 		return (0);
+	return (1);
+}
+
+/**
+ * @brief
+ * @param stack
+ * @return
+ */
+int	ft_issort(t_stack *stack)
+{
+	t_doubly *node;
+
+	node = stack->list.head;
+	while (node != NULL && node->next != NULL)
+	{
+		if ((int)(intptr_t)node->data + 1 == (int)(intptr_t)node->next->data)
+			node = node->next;
+		else
+			return (0);
+	}
 	return (1);
 }

@@ -6,12 +6,14 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 15:53:50 by minakim           #+#    #+#             */
-/*   Updated: 2023/06/13 12:49:28 by minakim          ###   ########.fr       */
+/*   Updated: 2023/06/29 22:21:29 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/libdbl.h"
 #include "libdbl.h"
+
+// TODO: 아직 에러 핸들링이 완료 되지 않음. 에러시 메세지만 출력되고 free하지 않는 상태.
 
 /*
  * dbl_isfront - Checks if a given node is the front (first) node in a doubly linked list.
@@ -52,5 +54,3 @@ int dbl_isadjac(t_doubly *node_A, t_doubly *node_B)
 		return (1);
 	return (0);
 }
-
-// TODO: 아직 에러 핸들링이 완료 되지 않음. 에러시 메세지만 출력되고 free하지 않는 상태.

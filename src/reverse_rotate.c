@@ -6,12 +6,19 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 17:47:31 by minakim           #+#    #+#             */
-/*   Updated: 2023/06/18 17:57:49 by minakim          ###   ########.fr       */
+/*   Updated: 2023/06/29 22:18:04 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include "../include/push_swap.h"
+
+
+// TODO: 만약에 이 함수를 만드는게 더 낫다면 새로 만들기
+void	reverse_rotate(t_stack *stack)
+{
+
+}
 
 /**
  * @brief rra (reverse rotate a): Shift down all elements of stack a by 1.
