@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 16:16:05 by minakim           #+#    #+#             */
-/*   Updated: 2023/06/30 01:32:28 by minakim          ###   ########.fr       */
+/*   Updated: 2023/06/30 23:44:30 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	sort_three(t_stack *stack)
 	one = (int)(intptr_t)(stack)->list.head->data;
 	two = (int)(intptr_t)(stack)->list.head->next->data;
 	three = (int)(intptr_t)(stack)->list.head->next->next->data;
-	if (ft_issort(stack))
+	if (ft_issorted(stack))
 		return ;
 	if (one > three && three > two)
 		ra(stack);
@@ -46,8 +46,62 @@ void	sort_three(t_stack *stack)
 		sa(stack);
 }
 
+int 	find_min_in_list(t_stack *stack)
+{
+	t_doubly *node;
+	int result;
+
+	if (ft_issorted(stack))
+		return (-1);
+	else
+	{
+		result = 0;
+		node = stack->list.head;
+		result = (int)(intptr_t) node->data;
+		while (node->next != NULL && node != NULL)
+		{
+			if (result > (int)(intptr_t) node->data)
+				result = (int)(intptr_t) node->data;
+			node = node->next;
+		}
+		return (result);
+	}
+}
+
+int 	find_max_in_list(t_stack *stack)
+{
+	t_doubly *node;
+	int result;
+
+	if (ft_issorted(stack))
+		return (-1);
+	else
+	{
+		result = 0;
+		node = stack->list.head;
+		result = (int)(intptr_t) node->data;
+		while (node->next != NULL && node != NULL)
+		{
+			if (result < (int)(intptr_t) node->data)
+				result = (int)(intptr_t) node->data;
+			node = node->next;
+		}
+		return (result);
+	}
+}
+
+void
+
 void	sort_four(t_stack *stack)
 {
+	int min;
+	int max;
+
+	min = find_min_in_list(stack);
+	max = find_max_in_list(stack);
+	if (min < 0 || max < 0)
+		ft_error_basic("can not found right number. [need free]");
+
 
 }
 

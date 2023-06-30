@@ -77,7 +77,7 @@ int ft_issort_array(int array[], int size)
  * @param stack
  * @return
  */
-int	ft_issort(t_stack *stack)
+int	ft_issorted(t_stack *stack)
 {
 	t_doubly *node;
 
