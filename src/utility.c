@@ -6,18 +6,16 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 11:05:55 by minakim           #+#    #+#             */
-/*   Updated: 2023/06/29 22:19:06 by minakim          ###   ########.fr       */
+/*   Updated: 2023/07/01 16:53:04 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-//TODO: usage 완성하기
-
 /**
  *
  * @param c
- * @return
+ * @return if c == ' ', return True, else return False.
  */
 int ft_isspace(int c)
 {

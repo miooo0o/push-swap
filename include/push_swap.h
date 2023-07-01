@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 21:04:15 by minakim           #+#    #+#             */
-/*   Updated: 2023/06/30 23:25:54 by minakim          ###   ########.fr       */
+/*   Updated: 2023/07/01 16:48:30 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,10 @@
 # define MAX 1024
 # define Small 0
 # define Large 1
+
 /*
 typedef struct		s_doubly{
-	void            *data;
+	int				data;
 	struct s_doubly	*prev;
 	struct s_doubly	*next;
 }					t_doubly;
@@ -55,6 +56,13 @@ typedef struct 		s_info
 	int		array[MAX];
 	int 	index[MAX];
 }					t_info;
+
+typedef struct 		s_num
+{
+	int 	i;
+	int 	step_bot;
+	int 	step_top;
+}					t_num;
 
 /* error */
 void    ft_free_2d(char **target);

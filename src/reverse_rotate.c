@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 17:47:31 by minakim           #+#    #+#             */
-/*   Updated: 2023/06/29 22:18:04 by minakim          ###   ########.fr       */
+/*   Updated: 2023/07/01 16:31:32 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,6 @@
 #include "../include/push_swap.h"
 
 
-// TODO: 만약에 이 함수를 만드는게 더 낫다면 새로 만들기
-void	reverse_rotate(t_stack *stack)
-{
-
-}
 
 /**
  * @brief rra (reverse rotate a): Shift down all elements of stack a by 1.
@@ -39,7 +34,7 @@ void	rra(t_stack *stack_A)
 	stack_A->list.head->prev = last_node;
 	last_node->prev = NULL;
 	stack_A->list.head = last_node;
-	write(1, "rra\n", 5);
+	ft_printf("rra\n");
 }
 
 /**
@@ -61,7 +56,7 @@ void	rrb(t_stack *stack_B)
 	stack_B->list.head->prev = last_node;
 	last_node->prev = NULL;
 	stack_B->list.head = last_node;
-	write(1, "rrb\n", 5);
+	ft_printf("rrb\n");
 }
 
 
@@ -74,6 +69,6 @@ void	rrr(t_stack *stack_A, t_stack *stack_B)
 {
 	rra(stack_A);
 	rrb(stack_B);
-	write(1, "rrr\n", 5);
+	ft_printf("rrr\n");
 }
 
