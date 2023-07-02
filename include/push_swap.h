@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 21:04:15 by minakim           #+#    #+#             */
-/*   Updated: 2023/07/01 16:48:30 by minakim          ###   ########.fr       */
+/*   Updated: 2023/07/02 21:57:23 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ typedef struct 		s_info
 
 typedef struct 		s_num
 {
-	int 	i;
+	int 	data;
 	int 	step_bot;
 	int 	step_top;
 }					t_num;
