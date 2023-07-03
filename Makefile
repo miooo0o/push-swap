@@ -31,7 +31,7 @@ LIB_PATH		=	$(LIBFT_PATH) $(PRINTF_PATH) $(LIBDBL_PATH)
 # executables
 AR			=	ar rcs
 RM			=	rm -f
-CC			=	cc -g
+CC			=	cc
 CFLAGS		=	-Wall -Wextra -Werror
 
 ###
@@ -45,10 +45,10 @@ WHITE	= \033[37m
 ###
 
 # sources
-SRC_FILES	=	push_swap utility ft_error \
+SRC_FILES	=	push_swap \
+				init_stack utility ft_error \
 				swap push rotate reverse_rotate \
-				init_stack \
-				test
+				sort_by_hard_coding sort_four sort_five
 
 SRCS		= 	$(addprefix $(SRCS_DIR), $(addsuffix .c, $(SRC_FILES)))
 OBJS		=	$(addprefix $(OBJS_DIR), $(addsuffix .o, $(SRC_FILES)))

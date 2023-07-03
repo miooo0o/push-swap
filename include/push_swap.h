@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 21:04:15 by minakim           #+#    #+#             */
-/*   Updated: 2023/07/02 21:57:23 by minakim          ###   ########.fr       */
+/*   Updated: 2023/07/03 21:44:49 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 # define MAX 1024
 # define Small 0
 # define Large 1
+# define RUN_TOP 1
+# define RUN_BOT 0
 
 /*
 typedef struct		s_doubly{
@@ -110,4 +112,26 @@ void	av_to_array(int ac, char **av, t_info *info);
 void	initialize_stack(t_stack *stack);
 void	init_stack_a_with_arr(t_stack *stack, t_info *info, int ac);
 void	init_stack_b(t_stack *stack_B);
+
+/* sort by hard coding */
+void	sort_two(t_stack *stack);
+void	sort_three(t_stack *stack);
+int 	navigate_min(t_stack *stack);
+int 	navigate_max(t_stack *stack);
+int		navigate_sec_min(t_stack *stack_A);
+
+/* sort four */
+void	sort_four(t_stack *stack_A, t_stack *stack_B);
+void	find_step_from_bot(t_stack *stack, int target, int *step);
+void	find_step_from_top(t_stack *stack, int target, int *step);
+int		opt_by_step(t_stack *stack, t_num *num);
+void	find_min_and_bring_top(t_stack *stack);
+
+/* sort five */
+void	sort_five(t_stack *stack_A, t_stack *stack_B);
+void	find_nums_and_check_step(t_stack *stack, t_num *min, t_num *sec_min);
+int		check_special_case(t_stack *stack, int *trigger);
+void	if_sec_min_top(t_stack *stack_A, t_stack *stack_B);
+void	if_sec_min_bot(t_stack *stack_A, t_stack *stack_B);
+
 # endif

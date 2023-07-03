@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include "../include/push_swap.h"
+#include "push_swap.h"
 
 /* all test functions to print stack. */
 void	print_head(t_doubly *head)
