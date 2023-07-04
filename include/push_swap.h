@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 21:04:15 by minakim           #+#    #+#             */
-/*   Updated: 2023/07/03 21:44:49 by minakim          ###   ########.fr       */
+/*   Updated: 2023/07/04 18:38:20 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,16 @@ typedef struct 		s_lst{
 
 /**
  * @param total_size is an integer that starts at 0
- * (total_size >= 1) if element(s) exist in stack.
+ * (stack_size >= 1) if element(s) exist in stack.
  * is the current number of elements in the stack
  * It's incremented by 1 when an element is pushed,
  * and decremented by 1 when an element is popped.
  */
 typedef struct      s_stack{
 	t_lst	list;
-	int		total_size;
+	int		stack_size;
+	int 	max_total;
+	int 	min_total;
 }                   t_stack;
 
 typedef struct 		s_info
@@ -111,7 +113,7 @@ void	check_argc(int ac);
 void	av_to_array(int ac, char **av, t_info *info);
 void	initialize_stack(t_stack *stack);
 void	init_stack_a_with_arr(t_stack *stack, t_info *info, int ac);
-void	init_stack_b(t_stack *stack_B);
+void	init_stack_b(t_stack *stack_A, t_stack *stack_B);
 
 /* sort by hard coding */
 void	sort_two(t_stack *stack);

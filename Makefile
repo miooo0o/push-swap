@@ -45,7 +45,7 @@ WHITE	= \033[37m
 ###
 
 # sources
-SRC_FILES	=	push_swap \
+SRC_FILES	=	push_swap test \
 				init_stack utility ft_error \
 				swap push rotate reverse_rotate \
 				sort_by_hard_coding sort_four sort_five

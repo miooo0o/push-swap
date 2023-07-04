@@ -24,9 +24,9 @@
 void	update_stack_size(t_stack *target_stack, int update)
 {
 	if (update == 0)
-		target_stack->total_size = 0;
+		target_stack->stack_size = 0;
 	else
-		target_stack->total_size += update;
+		target_stack->stack_size += update;
 }
 
 /**
@@ -55,7 +55,7 @@ void	pa(t_stack *stack_A, t_stack *stack_B)
 	t_doubly *node;
 	if (stack_B->list.head == NULL && stack_B->list.last == NULL)
 		ft_error_basic("nothing in the stack");
-	if (stack_A->list.head == NULL && stack_A->total_size == 0)
+	if (stack_A->list.head == NULL && stack_A->stack_size == 0)
 	{
 		node = dbl_newnode((void *)(intptr_t )stack_B->list.head->data);
 		stack_A->list.head = node;

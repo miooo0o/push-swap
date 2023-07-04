@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 13:31:44 by minakim           #+#    #+#             */
-/*   Updated: 2023/06/29 16:43:35 by minakim          ###   ########.fr       */
+/*   Updated: 2023/07/04 18:34:35 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ void	initialize_stack(t_stack *stack)
 	stack->list.head = NULL;
 	stack->list.last = NULL;
 	stack->total_size = 0;
+	stack->min_total = 0;
+	stack->max_total = 0;
 }
 
 void	find_max_and_min(int array[], int value[], int length)
@@ -100,17 +102,16 @@ void change_data_to_index(t_info *info, int length, int value[])
 	}
 }
 
-void	parsing_data_to_index(t_info *info, int length)
+void	parsing_data_to_index(t_info *info, t_stack *stack)
 {
 	int value[2];
 	int i;
 
 	i = -1;
-	while (++i < length)
+	while (++i < stack->total_size)
 		info->index[i] = info->array[i];
-	find_max_and_min(info->array, value, length);
-	change_data_to_index(info, length, value);
-
+	find_max_and_min(info->array, value, stack->total_size);
+	change_data_to_index(info, stack->total_size, value);
 }
 
 void	init_stack_a_with_arr(t_stack *stack, t_info *info, int ac)
@@ -122,7 +123,7 @@ void	init_stack_a_with_arr(t_stack *stack, t_info *info, int ac)
 	i = -1;
 	head_node = NULL;
 	stack->total_size = ac - 1;
-	parsing_data_to_index(info, stack->total_size);
+	parsing_data_to_index(info, stack);
 	while (++i < stack->total_size)
 	{
 		new_node = dbl_newnode((void *)(intptr_t)info->index[i]);
@@ -134,11 +135,13 @@ void	init_stack_a_with_arr(t_stack *stack, t_info *info, int ac)
 	}
 	if (stack->list.head != head_node || stack->list.last != new_node)
 		ft_error_listfree("node set up fail.", &(stack->list));
-	//ft_progress("done", "Stack A set up");
+	stack->max_total = navigate_max(stack);
+	stack->min_total = navigate_min(stack);
 }
 
-void	init_stack_b(t_stack *stack_B)
+void	init_stack_b(t_stack *stack_A, t_stack *stack_B)
 {
 	initialize_stack(stack_B);
-	//ft_progress("done", "Stack B set up");
+	stack_B->min_total = stack_A->min_total;
+	stack_B->max_total = stack_A->max_total;
 }
