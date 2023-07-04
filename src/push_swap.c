@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 16:16:05 by minakim           #+#    #+#             */
-/*   Updated: 2023/07/04 19:13:31 by minakim          ###   ########.fr       */
+/*   Updated: 2023/07/04 19:46:39 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -234,18 +234,46 @@ void	check_and_correct_top_sorted_order(t_stack *stack_A)
 
 	node = stack_A->list.head;
 	if ((int)(intptr_t) node->data != (int)(intptr_t)node->next->data - 1)
-		rra(stack_A);
+		ra(stack_A);
 }
 
-void	check_and_restore_sorted_order(t_stack *stack_A, t_stack *stack_B)
+void	before_push_to_a(t_stack *stack_A, t_stack *stack_B, double ratio)
 {
-	t_doubly	*temp;
-	int 		size;
 
-	check_and_correct_top_sorted_order(stack_A);
-	verify_and_restore_bot_sorted_order(stack_A);
+	int			scope;
+	static int	ran_max;
+	static int	ran_min;
+	static int 	ran_mid;
+
+	scope = (int)(ratio * stack_A->range);
+	ran_max = stack_A->max_total - 1;
+	ran_min = ran_max - scope;
+	ran_mid = ran_min + (int)(ratio * 0.5);
+	while (stack_B->list.head != NULL)
+	{
+
+		if ((int)(intptr_t)stack_B->list.head->data ==
+			(int)(intptr_t)stack_A->list.head->data - 1)
+		{
+			pa(stack_A, stack_B);
+			push_range_to_stack(stack_A, stack_B);
+		}
+		else if ((int)(intptr_t) stack_B->list.head->data >= ran_min
+			&& (int)(intptr_t) stack_B->list.head->data < ran_mid)
+			rb(stack_B);
+		else if ((int)(intptr_t) stack_B->list.head->data <= ran_max
+				 && (int)(intptr_t) stack_B->list.head->data >= ran_mid)
+			/* pa, check it sort or not
+			 * -> if yes : back to loop,
+			 * -> if not : but gap it only 1 [99 - - 97 ],
+			 * keep on top and change trigger for sa, and back to loop
+			 * -> if not : send to stack a bot
+			 * and check bot sort state
+			 * -> if yes, back to loop
+			 * -> if yes, and if can push to top stack a, push_range_to_stack
+			 * -> if not (sort bot ?) */
+	}
 }
-
 
 
 //void	opt_divided_stack_sort(t_stack *stack_A, t_stack *stack_B)
