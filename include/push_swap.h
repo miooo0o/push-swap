@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 21:04:15 by minakim           #+#    #+#             */
-/*   Updated: 2023/07/07 13:46:45 by minakim          ###   ########.fr       */
+/*   Updated: 2023/07/07 14:07:32 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,10 @@ typedef struct 		s_lst{
 typedef struct 		s_group{
 	int	name;
 	int max;
+	int mid;
 	int min;
-	int size;
 	int range;
+	int base_range;
 	int group_last;
 }					t_group;
 
@@ -63,7 +64,6 @@ typedef struct      s_stack{
 	int		stack_size;
 	int 	max_total;
 	int 	min_total;
-	t_group	target;
 }                   t_stack;
 
 typedef struct 		s_info
