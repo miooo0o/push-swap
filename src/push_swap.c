@@ -6,12 +6,11 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 16:16:05 by minakim           #+#    #+#             */
-/*   Updated: 2023/07/06 14:44:11 by minakim          ###   ########.fr       */
+/*   Updated: 2023/07/06 16:30:06 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-// TODO : (5 > && 100 <=, <= 500)
 
 int get_range_count(t_stack *stack)
 {
@@ -29,6 +28,7 @@ void	set_range_and_ratio(t_stack *stack)
 	stack->ratio = 0.12;
 	stack->range = (int)(stack->max_total * stack->ratio);
 	stack->range_count = get_range_count(stack);
+	stack->count_sum = stack->range_count;
 }
 
 void	range_group_to_stack(t_stack *stack_A, t_stack *stack_B)
@@ -58,11 +58,9 @@ void	divide_stack_by_ratio(t_stack *stack_A, t_stack *stack_B)
 {
 	int	range;
 	int size;
-	int max;
 	t_doubly *node;
 
 	size = stack_A->stack_size;
-	max = stack_A->max_total;
 	range = stack_A->range;
 	while (range <= size)
 	{
@@ -75,7 +73,7 @@ void	divide_stack_by_ratio(t_stack *stack_A, t_stack *stack_B)
 	while (size > 0)
 	{
 		node = stack_A->list.head;
-		if ((int)(intptr_t) node->data == max)
+		if ((int)(intptr_t) node->data == stack_A->max_total)
 			ra(stack_A);
 		pb(stack_A, stack_B);
 		size--;
@@ -201,80 +199,111 @@ void	verify_and_restore_bot_sorted_order(t_stack *stack_A)
 		rra(stack_A);
 }
 
-//
-//void	get_target_range(t_stack *stack, int target_range[])
-//{
-//	int max_count;
-//
-//	max_count = get_range_count(stack);
-//	if (stack->range_count == max_count && stack->max_total % max_count != 0)
-//	{
-//		target_range[0] = stack->max_total - stack->max_total % stack->range;
-//		target_range[1] = stack->max_total;
-//		target_range[2] = stack->max_total;
-//	}
-//	else
-//	{
-//		target_range[0] = stack->max_total - stack->range * stack->range_count;
-//		target_range[1] = stack->max_total;
-//		target_range[2] = stack->max_total;
-//	}
-//}
-//
-//
-//int 	update_range_count(t_stack *stack_A, t_stack *stack_B)
-//{
-//	int count;
-//
-//	count = stack_A->range_count;
-//	if (count == 0)
-//		return (/* stack_A의 솔트가 완료됐는지 확인하는 함수 */);
-//	/* range의 모든 인덱스가 stack_A에 있다면, count - 1;
-//	 * 아니라면 count */
-//	return (count);
-//}
-//
-//void	check_stack_b_and_push(t_stack *stack_A, t_stack *stack_B)
-//{
-//	int target_range[3];
-//
-//	get_target_range(stack_A, target_range,)
-//	if (stack_B->list.head)
-//}
-//
-///* if there is sorted nodes range in stacks, do sorting */
-//void	push_range_to_stack(t_stack *stack_A, t_stack *stack_B)
-//{
-//	if (is_sorted_till_max(stack_A))
-//	{
-//		if ((int)(intptr_t) stack_A->list.head->data - 1 == (int)(intptr_t) stack_B->list.head->data)
-//		{
-//			is_reverse_sorted_in_stack_b(stack_A, stack_B);
-//			push_range_to_stack(stack_A, stack_B);
-//		}
-//		else if (/* bot is exist */)
-//		{
-//			if ((int)(intptr_t) stack_A->list.head->data - 1 == (int)(intptr_t) stack_A->list.last->data)
-//			{
-//				verify_and_restore_bot_sorted_order(stack_A);
-//				push_range_to_stack(stack_A, stack_B);
-//			}
-//			if (/* if bot sorted */)
-//				check_stack_b_and_push(stack_A, stack_B);
-//			else
-//				/* sort bot */
-//		}
-//		else if ()// if bot is not exit...
-//		{
-//			check_stack_b_and_push(stack_A, stack_B);
-//			/* sort bot */
-//		}
-//	}
-//	else
-//	{
-//
-//	}
-//}
+
+void	get_target_range(t_stack *stack, int target_range[])
+{
+	int max_count;
+
+	max_count = stack->count_sum;
+	if (stack->range_count == max_count && stack->max_total % max_count != 0)
+	{
+		target_range[0] = stack->max_total - stack->max_total % stack->range;
+		target_range[1] = stack->max_total;
+		target_range[2] = stack->max_total;
+	}
+	else
+	{
+		target_range[0] = stack->max_total - stack->range * stack->range_count;
+		target_range[1] = stack->max_total;
+		target_range[2] = stack->max_total;
+	}
+}
+
+
+int check_range_sorted_complete(t_stack *stack)
+{
+	int size;
+	int start;
+	int	end;
+	t_doubly *node;
+
+	if (stack->range_count == stack->count_sum)
+		size = stack->max_total % stack->count_sum;
+	else
+		size = stack->range;
+	start = stack->range_count * stack->range;
+	node = stack->list.head;
+	if (start != (int)(intptr_t) node->data)
+		return (0);
+	end = start + stack->range - 1;
+	while (--size > 0 && start != end && node != NULL)
+	{
+		node = node->next;
+		start += 1;
+		if (start != (int)(intptr_t) stack->list.head->data)
+			return (0);
+	}
+	if (size == 0 && (int)(intptr_t) node->data == end)
+		return (1);
+	else
+		return (0);
+}
+
+int 	update_range_count(t_stack *stack_A, t_stack *stack_B)
+{
+
+	if (stack_A->range_count == 0)
+		return (0 /* stack_A의 솔트가 완료됐는지 확인하는 함수 */);
+	if (check_range_sorted_complete(stack_A))
+	{
+		stack_A->range_count -= 1;
+		if (stack_A->range_count == 0)
+			update_range_count(stack_A, stack_B); // or /* stack_A의 솔트가 완료됐는지 확인하는 함수 */
+	}
+	return (stack_A->range_count);
+}
+
+void	check_stack_b_and_push(t_stack *stack_A, t_stack *stack_B)
+{
+	int target_range[3];
+
+	get_target_range(stack_A, target_range,)
+	if (stack_B->list.head)
+}
+
+/* if there is sorted nodes range in stacks, do sorting */
+void	push_range_to_stack(t_stack *stack_A, t_stack *stack_B)
+{
+	if (is_sorted_till_max(stack_A))
+	{
+		if ((int)(intptr_t) stack_A->list.head->data - 1 == (int)(intptr_t) stack_B->list.head->data)
+		{
+			is_reverse_sorted_in_stack_b(stack_A, stack_B);
+			push_range_to_stack(stack_A, stack_B);
+		}
+		else if (/* bot is exist */)
+		{
+			if ((int)(intptr_t) stack_A->list.head->data - 1 == (int)(intptr_t) stack_A->list.last->data)
+			{
+				verify_and_restore_bot_sorted_order(stack_A);
+				push_range_to_stack(stack_A, stack_B);
+			}
+			if (/* if bot sorted */)
+				check_stack_b_and_push(stack_A, stack_B);
+			else
+				/* sort bot */
+		}
+		else if ()// if bot is not exit...
+		{
+			check_stack_b_and_push(stack_A, stack_B);
+			/* sort bot */
+		}
+	}
+	else
+	{
+
+	}
+}
 
 
 void	opt(t_stack * stack_A, t_stack * stack_B)
