@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 21:04:15 by minakim           #+#    #+#             */
-/*   Updated: 2023/07/06 16:13:12 by minakim          ###   ########.fr       */
+/*   Updated: 2023/07/07 13:46:45 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,16 @@ typedef struct 		s_lst{
 	t_doubly *last;
 }					t_lst; */
 
+
+typedef struct 		s_group{
+	int	name;
+	int max;
+	int min;
+	int size;
+	int range;
+	int group_last;
+}					t_group;
+
 /**
  * @param total_size is an integer that starts at 0
  * (stack_size >= 1) if element(s) exist in stack.
@@ -53,10 +63,7 @@ typedef struct      s_stack{
 	int		stack_size;
 	int 	max_total;
 	int 	min_total;
-	double	ratio;
-	int 	range;
-	int 	range_count;
-	int 	count_sum;
+	t_group	target;
 }                   t_stack;
 
 typedef struct 		s_info

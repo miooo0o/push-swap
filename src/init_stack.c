@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 13:31:44 by minakim           #+#    #+#             */
-/*   Updated: 2023/07/04 19:23:40 by minakim          ###   ########.fr       */
+/*   Updated: 2023/07/07 13:53:55 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ void	initialize_stack(t_stack *stack)
 	stack->stack_size = 0;
 	stack->min_total = 0;
 	stack->max_total = 0;
-	stack->range = 1;
 }
 
 void	find_max_and_min(int array[], int value[], int length)
