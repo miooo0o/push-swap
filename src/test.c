@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 17:59:35 by minakim           #+#    #+#             */
-/*   Updated: 2023/06/20 13:27:04 by minakim          ###   ########.fr       */
+/*   Updated: 2023/07/09 15:10:23 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,4 +91,60 @@ void	print_all_stack(t_stack *stack_A, t_stack *stack_B)
 			B = B->next;
 		}
 	}
+}
+
+
+
+void	test_stack_update(t_stack *stack, char c)
+{
+	ft_printf("stack %c node info\n", c);
+	if (stack->list.last)
+		ft_printf("last node exist\n");
+	else
+		ft_printf("last node NOT exist\n");
+
+	if (stack->list.head)
+		ft_printf("head node exist\n");
+	else
+		ft_printf("head node NOT exist\n");
+}
+
+void	test_node(t_doubly *node)
+{
+	t_doubly *test;
+
+	test = node;
+	int i;
+	i = 0;
+	if (test == NULL)
+		ft_printf("target node NOT exist\n");
+
+	if (test->next == NULL)
+	{
+		while (test != NULL)
+		{
+			ft_printf("[%d] %d\n", i, (int)(intptr_t) test->data);
+			i++;
+			test = test->prev;
+		}
+	}
+	else if (test->prev == NULL) {
+		if (test->next == NULL) {
+			while (test != NULL) {
+				ft_printf("[%d] %d\n", i, (int) (intptr_t) test->data);
+				i++;
+				test = test->next;
+			}
+		}
+	}
+	else
+	{
+		while (test != NULL)
+		{
+			ft_printf("[%d] %d\n", i, (int)(intptr_t) test->data);
+			i++;
+			test = test->next;
+		}
+	}
+
 }

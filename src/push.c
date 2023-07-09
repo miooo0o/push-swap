@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 17:44:13 by minakim           #+#    #+#             */
-/*   Updated: 2023/06/30 01:31:10 by minakim          ###   ########.fr       */
+/*   Updated: 2023/07/09 14:10:24 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,14 @@ void	dbl_put_top(t_stack **taken, t_stack **put)
 	node = dbl_newnode((*taken)->list.head->data);
 	dbl_add_front(&(*put)->list, &node);
 	dbl_del(&(*taken)->list, (*taken)->list.head);
+	if ((*taken)->list.head == NULL)
+		(*taken)->list.last = NULL;
+	else
+		(*taken)->list.head->prev = NULL;
+	if ((*put)->list.head == NULL)
+		(*put)->list.last = NULL;
+	if ((*put)->list.head->next == NULL)
+		(*put)->list.last = (*put)->list.head;
 }
 
 /**
@@ -59,7 +67,7 @@ void	pa(t_stack *stack_A, t_stack *stack_B)
 	{
 		node = dbl_newnode((void *)(intptr_t )stack_B->list.head->data);
 		stack_A->list.head = node;
-		stack_A->list.last = NULL;
+		stack_A->list.last = node;
 		dbl_del(&(stack_B->list), stack_B->list.head);
 	}
 	else
@@ -84,7 +92,7 @@ void	pb(t_stack *stack_A, t_stack *stack_B)
 	{
 		node = dbl_newnode((void *)(intptr_t )stack_A->list.head->data);
 		stack_B->list.head = node;
-		stack_B->list.last = NULL;
+		stack_B->list.last = node;
 		dbl_del(&(stack_A->list), stack_A->list.head);
 	}
 	else

@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 15:31:37 by minakim           #+#    #+#             */
-/*   Updated: 2023/07/07 15:31:37 by minakim          ###   ########.fr       */
+/*   Updated: 2023/07/07 23:49:41 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,4 +148,82 @@ void	divide_stack_by_group(t_stack *stack_A, t_stack *stack_B, t_group *target, 
 	first_group = target;
 	set_first_group(first_group, size, ratio);
 	push_target_group(stack_A, stack_B, first_group);
+}
+
+
+
+int find_opt_step(t_stack *stack_A, t_stack *stack_B, int target) {
+	int top_step = 0;
+	int bot_step = 0;
+
+	find_step_from_top(stack_B, target, &top_step);
+	find_step_from_bot(stack_B, target, &bot_step);
+
+	if (stack_A->list.last != NULL && (int) (intptr_t) stack_A->list.last->data == target) {
+		rra(stack_A);
+		return (3);
+	} else if (top_step <= bot_step)
+		return (1);
+	else
+		return (2);
+}
+
+void	push_and_rotate_till_target(t_stack *stack_A, t_stack *stack_B, int point, int step_result)
+{
+	while ((int)(intptr_t) stack_A->list.head->data != point && stack_B->list.head != NULL && stack_B->list.last != NULL)
+	{
+		if (stack_A->list.last != NULL && (int)(intptr_t) stack_A->list.last->data < (int)(intptr_t)stack_B->list.head->data)
+		{
+			pa(stack_A, stack_B);
+			ra(stack_A);
+		}
+		if (step_result == 1 && stack_B->stack_size > 1)
+			rb(stack_B);
+		if (step_result == 2 && stack_B->stack_size > 1)
+			rrb(stack_B);
+		if ((int)(intptr_t) stack_B->list.head == point)
+			pa(stack_A, stack_B);
+	}
+}
+
+int is_sorted_target_range(t_stack *stack, t_group *target)
+{
+	t_doubly *node;
+
+	node = stack->list.head;
+	if ((int)(intptr_t)node->data != target->min)
+		return (0);
+	while ((int)(intptr_t)node->data != stack->max_total && node!= NULL)
+	{
+		if ((int)(intptr_t)node->data + 1 == (int)(intptr_t)node->next->data)
+			node = node->next;
+		else
+			break;
+	}
+	if (node == NULL)
+		return (1);
+	else
+		return (0);
+
+}
+
+void	uncompleted_range_sort(t_stack *stack_A, t_stack *stack_B, t_group *target)
+{
+	int range;
+	int	point;
+	int step_result;
+
+	range = target->range;
+	point = (int)(intptr_t)stack_A->list.head->data - 1;
+	if (point < 0)
+		return ;
+	while (!is_sorted_target_range(stack_A, target) && point <= target->max)
+	{
+		point = (int)(intptr_t)stack_A->list.head->data - 1;
+		if (is_sorted_target_range(stack_A, target))
+			break  ;
+		step_result = find_opt_step(stack_A, stack_B, point);
+		if (step_result == 1 || step_result == 2) /* rb or rrb */
+			push_and_rotate_till_target(stack_A, stack_B, point, step_result);
+	}
 }

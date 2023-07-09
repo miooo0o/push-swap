@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 16:16:05 by minakim           #+#    #+#             */
-/*   Updated: 2023/07/07 17:36:46 by minakim          ###   ########.fr       */
+/*   Updated: 2023/07/09 15:13:50 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ void	push_till_get_max(t_stack *stack_A, t_stack *stack_B, t_group *group)
 	sec_max = stack_A->max_total - 1;
 	swap_trigger = 0;
 	cnt = 0;
+	node = stack_A->list.head;
 	while (++cnt < group->base_range)
 	{
 		if ((int)(intptr_t)node->data == sec_max)
@@ -106,6 +107,8 @@ void	divide_stack_by_ratio(t_stack *stack_A, t_stack *stack_B, t_group *target)
 		if ((int)(intptr_t) stack_A->list.head->data == stack_A->max_total)
 			ra(stack_A);
 		pb(stack_A, stack_B);
+		if ((int)(intptr_t) stack_B->list.head->data < target->min)
+			rb(stack_B);
 	}
 	if (stack_A->list.head == NULL || (int)(intptr_t) stack_A->list.head->data != stack_A->max_total)
 		push_till_get_max(stack_A, stack_B, target);
@@ -148,30 +151,74 @@ int	is_sorted_till_max(t_stack *stack)
 	return (1);
 }
 
+int count_remaining_nodes(t_stack *stack_A, t_group *target)
+{
+	int count = 0;
+	t_doubly *node = stack_A->list.last;
 
+
+	while (node != NULL && (int)(intptr_t)node->data != target->max)
+		node = node->prev;
+	while (node != NULL && (int)(intptr_t)node->data >= target->min)
+	{
+		count++;
+		node = node->prev;
+	}
+	return (target->range - count);
+}
+
+
+// TODO : stack A[bot]에 임시로 보관하는 로직 필요
+// TODO : 이후 group *target update -> loop till end.
+void	take_next_node(t_stack *stack_A, t_stack *stack_B, t_group *target)
+{
+	int remain;
+	t_doubly *basis;
+	t_num dest;
+	int result;
+
+	while (target->range - count_remaining_nodes(stack_A, target) != target->range)
+	{
+		basis = stack_A->list.head;
+		if ((int)(intptr_t)basis->data - 1 == (int)(intptr_t)stack_B->list.head->data)
+			pa(stack_A, stack_B);
+		else if ((int)(intptr_t)basis->data - 1 == (int)(intptr_t)stack_B->list.last->data)
+		{
+			rrb(stack_B);
+			pa(stack_A, stack_B);
+		}
+		else if ((int)(intptr_t)basis->data - 1 == (int)(intptr_t)stack_A->list.last->data)
+			rra(stack_A);
+		else
+		{
+			dest.data = (int)(intptr_t)basis->data - 1;
+			result = opt_by_step(stack_B, &dest);
+			if (result == -1)
+				ft_error_basic("error");
+			if (result == RUN_TOP)
+			{
+				while ((int)(intptr_t)stack_B->list.head->data != dest.data)
+					rb(stack_B);
+			}
+			else
+			{
+				while ((int)(intptr_t) stack_B->list.head->data != dest.data)
+					rrb(stack_B);
+			}
+		}
+	}
+	ft_printf("second sort finish\n");
+}
 
 void	sort_in_range(t_stack *stack_A, t_stack *stack_B, t_group *target)
 {
 	int i;
-	int swap_trigger;
 
-	swap_trigger = 0;
 	i = 0;
-	while (++i < target->range || stack_A->stack_size != target->range)
+	while (++i < target->range)
 	{
 		if ((int)(intptr_t)stack_B->list.head->data + 1 == (int)(intptr_t)stack_A->list.head->data)
 			pa(stack_A, stack_B);
-		else if ((int)(intptr_t)stack_B->list.head->data + 2 == (int)(intptr_t)stack_A->list.head->data)
-		{
-			pa(stack_A,stack_B);
-			swap_trigger = 1;
-		}
-		else if (swap_trigger == 1 && ((int)(intptr_t)stack_A->list.head->data + 1 == (int)(intptr_t)stack_B->list.head->data))
-		{
-			pa(stack_A, stack_B);
-			sa(stack_A);
-			swap_trigger = 0;
-		}
 		else if ((int)(intptr_t)stack_A->list.last->data + 1 == (int)(intptr_t)stack_A->list.head->data)
 			rra(stack_A);
 		else if ((int)(intptr_t)stack_A->list.last->data == stack_A->max_total &&
@@ -180,7 +227,7 @@ void	sort_in_range(t_stack *stack_A, t_stack *stack_B, t_group *target)
 			pa(stack_A, stack_B);
 			ra(stack_A);
 		}
-		else if ((int)(intptr_t)stack_B->list.last->data + 1 == (int)(intptr_t)stack_A->list.head->data)
+		else if (stack_B->list.last != NULL && (int)(intptr_t)stack_A->list.head->data == (int)(intptr_t)stack_B->list.last->data + 1)
 		{
 			rrb(stack_B);
 			pa(stack_A, stack_B);
@@ -188,7 +235,10 @@ void	sort_in_range(t_stack *stack_A, t_stack *stack_B, t_group *target)
 		else
 			rb(stack_B);
 	}
+	ft_printf("first sort finish\n");
+	take_next_node(stack_A, stack_B, target);
 }
+
 
 int main(int ac, char **av)
 {
@@ -205,12 +255,12 @@ int main(int ac, char **av)
 	target.base_range = set_range(stack_A.stack_size);
 	ft_printf("range %d\n", target.base_range);
 	divide_stack_by_ratio(&stack_A, &stack_B, &target);
+	ft_printf("divide finish\n");
 	sort_in_range(&stack_A, &stack_B, &target);
-	ft_printf("target range %d\n", target.range);
 
 	/* free */
 	dbl_listfree(&(stack_A.list));
 	dbl_listfree(&(stack_B.list));
 }
 
-// 54 95 69 41 64 18 66 82 28 56 91 4 9 81 90 13 24 59 7 38 29 0 63 47 23 77 93 94 10 3 21 19 52 20 72 78 80 1 33 86 50 87 27 26 32 43 84 45 49 11 68 14 89 31 74 48 99 34 8 40 12 16 75
+// 43 85 40 62 36 27 15 33 82 67 47 92 64 59 14 74 94 77 16 45 58 29 34 90 78 83 88 68 70 87 93 50 65 9 24 25 86 100 30 22 4 2 1 8 5 56 44 19 21 18 84 61 35 49 26 38 54 95 48 53 46 60 57 91 3 89 96 52 80 73 66 41 75 97 55 42 98 7 13 63 12 69 17 37 32 10 28 51 6 20 76 79 11 23 31 81 71 39 99 72

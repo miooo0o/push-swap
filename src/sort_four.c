@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 21:39:49 by minakim           #+#    #+#             */
-/*   Updated: 2023/07/03 21:40:09 by minakim          ###   ########.fr       */
+/*   Updated: 2023/07/09 13:59:32 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,15 @@ void	find_step_from_bot(t_stack *stack, int target, int *step)
 	t_doubly *node;
 	*step = 0;
 	node = stack->list.last;
-	while (node->prev != NULL && node != NULL)
+	while (node != NULL)
 	{
-		if ((int)(intptr_t) node->data == target)
+		(*step)++;
+		if ((int)(intptr_t)node->data == target)
 			break;
 		node = node->prev;
-		(*step)++;
 	}
+	if (node == NULL || (int)(intptr_t)node->data != target)
+		(*step) = -1;
 }
 
 void	find_step_from_top(t_stack *stack, int target, int *step)
@@ -51,19 +53,23 @@ void	find_step_from_top(t_stack *stack, int target, int *step)
 
 	node = stack->list.head;
 	*step = 0;
-	while (node->next != NULL && node != NULL)
+	while (node != NULL)
 	{
-		if ((int)(intptr_t) node->data == target)
+		(*step)++;
+		if ((int)(intptr_t)node->data == target)
 			break;
 		node = node->next;
-		(*step)++;
 	}
+	if (node == NULL || (int)(intptr_t)node->data != target)
+		(*step) = -1;
 }
 
 int	opt_by_step(t_stack *stack, t_num *num)
 {
 	find_step_from_top(stack, num->data, &num->step_top);
 	find_step_from_bot(stack, num->data, &num->step_bot);
+	if (num->step_bot == -1 && num->step_top == -1)
+		return (-1);
 	if (num->step_top < num->step_bot)
 		return (RUN_TOP);
 	else

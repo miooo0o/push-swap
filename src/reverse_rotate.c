@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 17:47:31 by minakim           #+#    #+#             */
-/*   Updated: 2023/07/01 16:31:32 by minakim          ###   ########.fr       */
+/*   Updated: 2023/07/09 14:00:42 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	rra(t_stack *stack_A)
 {
 	t_doubly *last_node;
 
-	if (stack_A == NULL || stack_A->list.head == NULL \
+	if (stack_A == NULL || stack_A->list.head == NULL || stack_A->list.last == NULL\
 		|| stack_A->list.head == stack_A->list.last)
 		return;
 	last_node = stack_A->list.last;
@@ -47,7 +47,7 @@ void	rrb(t_stack *stack_B)
 	t_doubly *last_node;
 
 	if (stack_B == NULL || stack_B->list.head == NULL \
-		|| stack_B->list.head == stack_B->list.last)
+		|| stack_B->list.head == stack_B->list.last || stack_B->list.last == NULL)
 		return;
 	last_node = stack_B->list.last;
 	stack_B->list.last = last_node->prev;
