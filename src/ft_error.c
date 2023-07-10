@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 16:17:02 by minakim           #+#    #+#             */
-/*   Updated: 2023/06/18 13:03:11 by minakim          ###   ########.fr       */
+/*   Updated: 2023/07/10 18:00:55 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,19 @@ void    ft_error_basic(char *msg)
 	exit (1);
 }
 
+void	push_swap_lstfree(t_stack *stack_A, t_stack *stack_B)
+{
+	dbl_listfree(&(stack_A->list));
+	dbl_listfree(&(stack_B->list));
+}
+
+void	ft_error_lstfree(char *msg, t_stack *stack_A, t_stack *stack_B)
+{
+	push_swap_lstfree(stack_A, stack_B);
+	ft_printf("[ERROR] : %s\n", msg);
+	exit (1);
+}
+
 void    ft_error_2d_free(char *msg, char **target)
 {
 	ft_free_2d(target);
@@ -39,9 +52,4 @@ void    ft_error_listfree(char *msg, t_lst *list)
 	dbl_listfree(list);
 	ft_printf("[ERROR] : %s\n", msg);
 	exit (1);
-}
-
-void	ft_progress(char *progress, char *msg)
-{
-	ft_printf("[%s] : %s\n", progress, msg);
 }

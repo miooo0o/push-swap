@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 09:47:33 by minakim           #+#    #+#             */
-/*   Updated: 2023/06/09 09:56:50 by minakim          ###   ########.fr       */
+/*   Updated: 2023/07/10 18:05:29 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void	dbl_listfree(t_lst *list)
 	t_doubly *next_node;
 
 	current = list->head;
-	while (current != NULL) {
+	while (current != NULL)
+	{
 		next_node = current->next;
 		free(current);
 		current = next_node;

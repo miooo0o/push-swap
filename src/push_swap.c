@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 16:16:05 by minakim           #+#    #+#             */
-/*   Updated: 2023/07/09 15:13:50 by minakim          ###   ########.fr       */
+/*   Updated: 2023/07/10 19:02:44 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ void	range_group_to_stack(t_stack *stack_A, t_stack *stack_B, int range)
 			}
 			else if ((int)(intptr_t)node->data >= (int)(range + temp))
 				ra(stack_A);
+			else if ((int)(intptr_t)node->data == stack_A->max_total)
+				ra(stack_A);
 			else
 				pb(stack_A, stack_B);
 		}
@@ -102,6 +104,11 @@ void	divide_stack_by_ratio(t_stack *stack_A, t_stack *stack_B, t_group *target)
 	size = stack_A->stack_size;
 	set_last_group(target, size);
 	range_group_to_stack(stack_A, stack_B, target->base_range);
+//	ft_printf("MAX TOTAL %d\n",stack_A->max_total);
+//	print_all_stack(stack_A, stack_B);
+//	if (stack_A->list.head != NULL && (int)(intptr_t)stack_A->list.head->data != stack_A->max_total)
+//		pb(stack_A, stack_B);
+//	print_all_stack(stack_A, stack_B);
 	while (stack_A->stack_size > 1)
 	{
 		if ((int)(intptr_t) stack_A->list.head->data == stack_A->max_total)
@@ -167,9 +174,6 @@ int count_remaining_nodes(t_stack *stack_A, t_group *target)
 	return (target->range - count);
 }
 
-
-// TODO : stack A[bot]에 임시로 보관하는 로직 필요
-// TODO : 이후 group *target update -> loop till end.
 void	take_next_node(t_stack *stack_A, t_stack *stack_B, t_group *target)
 {
 	int remain;
@@ -177,7 +181,7 @@ void	take_next_node(t_stack *stack_A, t_stack *stack_B, t_group *target)
 	t_num dest;
 	int result;
 
-	while (target->range - count_remaining_nodes(stack_A, target) != target->range)
+	while (stack_B->list.head != NULL && target->range - count_remaining_nodes(stack_A, target) != target->range)
 	{
 		basis = stack_A->list.head;
 		if ((int)(intptr_t)basis->data - 1 == (int)(intptr_t)stack_B->list.head->data)
@@ -189,12 +193,21 @@ void	take_next_node(t_stack *stack_A, t_stack *stack_B, t_group *target)
 		}
 		else if ((int)(intptr_t)basis->data - 1 == (int)(intptr_t)stack_A->list.last->data)
 			rra(stack_A);
+		else if ((int)(intptr_t)stack_A->list.last->data == stack_A->max_total
+			|| ((int)(intptr_t)stack_A->list.last->data != stack_A->max_total
+				&& (int)(intptr_t)stack_A->list.last->data < (int)(intptr_t)stack_B->list.head->data))
+		{
+			pa(stack_A, stack_B);
+			ra(stack_A);
+		}
 		else
 		{
 			dest.data = (int)(intptr_t)basis->data - 1;
 			result = opt_by_step(stack_B, &dest);
-			if (result == -1)
-				ft_error_basic("error");
+			if (result == -1){
+				print_all_stack(stack_A, stack_B);
+				ft_error_lstfree("can not opt stack", stack_A, stack_B);
+			}
 			if (result == RUN_TOP)
 			{
 				while ((int)(intptr_t)stack_B->list.head->data != dest.data)
@@ -207,7 +220,6 @@ void	take_next_node(t_stack *stack_A, t_stack *stack_B, t_group *target)
 			}
 		}
 	}
-	ft_printf("second sort finish\n");
 }
 
 void	sort_in_range(t_stack *stack_A, t_stack *stack_B, t_group *target)
@@ -215,9 +227,11 @@ void	sort_in_range(t_stack *stack_A, t_stack *stack_B, t_group *target)
 	int i;
 
 	i = 0;
-	while (++i < target->range)
+	while (stack_B->list.head != NULL && (int)(intptr_t) stack_B->list.head->data >= target->min && (int)(intptr_t) stack_B->list.head->data <= target->max)
 	{
-		if ((int)(intptr_t)stack_B->list.head->data + 1 == (int)(intptr_t)stack_A->list.head->data)
+		if (stack_B->stack_size == 0)
+			exit(1);
+		else if ((int)(intptr_t)stack_B->list.head->data + 1 == (int)(intptr_t)stack_A->list.head->data)
 			pa(stack_A, stack_B);
 		else if ((int)(intptr_t)stack_A->list.last->data + 1 == (int)(intptr_t)stack_A->list.head->data)
 			rra(stack_A);
@@ -235,10 +249,102 @@ void	sort_in_range(t_stack *stack_A, t_stack *stack_B, t_group *target)
 		else
 			rb(stack_B);
 	}
-	ft_printf("first sort finish\n");
 	take_next_node(stack_A, stack_B, target);
 }
 
+void	next_target_group(t_stack *stack, t_group *target)
+{
+	if (target->name <= target->group_last)
+	{
+		target->range = target->base_range;
+		target->max = target->min - 1;
+		target->min = target->max - 11;
+		target->name -= 1;
+	}
+	if (target->name < 1)
+		return ;
+}
+
+//int	is_sorted(t_stack *stack_A, t_stack *stack_B, t_group *target)
+//{
+//	t_doubly *node;
+//	if (stack_B->stack_size == 0)
+//	{
+//		if ((int)(intptr_t)stack_A->list.head->data == 0)
+//		{
+//			node = stack_A->list.head;
+//			while (node != NULL)
+//			{
+//				if (node->next == NULL)
+//					break ;
+//				if (!(int)(intptr_t)node->data + 1 == (int)(intptr_t)node->next->data) {
+//					return (0);
+//				}
+//				node = node->next;
+//			}
+//			if ((int)(intptr_t)node->data == stack_A->max_total)
+//				return (0);
+//			else
+//				return (1);
+//		}
+//
+//	}
+//	return (0);
+//}
+
+
+int	is_sorted(t_stack *stack)
+{
+	t_doubly *node;
+
+	node = stack->list.head;
+	if ((int)(intptr_t) node->data != stack->min_total)
+		return (0);
+	while (node != NULL && node->next != NULL)
+	{
+		if ((int)(intptr_t)node->data + 1 == (int)(intptr_t)node->next->data)
+			node = node->next;
+		else
+			return (0);
+	}
+	if ((int)(intptr_t) node->data != stack->max_total)
+		return (0);
+	return (1);
+}
+
+ void	sort_loop(t_stack *stack_A, t_stack *stack_B, t_group *target)
+ {
+
+	int group_range;
+
+	group_range = target->name;
+	while (group_range > 0 /* && is_sorted(stack_A) != 1 */)
+	{
+		group_range = target->name;
+		sort_in_range(stack_A, stack_B, target);
+		next_target_group(stack_B, target);
+	}
+	if (!is_sorted(stack_A))
+	{
+		while ((!is_sorted(stack_A)))
+			rra(stack_A);
+	}
+	push_swap_lstfree(stack_A, stack_B);
+ }
+
+void	sort_by_hard_coding(t_stack *stack_A, t_stack *stack_B)
+{
+	if (stack_A->stack_size == 2)
+		sort_two(stack_A);
+	else if (stack_A->stack_size == 3)
+		sort_three(stack_A);
+	else if (stack_A->stack_size == 4)
+		sort_four(stack_A, stack_B);
+	else if (stack_A->stack_size == 5)
+		sort_five(stack_A, stack_B);
+	else
+		return ;
+}
 
 int main(int ac, char **av)
 {
@@ -251,16 +357,15 @@ int main(int ac, char **av)
 	av_to_array(ac, av, &info);
 	init_stack_a_with_arr(&stack_A, &info, ac);
 	init_stack_b(&stack_A, &stack_B);
-
-	target.base_range = set_range(stack_A.stack_size);
-	ft_printf("range %d\n", target.base_range);
-	divide_stack_by_ratio(&stack_A, &stack_B, &target);
-	ft_printf("divide finish\n");
-	sort_in_range(&stack_A, &stack_B, &target);
-
-	/* free */
-	dbl_listfree(&(stack_A.list));
-	dbl_listfree(&(stack_B.list));
+	if (stack_A.stack_size < 6)
+	{
+		sort_by_hard_coding(&stack_A, &stack_B);
+		push_swap_lstfree(&stack_A, &stack_B);
+	}
+	else
+	{
+		target.base_range = set_range(stack_A.stack_size);
+		divide_stack_by_ratio(&stack_A, &stack_B, &target);
+		sort_loop(&stack_A, &stack_B, &target);
+	}
 }
-
-// 43 85 40 62 36 27 15 33 82 67 47 92 64 59 14 74 94 77 16 45 58 29 34 90 78 83 88 68 70 87 93 50 65 9 24 25 86 100 30 22 4 2 1 8 5 56 44 19 21 18 84 61 35 49 26 38 54 95 48 53 46 60 57 91 3 89 96 52 80 73 66 41 75 97 55 42 98 7 13 63 12 69 17 37 32 10 28 51 6 20 76 79 11 23 31 81 71 39 99 72

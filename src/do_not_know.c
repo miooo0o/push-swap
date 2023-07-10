@@ -289,6 +289,8 @@ int 	update_range_count(t_stack *stack_A, t_stack *stack_B)
 
 	if (stack_A->range_count == 0)
 		return (0 /* stack_A의 솔트가 완료됐는지 확인하는 함수 */);
+
+
 if (check_range_sorted_complete(stack_A))
 {
 stack_A->range_count -= 1;

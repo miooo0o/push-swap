@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 21:04:15 by minakim           #+#    #+#             */
-/*   Updated: 2023/07/07 14:07:32 by minakim          ###   ########.fr       */
+/*   Updated: 2023/07/10 18:02:04 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,9 +82,9 @@ typedef struct 		s_num
 /* error */
 void    ft_free_2d(char **target);
 void    ft_error_basic(char *msg);
-void    ft_error_2d_free(char *msg, char **target);
-void    ft_error_listfree(char *msg, t_lst *list);
-void	ft_progress(char *progress, char *msg);
+void	push_swap_lstfree(t_stack *stack_A, t_stack *stack_B);
+void	ft_error_lstfree(char *msg, t_stack *stack_A, t_stack *stack_B);
+
 
 /* utility */
 int		ft_isspace(int c);
