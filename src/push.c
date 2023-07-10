@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 17:44:13 by minakim           #+#    #+#             */
-/*   Updated: 2023/07/09 14:10:24 by minakim          ###   ########.fr       */
+/*   Updated: 2023/07/10 19:23:14 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	pa(t_stack *stack_A, t_stack *stack_B)
 {
 	t_doubly *node;
 	if (stack_B->list.head == NULL && stack_B->list.last == NULL)
-		ft_error_basic("nothing in the stack");
+		ft_error();
 	if (stack_A->list.head == NULL && stack_A->stack_size == 0)
 	{
 		node = dbl_newnode((void *)(intptr_t )stack_B->list.head->data);
@@ -87,7 +87,7 @@ void	pb(t_stack *stack_A, t_stack *stack_B)
 {
 	t_doubly *node;
 	if (stack_A->list.head == NULL && stack_A->list.last == NULL)
-		ft_error_basic("nothing in the stack");
+		ft_error();
 	if (stack_B->list.head == NULL)
 	{
 		node = dbl_newnode((void *)(intptr_t )stack_A->list.head->data);

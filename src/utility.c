@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 11:05:55 by minakim           #+#    #+#             */
-/*   Updated: 2023/07/01 16:53:04 by minakim          ###   ########.fr       */
+/*   Updated: 2023/07/10 19:27:07 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	ft_atoi_pushswap(const char *str)
 	}
 	number = number * sign;
 	if (*str != '\0' || size_checker > 10 || number > 2147483647 || number < -2147483648)
-		ft_error_basic("input is not valid");
+		ft_error();
 	return ((int)number);
 }
 

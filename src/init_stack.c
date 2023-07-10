@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 13:31:44 by minakim           #+#    #+#             */
-/*   Updated: 2023/07/07 13:53:55 by minakim          ###   ########.fr       */
+/*   Updated: 2023/07/10 19:31:29 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@
 void	check_argc(int ac)
 {
 	if (ac < 2)
-		ft_error_basic("empty argument.");
+		ft_error();
 	if (ac < 3)
-		ft_error_basic("there are not enough numbers to sort.");
+		exit(1);
 }
 
 void	av_to_array(int ac, char **av, t_info *info)
@@ -44,12 +44,12 @@ void	av_to_array(int ac, char **av, t_info *info)
 		while (k < j - 1)
 		{
 			if (info->array[k] == info->array[j - 1])
-				ft_error_basic("same number.");
+				ft_error();
 			k++;
 		}
 	}
 	if (trigger == 0)
-		ft_error_basic("arguments are already sorted.");
+		ft_error();
 }
 
 
@@ -128,13 +128,13 @@ void	init_stack_a_with_arr(t_stack *stack, t_info *info, int ac)
 	{
 		new_node = dbl_newnode((void *)(intptr_t)info->index[i]);
 		if (!new_node)
-			ft_error_basic("error, but didn't set free something.");
+			ft_error_lstfree(stack, NULL);
 		dbl_add_back(&(stack->list), &new_node);
 		if (i == 0 && head_node == NULL)
 			head_node = new_node;
 	}
 	if (stack->list.head != head_node || stack->list.last != new_node)
-		ft_error_listfree("node set up fail.", &(stack->list));
+		ft_error_lstfree(stack, NULL);
 	stack->max_total = navigate_max(stack);
 	stack->min_total = navigate_min(stack);
 }
