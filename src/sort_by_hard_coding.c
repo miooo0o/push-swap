@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 21:31:38 by minakim           #+#    #+#             */
-/*   Updated: 2023/07/10 19:15:52 by minakim          ###   ########.fr       */
+/*   Updated: 2023/07/11 18:40:41 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int	navigate_sec_min(t_stack *stack_A)
 	node = stack_A->list.head;
 	min = navigate_min(stack_A);
 	if (min < 0)
-		ft_error_lstfree("hard coding", stack_A, NULL);
+		ft_error_lstfree(stack_A, NULL);
 	sec_min = 1024;
 	while (node != NULL)
 	{

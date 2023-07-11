@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 13:31:44 by minakim           #+#    #+#             */
-/*   Updated: 2023/07/10 19:31:29 by minakim          ###   ########.fr       */
+/*   Updated: 2023/07/11 19:36:42 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ void	av_to_array(int ac, char **av, t_info *info)
 			k++;
 		}
 	}
+	if (total_size < 3)
+		return ;
 	if (trigger == 0)
 		ft_error();
 }

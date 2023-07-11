@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 21:04:15 by minakim           #+#    #+#             */
-/*   Updated: 2023/07/10 19:22:25 by minakim          ###   ########.fr       */
+/*   Updated: 2023/07/11 19:25:25 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <string.h>
+
+/* delete later */
+# include <stdio.h>
 
 /* define */
 # define MAX 1024
@@ -145,4 +148,7 @@ int		check_special_case(t_stack *stack, int *trigger);
 void	if_sec_min_top(t_stack *stack_A, t_stack *stack_B);
 void	if_sec_min_bot(t_stack *stack_A, t_stack *stack_B);
 
+
+int	is_sorted(t_stack *stack);
+int	check_sorted(t_stack *stack);
 # endif

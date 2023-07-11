@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 11:05:55 by minakim           #+#    #+#             */
-/*   Updated: 2023/07/10 19:27:07 by minakim          ###   ########.fr       */
+/*   Updated: 2023/07/11 19:27:28 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,12 +80,53 @@ int	ft_issorted(t_stack *stack)
 	t_doubly *node;
 
 	node = stack->list.head;
-	while (node != NULL && node->next != NULL)
+	if ((int)(intptr_t)node->data != stack->min_total)
+		return (0);
+	while (node)
 	{
+		if (node->next == NULL)
+			break ;
 		if ((int)(intptr_t)node->data + 1 == (int)(intptr_t)node->next->data)
 			node = node->next;
 		else
 			return (0);
+	}
+	if ((int)(intptr_t)node->data != stack->max_total)
+		return (0);
+	return (1);
+}
+
+
+int	is_sorted(t_stack *stack)
+{
+	t_doubly	*node;
+	int			i;
+
+	i = stack->stack_size;
+	node = stack->list.head;
+	if ((int)(intptr_t) node->data != stack->min_total)
+		return (0);
+	while (node)
+	{
+		if ((int)(intptr_t)node->data + 1 != (int)(intptr_t)node->next->data)
+			return (0);
+		node = node->next;
+	}
+	printf("node->data: %d\n", (int)(intptr_t)node->data);
+	if ((int)(intptr_t) node->data != stack->max_total)
+		return (0);
+	return (1);
+}
+
+int	check_sorted(t_stack *stack)
+{
+	t_doubly *node;
+	node = stack->list.head;
+	while (node->next != NULL)
+	{
+		if ((int)(intptr_t)node->data > (int)(intptr_t)node->next->data)
+			return (0);
+		node = node->next;
 	}
 	return (1);
 }

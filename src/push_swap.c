@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 16:16:05 by minakim           #+#    #+#             */
-/*   Updated: 2023/07/10 19:35:18 by minakim          ###   ########.fr       */
+/*   Updated: 2023/07/11 19:31:51 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,9 @@ void	divide_stack_by_ratio(t_stack *stack_A, t_stack *stack_B, t_group *target)
 	t_doubly *node;
 	int range;
 
+	if (ft_issorted(stack_A))
+		return ;
+	printf("after sort in divide stack by ratio\n");
 	size = stack_A->stack_size;
 	set_last_group(target, size);
 	range_group_to_stack(stack_A, stack_B, target->base_range);
@@ -150,6 +153,7 @@ int	is_sorted_till_max(t_stack *stack)
 	}
 	return (1);
 }
+
 
 int count_remaining_nodes(t_stack *stack_A, t_group *target)
 {
@@ -258,40 +262,27 @@ void	next_target_group(t_stack *stack, t_group *target)
 		return ;
 }
 
-int	is_sorted(t_stack *stack)
-{
-	t_doubly *node;
-
-	node = stack->list.head;
-	if ((int)(intptr_t) node->data != stack->min_total)
-		return (0);
-	while (node != NULL && node->next != NULL)
-	{
-		if ((int)(intptr_t)node->data + 1 == (int)(intptr_t)node->next->data)
-			node = node->next;
-		else
-			return (0);
-	}
-	if ((int)(intptr_t) node->data != stack->max_total)
-		return (0);
-	return (1);
-}
-
  void	sort_loop(t_stack *stack_A, t_stack *stack_B, t_group *target)
  {
 
 	int group_range;
+	int i = 0;
 
 	group_range = target->name;
+	if (ft_issorted(stack_A))
+	{
+		push_swap_lstfree(stack_A, NULL);
+		return ;
+	}
 	while (group_range > 0 /* && is_sorted(stack_A) != 1 */)
 	{
 		group_range = target->name;
 		sort_in_range(stack_A, stack_B, target);
 		next_target_group(stack_B, target);
 	}
-	if (!is_sorted(stack_A))
+	if (!check_sorted(stack_A) && stack_B->list.head == NULL)
 	{
-		while ((!is_sorted(stack_A)))
+		while (!check_sorted(stack_A))
 			rra(stack_A);
 	}
 	push_swap_lstfree(stack_A, stack_B);
@@ -322,10 +313,14 @@ int main(int ac, char **av)
 	av_to_array(ac, av, &info);
 	init_stack_a_with_arr(&stack_A, &info, ac);
 	init_stack_b(&stack_A, &stack_B);
+	if (check_sorted(&stack_A) && stack_B.list.head == NULL)
+	{
+		dbl_listfree(&(stack_A.list));
+		exit(1);
+	}
 	if (stack_A.stack_size < 6)
 	{
 		sort_by_hard_coding(&stack_A, &stack_B);
-		print_all_stack(&stack_A, &stack_B);
 		push_swap_lstfree(&stack_A, &stack_B);
 	}
 	else

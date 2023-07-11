@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 17:43:28 by minakim           #+#    #+#             */
-/*   Updated: 2023/07/10 19:23:39 by minakim          ###   ########.fr       */
+/*   Updated: 2023/07/11 19:34:55 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ void	sa(t_stack *stack_A)
 		ft_error();
 	if (stack_A->list.head->next == NULL)
 		ft_error_lstfree(stack_A, NULL);
-	dbl_swap_front_and_next(&(stack_A->list.head), &(stack_A->list.head->next), \
-	&(stack_A->list));
-	write(1, "sa\n", 4);
+	dbl_swap_front_and_next(&(stack_A->list.head),
+							&(stack_A->list.head->next), &(stack_A->list));
+	ft_printf("sa\n");
 }
 
 /**
@@ -39,7 +39,7 @@ void	sb(t_stack *stack_B)
 		ft_error_lstfree(NULL, stack_B);
 	dbl_swap_front_and_next(&(stack_B->list.head), &(stack_B->list.head->next), \
 	&(stack_B->list));
-	write(1, "sb\n", 4);
+	ft_printf("sa\n");
 }
 
 /**
@@ -49,5 +49,5 @@ void	ss(t_stack *stack_A, t_stack *stack_B)
 {
 	sa(stack_A);
 	sb(stack_B);
-	write(1, "ss\n", 4);
+	ft_printf("sa\n");
 }
