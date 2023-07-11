@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 17:47:31 by minakim           #+#    #+#             */
-/*   Updated: 2023/07/09 14:00:42 by minakim          ###   ########.fr       */
+/*   Updated: 2023/07/11 19:40:25 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	rra(t_stack *stack_A)
 	stack_A->list.head->prev = last_node;
 	last_node->prev = NULL;
 	stack_A->list.head = last_node;
-	ft_printf("rra\n");
+	ft_putendl_fd("rra", 1);
 }
 
 /**
@@ -56,7 +56,7 @@ void	rrb(t_stack *stack_B)
 	stack_B->list.head->prev = last_node;
 	last_node->prev = NULL;
 	stack_B->list.head = last_node;
-	ft_printf("rrb\n");
+	ft_putendl_fd("rrb", 1);
 }
 
 
@@ -69,6 +69,6 @@ void	rrr(t_stack *stack_A, t_stack *stack_B)
 {
 	rra(stack_A);
 	rrb(stack_B);
-	ft_printf("rrr\n");
+	ft_putendl_fd("rrr", 1);
 }
 

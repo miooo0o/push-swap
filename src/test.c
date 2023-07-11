@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 17:59:35 by minakim           #+#    #+#             */
-/*   Updated: 2023/07/09 15:10:23 by minakim          ###   ########.fr       */
+/*   Updated: 2023/07/11 19:38:59 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	print_head(t_doubly *head)
 	current = head;
 	while (current != NULL)
 	{
-		ft_printf("[%d] %d\n", i, (int)(intptr_t)current->data);
+		printf("[%d] %d\n", i, (int)(intptr_t)current->data);
 		current = current->next;
 		i++;
 	}
@@ -37,11 +37,11 @@ void	print_list(t_lst *list)
 	if (list == NULL)
 		assert(!"Error: empty list input");
 	i = 0;
-	ft_printf("\nall list\n");
+	printf("\nall list\n");
 	current = list->head;
 	while (current != NULL)
 	{
-		ft_printf("[%d] %d\n", i, (int)(intptr_t)current->data);
+		printf("[%d] %d\n", i, (int)(intptr_t)current->data);
 		current = current->next;
 		i++;
 	}
@@ -56,7 +56,7 @@ void	print_stack(t_stack *stack)
 	current = stack->list.head;
 	while (current != NULL)
 	{
-		ft_printf("[%d] %d\n", i, (int)(intptr_t)current->data);
+		printf("[%d] %d\n", i, (int)(intptr_t)current->data);
 		current = current->next;
 		i++;
 	}
@@ -70,43 +70,41 @@ void	print_all_stack(t_stack *stack_A, t_stack *stack_B)
 	A = stack_A->list.head;
 	B = stack_B->list.head;
 
-	ft_printf("STACK A	| STACK B\n");
+	printf("STACK A	| STACK B\n");
 
 	while (A != NULL || B != NULL)
 	{
 		if(A == NULL)
 		{
-			ft_printf("[ ]	| %d\n", (int)(intptr_t)B->data);
+			printf("[ ]	| %d\n", (int)(intptr_t)B->data);
 			B = B->next;
 		}
 		else if(B == NULL)
 		{
-			ft_printf("%d	| [ ]\n", (int)(intptr_t)A->data);
+			printf("%d	| [ ]\n", (int)(intptr_t)A->data);
 			A = A->next;
 		}
 		else
 		{
-			ft_printf("%d	| %d\n", (int)(intptr_t)A->data, (int)(intptr_t)B->data);
+			printf("%d	| %d\n", (int)(intptr_t)A->data, (int)(intptr_t)B->data);
 			A = A->next;
 			B = B->next;
 		}
 	}
 }
 
-
-
 void	test_stack_update(t_stack *stack, char c)
 {
-	ft_printf("stack %c node info\n", c);
+	printf("stack %c node info\n", c);
 	if (stack->list.last)
-		ft_printf("last node exist\n");
+		printf("last node exist\n");
 	else
-		ft_printf("last node NOT exist\n");
+		printf("last node NOT exist\n");
 
 	if (stack->list.head)
-		ft_printf("head node exist\n");
+		printf("head node exist\n");
 	else
-		ft_printf("head node NOT exist\n");
+		printf("head node NOT exist\n");
 }
 
 void	test_node(t_doubly *node)
@@ -117,13 +115,13 @@ void	test_node(t_doubly *node)
 	int i;
 	i = 0;
 	if (test == NULL)
-		ft_printf("target node NOT exist\n");
+		printf("target node NOT exist\n");
 
 	if (test->next == NULL)
 	{
 		while (test != NULL)
 		{
-			ft_printf("[%d] %d\n", i, (int)(intptr_t) test->data);
+			printf("[%d] %d\n", i, (int)(intptr_t) test->data);
 			i++;
 			test = test->prev;
 		}
@@ -131,7 +129,7 @@ void	test_node(t_doubly *node)
 	else if (test->prev == NULL) {
 		if (test->next == NULL) {
 			while (test != NULL) {
-				ft_printf("[%d] %d\n", i, (int) (intptr_t) test->data);
+				printf("[%d] %d\n", i, (int) (intptr_t) test->data);
 				i++;
 				test = test->next;
 			}
@@ -141,7 +139,7 @@ void	test_node(t_doubly *node)
 	{
 		while (test != NULL)
 		{
-			ft_printf("[%d] %d\n", i, (int)(intptr_t) test->data);
+			printf("[%d] %d\n", i, (int)(intptr_t) test->data);
 			i++;
 			test = test->next;
 		}

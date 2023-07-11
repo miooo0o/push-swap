@@ -17,16 +17,15 @@ INCLUDE		=	-I./include
 # directory
 SRCS_DIR	=	src/
 OBJS_DIR	=	obj/
-LIB_DIR	=	./lib/libft ./lib/ft_printf ./lib/libdbl
+LIB_DIR	=	./lib/libft ./lib/libdbl
 
 
 # path (.a file)
 LIBFT_PATH		=	lib/libft/libft.a
 LIBDBL_PATH		=	lib/libdbl/libdbl.a
-PRINTF_PATH		=	lib/ft_printf/libftprintf.a
 
 # all path (all .a file)
-LIB_PATH		=	$(LIBFT_PATH) $(PRINTF_PATH) $(LIBDBL_PATH)
+LIB_PATH		=	$(LIBFT_PATH) $(LIBDBL_PATH)
 
 # executables
 AR			=	ar rcs

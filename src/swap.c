@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 17:43:28 by minakim           #+#    #+#             */
-/*   Updated: 2023/07/11 19:34:55 by minakim          ###   ########.fr       */
+/*   Updated: 2023/07/11 19:39:32 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	sa(t_stack *stack_A)
 		ft_error_lstfree(stack_A, NULL);
 	dbl_swap_front_and_next(&(stack_A->list.head),
 							&(stack_A->list.head->next), &(stack_A->list));
-	ft_printf("sa\n");
+	ft_putendl_fd("sa", 1);
 }
 
 /**
@@ -39,7 +39,7 @@ void	sb(t_stack *stack_B)
 		ft_error_lstfree(NULL, stack_B);
 	dbl_swap_front_and_next(&(stack_B->list.head), &(stack_B->list.head->next), \
 	&(stack_B->list));
-	ft_printf("sa\n");
+	ft_putendl_fd("sb", 1);
 }
 
 /**
@@ -49,5 +49,5 @@ void	ss(t_stack *stack_A, t_stack *stack_B)
 {
 	sa(stack_A);
 	sb(stack_B);
-	ft_printf("sa\n");
+	ft_putendl_fd("ss", 1);
 }

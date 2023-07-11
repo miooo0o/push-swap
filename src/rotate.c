@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 17:46:29 by minakim           #+#    #+#             */
-/*   Updated: 2023/07/01 16:32:02 by minakim          ###   ########.fr       */
+/*   Updated: 2023/07/11 19:40:50 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	rotate(t_stack *stack)
 void	ra(t_stack *stack_A)
 {
 	rotate(stack_A);
-	ft_printf("ra\n");
+	ft_putendl_fd("ra", 1);
 }
 
 /**
@@ -54,7 +54,7 @@ void	ra(t_stack *stack_A)
 void	rb(t_stack *stack_B)
 {
 	rotate(stack_B);
-	ft_printf("rb\n");
+	ft_putendl_fd("rb", 1);
 }
 
 /**
@@ -64,5 +64,5 @@ void	rr(t_stack *stack_A, t_stack *stack_B)
 {
 	ra(stack_A);
 	rb(stack_B);
-	ft_printf("rr\n");
+	ft_putendl_fd("rr", 1);
 }

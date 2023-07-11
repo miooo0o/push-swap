@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 17:44:13 by minakim           #+#    #+#             */
-/*   Updated: 2023/07/10 19:23:14 by minakim          ###   ########.fr       */
+/*   Updated: 2023/07/11 19:39:57 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	pa(t_stack *stack_A, t_stack *stack_B)
 		dbl_put_top(&stack_B, &stack_A);
 	update_stack_size(stack_A, +1);
 	update_stack_size(stack_B, -1);
-	ft_printf("pa\n");
+	ft_putendl_fd("pa", 1);
 }
 
 /**
@@ -99,5 +99,5 @@ void	pb(t_stack *stack_A, t_stack *stack_B)
 		dbl_put_top(&stack_A, &stack_B);
 	update_stack_size(stack_A, -1);
 	update_stack_size(stack_B, +1);
-	ft_printf("pb\n");
+	ft_putendl_fd("pb", 1);
 }

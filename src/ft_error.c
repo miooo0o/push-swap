@@ -6,15 +6,16 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 16:17:02 by minakim           #+#    #+#             */
-/*   Updated: 2023/07/10 19:22:09 by minakim          ###   ########.fr       */
+/*   Updated: 2023/07/11 19:43:03 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+#include "../include/push_swap.h"
 
 int	ft_error(void)
 {
-	write(2, "Error\n", 6);
+	ft_putendl_fd("Error", 2);
 	exit(1);
 }
 
