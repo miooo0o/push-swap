@@ -24,12 +24,6 @@ CFLAGS		=	-Wall -Wextra -Werror
 
 ###
 
-GREEN = \033[0;32m
-BLUE = \033[0;34m
-RESET = \033[0m
-BOLD = \033[1m
-WHITE=\033[37m
-
 ###
 
 #sources
@@ -45,7 +39,7 @@ MAIN		=	ft_isalpha ft_isdigit ft_isalnum ft_isascii ft_isprint \
 				ft_lstnew ft_lstadd_front ft_lstsize ft_lstlast ft_lstadd_back \
 				ft_lstdelone ft_lstclear ft_lstiter ft_lstmap
 EXTRA		=	ft_strcpy ft_ilen ft_putnbr_base
-				
+
 
 SRCS		=	$(addprefix $(SRCS_DIR), $(addsuffix .c, $(SRC_FILES)))
 OBJS		=	$(addprefix $(OBJS_DIR), $(addsuffix .o, $(SRC_FILES)))
@@ -55,24 +49,18 @@ OBJS		=	$(addprefix $(OBJS_DIR), $(addsuffix .o, $(SRC_FILES)))
 all:		$(NAME)
 
 $(NAME):	$(OBJS)
+			@mkdir -p $(@D)
 			@$(AR) $(NAME) $(OBJS)
-			@echo "	$(GREEN)$(BOLD)[libft]$(RESET) $(BOLD)compiled!$(RESET)"
-	
+
 $(OBJS_DIR)%.o : $(SRCS_DIR)%.c
 			@mkdir -p $(@D)
-			@echo -n "["
-			@echo -n $$(expr $$(echo "$$(ls -1 $(OBJS_DIR) | wc -l) * 100 / $$(echo "$(SRC_FILES)" | wc -w)" | bc) / 1)
-			@echo "%] $(GREEN)Building Libft $@$(RESET)"
 			@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 clean:
-			$(RM) -rf $(OBJS_DIR)
-			@echo "	$(BLUE)$(BOLD)[libft]$(RESET) objects files cleaned!"
+			@$(RM) -rf $(OBJS_DIR)
 
 fclean:		clean
-			$(RM) -f $(NAME)
-			@echo "	$(BLUE)$(BOLD)[libft]$(RESET) executable files cleaned!"
+			@$(RM) -f $(NAME)
 
 re:			fclean all
-			@echo "	$(GREEN)$(BOLD)[libft]$(RESET) $(BOLD)cleaned and rebuilt everything$(RESET)"
 
 .PHONY: all clean fclean re

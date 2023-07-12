@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sort_four.c                                        :+:      :+:    :+:   */
+/*   opt_step.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/03 21:39:49 by minakim           #+#    #+#             */
-/*   Updated: 2023/07/10 17:50:06 by minakim          ###   ########.fr       */
+/*   Created: 2023/07/12 18:06:39 by minakim           #+#    #+#             */
+/*   Updated: 2023/07/12 18:06:52 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,10 @@
 
 /**
  *
- * @param stack_A
- * @param stack_B
+ * @param stack
+ * @param target
+ * @param step
  */
-void	sort_four(t_stack *stack_A, t_stack *stack_B)
-{
-	if (ft_issorted(stack_A))
-		return ;
-	find_min_and_bring_top(stack_A);
-	if (!ft_issorted(stack_A))
-	{
-		pb(stack_A, stack_B);
-		sort_three(stack_A);
-		pa(stack_A, stack_B);
-	}
-}
-
 void	find_step_from_bot(t_stack *stack, int target, int *step)
 {
 	t_doubly *node;
@@ -47,6 +35,12 @@ void	find_step_from_bot(t_stack *stack, int target, int *step)
 		(*step) = -1;
 }
 
+/**
+ *
+ * @param stack
+ * @param target
+ * @param step
+ */
 void	find_step_from_top(t_stack *stack, int target, int *step)
 {
 	t_doubly *node;
@@ -63,7 +57,12 @@ void	find_step_from_top(t_stack *stack, int target, int *step)
 	if (node == NULL || (int)(intptr_t)node->data != target)
 		(*step) = -1;
 }
-
+/**
+ *
+ * @param stack
+ * @param num
+ * @return
+ */
 int	opt_by_step(t_stack *stack, t_num *num)
 {
 	find_step_from_top(stack, num->data, &num->step_top);
@@ -74,29 +73,4 @@ int	opt_by_step(t_stack *stack, t_num *num)
 		return (RUN_TOP);
 	else
 		return (RUN_BOT);
-}
-
-void	find_min_and_bring_top(t_stack *stack)
-{
-	t_num min;
-	t_doubly *node;
-
-	min.data = navigate_min(stack);
-	node = stack->list.head;
-	if (opt_by_step(stack, &min) == RUN_TOP)
-	{
-		while ((int)(intptr_t)node->data != min.data)
-		{
-			ra(stack);
-			node = stack->list.head;
-		}
-	}
-	else
-	{
-		while ((int)(intptr_t)node->data != min.data)
-		{
-			rra(stack);
-			node = stack->list.head;
-		}
-	}
 }

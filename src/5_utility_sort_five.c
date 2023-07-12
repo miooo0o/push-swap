@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 21:36:28 by minakim           #+#    #+#             */
-/*   Updated: 2023/07/04 15:47:40 by minakim          ###   ########.fr       */
+/*   Updated: 2023/07/12 18:09:14 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,29 +15,10 @@
 
 /**
  *
- * @param stack_A
- * @param stack_B
+ * @param stack
+ * @param min
+ * @param sec_min
  */
-void	sort_five(t_stack *stack_A, t_stack *stack_B)
-{
-	int trigger;
-
-	if (ft_issorted(stack_A))
-		return ;
-	trigger = check_special_case(stack_A, &trigger);
-	if (trigger == 1)
-		if_sec_min_top(stack_A, stack_B);
-	else if (trigger == 2)
-		if_sec_min_bot(stack_A, stack_B);
-	else
-	{
-		find_min_and_bring_top(stack_A);
-		pb(stack_A, stack_B);
-		sort_four(stack_A, stack_B);
-		pa(stack_A, stack_B);
-	}
-}
-
 void	find_nums_and_check_step(t_stack *stack, t_num *min, t_num *sec_min)
 {
 	min->data = navigate_min(stack);
@@ -48,6 +29,12 @@ void	find_nums_and_check_step(t_stack *stack, t_num *min, t_num *sec_min)
 	find_step_from_bot(stack, sec_min->data, &sec_min->step_bot);
 }
 
+/**
+ *
+ * @param stack
+ * @param trigger
+ * @return
+ */
 int	check_special_case(t_stack *stack, int *trigger)
 {
 	t_num min;
@@ -58,13 +45,17 @@ int	check_special_case(t_stack *stack, int *trigger)
 	if (min.step_bot == min.step_top)
 	{
 		if (sec_min.step_top == 0)
-			*trigger = 1; // ra, 나중에 sb
+			*trigger = 1;
 		if (sec_min.step_bot == 0)
-			*trigger = 2; // rra , 나중에 sb
+			*trigger = 2;
 	}
 	return (*trigger);
 }
-
+/**
+ *
+ * @param stack_A
+ * @param stack_B
+ */
 void	if_sec_min_top(t_stack *stack_A, t_stack *stack_B)
 {
 	pb(stack_A, stack_B);
@@ -85,6 +76,11 @@ void	if_sec_min_top(t_stack *stack_A, t_stack *stack_B)
 
 }
 
+/**
+ *
+ * @param stack_A
+ * @param stack_B
+ */
 void	if_sec_min_bot(t_stack *stack_A, t_stack *stack_B)
 {
 	rra(stack_A);

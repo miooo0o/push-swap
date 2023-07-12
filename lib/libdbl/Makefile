@@ -24,13 +24,6 @@ CFLAGS		=	-Wall -Wextra -Werror
 
 ###
 
-GREEN = \033[0;32m
-BLUE = \033[0;34m
-RESET = \033[0m
-BOLD = \033[1m
-WHITE=\033[37m
-
-###
 
 #sources
 SRC_FILES	=	$(MAIN) $(EXTRA)
@@ -50,23 +43,17 @@ all:		$(NAME)
 
 $(NAME):	$(OBJS)
 			@$(AR) $(NAME) $(OBJS)
-			@echo "	$(GREEN)$(BOLD)[libdbl]$(RESET) $(BOLD)compiled!$(RESET)"
 	
 $(OBJS_DIR)%.o : $(SRCS_DIR)%.c
 			@mkdir -p $(@D)
-			@echo -n "["
-			@echo -n $$(expr $$(echo "$$(ls -1 $(OBJS_DIR) | wc -l) * 100 / $$(echo "$(SRC_FILES)" | wc -w)" | bc) / 1)
-			@echo "%] $(GREEN)Building Libft $@$(RESET)"
 			@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 clean:
-			$(RM) -rf $(OBJS_DIR)
-			@echo "	$(BLUE)$(BOLD)[libdbl]$(RESET) objects files cleaned!"
+			@$(RM) -rf $(OBJS_DIR)
+			@#echo "	$(BLUE)$(BOLD)[libdbl]$(RESET) objects files cleaned!"
 
 fclean:		clean
-			$(RM) -f $(NAME)
-			@echo "	$(BLUE)$(BOLD)[libdbl]$(RESET) executable files cleaned!"
+			@$(RM) -f $(NAME)
 
 re:			fclean all
-			@echo "	$(GREEN)$(BOLD)[libdbl]$(RESET) $(BOLD)cleaned and rebuilt everything$(RESET)"
 
 .PHONY: all clean fclean re

@@ -1,3 +1,4 @@
+
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
@@ -33,53 +34,53 @@ RM			=	rm -f
 CC			=	cc -g
 CFLAGS		=	-Wall -Wextra -Werror
 
-###
-
-GREEN	= \033[0;32m
-BLUE	= \033[0;34m
-RESET	= \033[0m
-BOLD	= \033[1m
-WHITE	= \033[37m
-
-###
-
 # sources
-SRC_FILES	=	push_swap test \
-				init_stack utility ft_error \
-				swap push rotate reverse_rotate \
-				sort_by_hard_coding sort_four sort_five
+SRC_FILES	=	0_ft_error 0_opt_step 0_utility \
+			1_push_swap \
+			2_parsing_data_to_index 3_init_stack 4_divide_stack_by_ratio \
+			5_sort_by_hard_coding 5_utility_sort_five 5_utility_sort_four \
+			6_group_update 6_sort_loop \
+			7_push 7_reverse_rotate 7_rotate 7_swap \
+			test
 
 SRCS		= 	$(addprefix $(SRCS_DIR), $(addsuffix .c, $(SRC_FILES)))
 OBJS		=	$(addprefix $(OBJS_DIR), $(addsuffix .o, $(SRC_FILES)))
 
 ###
 
+MAKEFLAGS	+= --silent
+
+###
+
+GREEN = \033[0;32m
+BLUE = \033[0;34m
+RESET = \033[0m
+BOLD = \033[1m
+
+###
+
 all:		$(NAME)
 
 $(NAME):	$(OBJS)
+			@./bar.sh
 			@$(foreach dir,$(LIB_DIR),make -C $(dir);)
-			@echo "- $(BOLD)Compiling$(RESET) $(NAME)\n"	
-			$(CC) $(CFLAGS) $(OBJS) $(LIB_PATH) -o $(NAME)
-			@echo "	$(GREEN)$(BOLD)[push swap]$(RESET) $(WHITE)compiled!$(RESET)"	
+			@$(CC) $(CFLAGS) $(OBJS) $(LIB_PATH) -o $(NAME)
+			@echo "$(GREEN)$(BOLD)▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇| done$(RESET)\r"
 
 $(OBJS_DIR)%.o : $(SRCS_DIR)%.c
 			@mkdir -p $(@D)
-			@echo -n "["
-			@echo -n $$(expr $$(echo "$$(ls -1 $(OBJS_DIR) | wc -l) * 100 / $$(echo "$(SRC_FILES)" | wc -w)" | bc) / 1)
-			@echo "%] $(GREEN)Building push swap $@$(RESET)"
-			$(CC) -g $(INCLUDE) -c $< -o $@
+			@$(CC) -g $(INCLUDE) -c $< -o $@
 
 clean:
-			$(RM) -rf $(OBJS_DIR)
+			@$(RM) -rf $(OBJS_DIR)
 			@$(foreach dir,$(LIB_DIR),make clean -C $(dir);)
-			@echo "	$(BLUE)$(BOLD)[push swap]$(RESET) objects files $(BLUE)cleaned$(RESET)!"
 
 fclean:		clean
-			$(RM) -f $(NAME)
-			@$(RM) -f $(LIB_PATH) 
-			@echo "	$(BLUE)$(BOLD)[ALL PATH]$(RESET) executable files $(BLUE)cleaned$(RESET)!"
+			@./bar.sh
+			@$(RM) -f $(NAME)
+			@$(RM) -f $(LIB_PATH)
+			@echo "$(BLUE)$(BOLD)▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇| clean$(RESET)\r"
 
 re:			fclean all
-			@echo "	$(GREEN)$(BOLD)[push swap]$(RESET) $(BOLD)cleaned and rebuilt everything$(RESET)!"
 
 .PHONY:		all clean fclean re

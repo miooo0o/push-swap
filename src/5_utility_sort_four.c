@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sort_by_hard_coding.c                              :+:      :+:    :+:   */
+/*   sort_four.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/03 21:31:38 by minakim           #+#    #+#             */
-/*   Updated: 2023/07/11 18:40:41 by minakim          ###   ########.fr       */
+/*   Created: 2023/07/03 21:39:49 by minakim           #+#    #+#             */
+/*   Updated: 2023/07/12 18:07:56 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,33 +14,39 @@
 #include "../include/push_swap.h"
 
 /**
- * @brief
+ *
  * @param stack
  */
-void	sort_two(t_stack *stack)
+void	find_min_and_bring_top(t_stack *stack)
 {
-	if (stack->list.head->data > stack->list.head->next->data)
-		sa(stack);
+	t_num min;
+	t_doubly *node;
+
+	min.data = navigate_min(stack);
+	node = stack->list.head;
+	if (opt_by_step(stack, &min) == RUN_TOP)
+	{
+		while ((int)(intptr_t)node->data != min.data)
+		{
+			ra(stack);
+			node = stack->list.head;
+		}
+	}
+	else
+	{
+		while ((int)(intptr_t)node->data != min.data)
+		{
+			rra(stack);
+			node = stack->list.head;
+		}
+	}
 }
 
 /**
- * @brief
+ *
  * @param stack
+ * @return
  */
-void	sort_three(t_stack *stack)
-{
-
-	if (ft_issorted(stack))
-		return ;
-	if ((intptr_t)(stack->list.head->data) > (intptr_t)(stack)->list.head->next->next->data
-		&& ((intptr_t)(stack)->list.head->data > (intptr_t)(stack)->list.head->next->data))
-		ra(stack);
-	if ((intptr_t)(stack)->list.head->next->data > (intptr_t)(stack)->list.head->next->next->data)
-		rra(stack);
-	if ((intptr_t)(stack)->list.head->data > (intptr_t)(stack)->list.head->next->data)
-		sa(stack);
-}
-
 int 	navigate_min(t_stack *stack)
 {
 	t_doubly *node;
@@ -62,6 +68,11 @@ int 	navigate_min(t_stack *stack)
 	}
 }
 
+/**
+ *
+ * @param stack
+ * @return
+ */
 int 	navigate_max(t_stack *stack)
 {
 	t_doubly *node;
@@ -83,6 +94,11 @@ int 	navigate_max(t_stack *stack)
 	}
 }
 
+/**
+ *
+ * @param stack_A
+ * @return
+ */
 int	navigate_sec_min(t_stack *stack_A)
 {
 	int min;
@@ -94,7 +110,7 @@ int	navigate_sec_min(t_stack *stack_A)
 	min = navigate_min(stack_A);
 	if (min < 0)
 		ft_error_lstfree(stack_A, NULL);
-	sec_min = 1024;
+	sec_min = MAX;
 	while (node != NULL)
 	{
 		value = (int)(intptr_t)node->data;
