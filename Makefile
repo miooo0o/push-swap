@@ -65,7 +65,7 @@ $(NAME):	$(OBJS)
 			@./bar.sh
 			@$(foreach dir,$(LIB_DIR),make -C $(dir);)
 			@$(CC) $(CFLAGS) $(OBJS) $(LIB_PATH) -o $(NAME)
-			@echo "$(GREEN)$(BOLD)▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇| done$(RESET)\r"
+
 
 $(OBJS_DIR)%.o : $(SRCS_DIR)%.c
 			@mkdir -p $(@D)
@@ -79,7 +79,6 @@ fclean:		clean
 			@./bar.sh
 			@$(RM) -f $(NAME)
 			@$(RM) -f $(LIB_PATH)
-			@echo "$(BLUE)$(BOLD)▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇| clean$(RESET)\r"
 
 re:			fclean all
 

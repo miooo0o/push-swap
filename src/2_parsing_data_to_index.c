@@ -32,7 +32,6 @@ void convert_argv_to_int(int ac, char **av, t_info *info)
 
 	i = 0;
 	a = 0;
-	ft_bzero(&info->array, 0);
 	while (++i < ac && a < MAX)
 	{
 		j = 0;

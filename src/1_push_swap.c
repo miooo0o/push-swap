@@ -11,6 +11,9 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
+#include "../include/push_swap.h"
+
+/* TODO */
 
 void	push_swap(t_stack *stack_A, t_stack *stack_B, t_group *target)
 {
@@ -38,6 +41,7 @@ int main(int ac, char **av)
 		ft_error();
 	else
 	{
+		ft_bzero(&info.array, MAX);
 		convert_argv_to_int(ac, av, &info);
 		initialize_stack(&stack_A);
 		init_stack_a_with_arr(&stack_A, &info);

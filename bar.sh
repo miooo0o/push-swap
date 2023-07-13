@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-SLEEP_DURATION=${SLEEP_DURATION:=0.01}
+SLEEP_DURATION=${SLEEP_DURATION:=0.02}
 
 progress-bar() {
   local duration
@@ -34,4 +34,4 @@ progress-bar() {
   clean_line
 }
 
-progress-bar 100
+progress-bar 10

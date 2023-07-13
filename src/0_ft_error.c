@@ -21,7 +21,9 @@ int	ft_error(void)
 
 void	push_swap_lstfree(t_stack *stack_A, t_stack *stack_B)
 {
+	if (stack_A != NULL)
 	dbl_listfree(&(stack_A->list));
+	if (stack_B != NULL)
 	dbl_listfree(&(stack_B->list));
 }
 
