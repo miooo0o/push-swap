@@ -12,42 +12,80 @@
 
 #include "push_swap.h"
 #include "../include/push_swap.h"
+#include <stdio.h>
 
 int		argv_check(char c);
 void	change_data_to_index(t_info *info, int length, int value[]);
 
-/**
- *
- * @param ac
- * @param av
- * @param info
- */
-void convert_argv_to_int(int ac, char **av, t_info *info)
+int validate_input(char c)
+{
+	if (ft_isprint(c) && !argv_check(c) && !ft_isspace(c) )
+		return (0);
+	return (1);
+}
+
+static int	number_compare(int num1, char num2)
+{
+	return (num1 - num2);
+}
+
+int validate_same_num(int array[], int a)
+{
+	int i;
+	int j;
+
+	i = 0;
+	j = 1;
+	while (i < a && j > i)
+	{
+		j = i + 1;
+		while (j < a && j != i)
+		{
+			if (array[i] == array[j])
+				ft_error();
+			j++;
+		}
+		i++;
+	}
+}
+
+
+int validate_and_convert(int ac, char **av, int array[], int *a)
 {
 	int i;
 	int	j;
-	int a;
 	int from;
-	int array[MAX];
 
 	i = 0;
-	a = 0;
-	while (++i < ac && a < MAX)
+	while (++i < ac && *a < MAX)
 	{
 		j = 0;
 		while (av[i][j] != '\0')
 		{
+			if (!validate_input(av[i][j]))
+				ft_error();
 			if (argv_check(av[i][j]))
 			{
 				from = j;
 				while (argv_check(av[i][j]))
 					j++;
-				array[a++] = ft_atoi_from_to(av[i], from, j);
+				array[(*a)++] = ft_atoi_from_to(av[i], from, j);
+				validate_same_num(array, (*a));
 			}
 			else
 				j++;
 		}
 	}
+	return (*a);
+}
+
+void convert_argv_to_int(int ac, char **av, t_info *info)
+{
+	int a;
+	int array[MAX];
+
+	a = 0;
+	a = validate_and_convert(ac, av, array, &a);
 	if (a < 1)
 		ft_error();
 	ft_memcpy(info->array, array, a * sizeof(int));
@@ -79,9 +117,31 @@ void	parsing_data_to_index(t_info *info, t_stack *stack)
 
 	i = -1;
 	while (++i < stack->stack_size)
-		info->index[i] = info->array[i];
+		info->index[i] = -1;
+
 	find_max_and_min(info->array, value, stack->stack_size);
 	change_data_to_index(info, stack->stack_size, value);
+}
+
+void	same_number_check(int index[], int length)
+{
+	int i;
+	int count;
+
+	count = 0;
+	printf("[%d]\n", length);
+	while (count < length)
+	{
+		i = count;
+		while (i < length)
+		{
+			printf("%d\n", index[count]);
+			if (index[count] == index[i] && index[i] != -1)
+				ft_error();
+			i++;
+		}
+		count++;
+	}
 }
 
 /**

@@ -49,7 +49,6 @@ $(OBJS_DIR)%.o : $(SRCS_DIR)%.c
 			@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 clean:
 			@$(RM) -rf $(OBJS_DIR)
-			@#echo "	$(BLUE)$(BOLD)[libdbl]$(RESET) objects files cleaned!"
 
 fclean:		clean
 			@$(RM) -f $(NAME)
