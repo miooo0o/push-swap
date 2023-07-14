@@ -47,7 +47,7 @@ void	find_min_and_bring_top(t_stack *stack)
  * @param stack
  * @return
  */
-int 	navigate_min(t_stack *stack)
+int	navigate_min(t_stack *stack)
 {
 	t_doubly	*node;
 	int			result;
@@ -73,7 +73,7 @@ int 	navigate_min(t_stack *stack)
  * @param stack
  * @return
  */
-int 	navigate_max(t_stack *stack)
+int	navigate_max(t_stack *stack)
 {
 	t_doubly	*node;
 	int			result;

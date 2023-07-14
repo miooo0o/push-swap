@@ -37,8 +37,8 @@ void	find_nums_and_check_step(t_stack *stack, t_num *min, t_num *sec_min)
  */
 int	check_special_case(t_stack *stack, int *trigger)
 {
-	t_num min;
-	t_num sec_min;
+	t_num	min;
+	t_num	sec_min;
 
 	find_nums_and_check_step(stack, &min, &sec_min);
 	*trigger = 0;
@@ -51,6 +51,7 @@ int	check_special_case(t_stack *stack, int *trigger)
 	}
 	return (*trigger);
 }
+
 /**
  *
  * @param stack_A
@@ -73,7 +74,6 @@ void	if_sec_min_top(t_stack *stack_A, t_stack *stack_B)
 		pa(stack_A, stack_B);
 		sa(stack_A);
 	}
-
 }
 
 /**

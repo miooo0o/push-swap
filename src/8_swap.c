@@ -22,7 +22,7 @@ void	sa(t_stack *stack_A)
 		ft_error();
 	if (stack_A->list.head->next == NULL)
 		ft_error_lstfree(stack_A, NULL);
-	if (!dbl_swap_front_and_next(&(stack_A->list.head),\
+	if (!dbl_swap_front_and_next(&(stack_A->list.head), \
 	&(stack_A->list.head->next), &(stack_A->list)))
 		ft_error_lstfree(stack_A, NULL);
 	ft_putendl_fd("sa", 1);

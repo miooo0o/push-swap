@@ -19,8 +19,8 @@
  */
 void	rotate(t_stack *stack)
 {
-	t_doubly *head_node;
-	t_doubly *next_of_head_node;
+	t_doubly	*head_node;
+	t_doubly	*next_of_head_node;
 
 	if (stack == NULL || stack->list.head == NULL \
 		|| stack->list.last == NULL \

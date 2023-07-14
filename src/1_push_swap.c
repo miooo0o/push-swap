@@ -13,29 +13,29 @@
 #include "push_swap.h"
 #include "../include/push_swap.h"
 
-void	push_swap(t_stack *stack_A, t_stack *stack_B, t_group *target)
+void	push_swap(t_stack *stack_a, t_stack *stack_b, t_group *target)
 {
-	if (stack_A->stack_size < 1)
+	if (stack_a->stack_size < 1)
 		ft_error();
-	else if (stack_A->stack_size < 6)
+	else if (stack_a->stack_size < 6)
 	{
-		sort_by_hard_coding(stack_A, stack_B);
-		push_swap_lstfree(stack_A, stack_B);
+		sort_by_hard_coding(stack_a, stack_b);
+		push_swap_lstfree(stack_a, stack_b);
 	}
 	else
 	{
-		target->base_range = set_range(stack_A->stack_size);
-		divide_stack_by_ratio(stack_A, stack_B, target);
-		sort_loop(stack_A, stack_B, target);
+		target->base_range = set_range(stack_a->stack_size);
+		divide_stack_by_ratio(stack_a, stack_b, target);
+		sort_loop(stack_a, stack_b, target);
 	}
 }
 
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
-	t_stack stack_A;
-	t_stack stack_B;
+	t_stack	stack_a;
+	t_stack	stack_b;
 	t_info	info;
-	t_group target;
+	t_group	target;
 
 	if (ac < 2 || av[1][0] == '\0' || *av[0] == '\0')
 		ft_error();
@@ -43,14 +43,14 @@ int main(int ac, char **av)
 	{
 		ft_bzero(&info.array, MAX);
 		convert_argv_to_int(ac, av, &info);
-		initialize_stack(&stack_A);
-		init_stack_a_with_arr(&stack_A, &info);
-		init_stack_b(&stack_A, &stack_B);
-		if (check_sorted(&stack_A) && stack_B.list.head == NULL)
+		initialize_stack(&stack_a);
+		init_stack_a_with_arr(&stack_a, &info);
+		init_stack_b(&stack_a, &stack_b);
+		if (check_sorted(&stack_a) && stack_b.list.head == NULL)
 		{
-			dbl_listfree(&(stack_A.list));
+			dbl_listfree(&(stack_a.list));
 			exit(1);
 		}
-		push_swap(&stack_A, &stack_B, &target);
+		push_swap(&stack_a, &stack_b, &target);
 	}
 }

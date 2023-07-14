@@ -13,7 +13,7 @@
 #include "push_swap.h"
 #include "../include/push_swap.h"
 
-int ft_isspace(int c)
+int	ft_isspace(int c)
 {
 	if (c == ' ')
 		return (1);
@@ -27,7 +27,7 @@ int ft_isspace(int c)
  */
 int	ft_issorted(t_stack *stack)
 {
-	t_doubly *node;
+	t_doubly	*node;
 
 	node = stack->list.head;
 	if ((int)(intptr_t)node->data != stack->min_total)
@@ -53,7 +53,8 @@ int	ft_issorted(t_stack *stack)
  */
 int	check_sorted(t_stack *stack)
 {
-	t_doubly *node;
+	t_doubly	*node;
+
 	node = stack->list.head;
 	while (node->next != NULL)
 	{
@@ -73,7 +74,7 @@ int	ft_atoi_from_to(const char *str, int from, int to)
 {
 	long long	number;
 	int			sign;
-	int 		size_checker;
+	int			size_checker;
 
 	number = 0;
 	sign = 1;
@@ -82,7 +83,8 @@ int	ft_atoi_from_to(const char *str, int from, int to)
 		sign = -1;
 	if (str[from] == '+' || str[from] == '-')
 		from++;
-	while (str[from] != '\0' && ft_isdigit(str[from]) && !ft_isspace(str[from]) && from < to)
+	while (str[from] != '\0' && ft_isdigit(str[from]) && \
+			!ft_isspace(str[from]) && from < to)
 	{
 		number = (number * 10) + (str[from] - 48);
 		from++;

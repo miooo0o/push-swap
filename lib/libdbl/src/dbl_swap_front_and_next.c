@@ -6,18 +6,19 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 10:06:59 by minakim           #+#    #+#             */
-/*   Updated: 2023/07/14 11:16:20 by minakim          ###   ########.fr       */
+/*   Updated: 2023/07/14 15:40:09 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/libdbl.h"
 #include "libdbl.h"
 
-int dbl_swap_front_and_next(t_doubly **front_ptr, t_doubly **next_ptr, t_dlst *list)
+int	dbl_swap_front_and_next(t_doubly **front_ptr, \
+	t_doubly **next_ptr, t_dlst *list)
 {
-	t_doubly *front_node;
-	t_doubly *next_node;
-	t_doubly *next_next_node;
+	t_doubly	*front_node;
+	t_doubly	*next_node;
+	t_doubly	*next_next_node;
 
 	front_node = *front_ptr;
 	if (front_ptr == NULL || next_ptr == NULL || list == NULL \

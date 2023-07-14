@@ -38,12 +38,12 @@ void	parsing_data_to_index(t_info *info, t_stack *stack)
  */
 void	find_max_and_min(int array[], int value[], int length)
 {
-	int i;
-	i = 0;
+	int	i;
 
+	i = 0;
 	value[0] = array[i];
 	value[1] = array[i];
-	while(i < length)
+	while (i < length)
 	{
 		if (value[0] > array[i])
 			value[0] = array[i];
@@ -59,18 +59,18 @@ void	find_max_and_min(int array[], int value[], int length)
  * @param length
  * @param value
  */
-void change_data_to_index(t_info *info, int length, int value[])
+void	change_data_to_index(t_info *info, int length, int value[])
 {
-	int i;
-	int peek;
-	int rank;
+	int	i;
+	int	peek;
+	int	rank;
 
 	peek = value[0];
 	rank = 0;
 	while (peek <= value[1])
 	{
 		i = 0;
-		while(i < length)
+		while (i < length)
 		{
 			if (info->array[i] == peek)
 			{

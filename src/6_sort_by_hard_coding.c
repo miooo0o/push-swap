@@ -43,7 +43,6 @@ void	sort_two(t_stack *stack)
  */
 void	sort_three(t_stack *stack)
 {
-
 	if (ft_issorted(stack))
 		return ;
 	if ((intptr_t)(stack->list.head->data)
@@ -84,7 +83,7 @@ void	sort_four(t_stack *stack_A, t_stack *stack_B)
  */
 void	sort_five(t_stack *stack_A, t_stack *stack_B)
 {
-	int trigger;
+	int	trigger;
 
 	if (ft_issorted(stack_A))
 		return ;

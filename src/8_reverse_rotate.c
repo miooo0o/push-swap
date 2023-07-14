@@ -13,19 +13,18 @@
 #include "push_swap.h"
 #include "../include/push_swap.h"
 
-
-
 /**
  * @brief rra (reverse rotate a): Shift down all elements of stack a by 1.
  * @param stack_A The last element becomes the first one.
  */
 void	rra(t_stack *stack_A)
 {
-	t_doubly *last_node;
+	t_doubly	*last_node;
 
-	if (stack_A == NULL || stack_A->list.head == NULL || stack_A->list.last == NULL\
-		|| stack_A->list.head == stack_A->list.last)
-		return;
+	if (stack_A == NULL || stack_A->list.head == NULL || \
+	stack_A->list.last == NULL || \
+	stack_A->list.head == stack_A->list.last)
+		return ;
 	last_node = stack_A->list.last;
 	stack_A->list.last = last_node->prev;
 	stack_A->list.last->next = NULL;
@@ -42,11 +41,12 @@ void	rra(t_stack *stack_A)
  */
 void	rrb(t_stack *stack_B)
 {
-	t_doubly *last_node;
+	t_doubly	*last_node;
 
 	if (stack_B == NULL || stack_B->list.head == NULL \
-		|| stack_B->list.head == stack_B->list.last || stack_B->list.last == NULL)
-		return;
+		|| stack_B->list.head == stack_B->list.last || \
+		stack_B->list.last == NULL)
+		return ;
 	last_node = stack_B->list.last;
 	stack_B->list.last = last_node->prev;
 	stack_B->list.last->next = NULL;
@@ -57,7 +57,6 @@ void	rrb(t_stack *stack_B)
 	ft_putendl_fd("rrb", 1);
 }
 
-
 /**
  * @brief rrr : rra and rrb at the same time.
  */
@@ -67,4 +66,3 @@ void	rrr(t_stack *stack_A, t_stack *stack_B)
 	rrb(stack_B);
 	ft_putendl_fd("rrr", 1);
 }
-

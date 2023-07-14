@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   2_valid_data.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/14 13:31:03 by minakim           #+#    #+#             */
+/*   Updated: 2023/07/14 13:31:07 by minakim          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 //#include "push_swap.h"
 #include "../include/push_swap.h"
 
-int validate_same_num(int array[], int a)
+int	validate_same_num(int array[], int a)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	j = 1;
@@ -19,16 +31,17 @@ int validate_same_num(int array[], int a)
 		}
 		i++;
 	}
+	return (1);
 }
 
-int validate_input(char c)
+int	validate_input(char c)
 {
-	if (ft_isprint(c) && !argv_check(c) && !ft_isspace(c) )
+	if (ft_isprint(c) && !argv_check(c) && !ft_isspace(c))
 		return (0);
 	return (1);
 }
 
-int argv_check(char c)
+int	argv_check(char c)
 {
 	if (c == '-' || c == '+')
 		return (1);
@@ -48,11 +61,11 @@ int argv_check(char c)
  * @param array The integer array to store the converted values.
  * @param a A pointer to the current index of the array.
  */
-int validate_and_convert(int ac, char **av, int array[], int *a)
+int	validate_and_convert(int ac, char **av, int array[], int *a)
 {
-	int i;
+	int	i;
 	int	j;
-	int from;
+	int	from;
 
 	i = 0;
 	while (++i < ac && *a < MAX)
@@ -85,10 +98,10 @@ int validate_and_convert(int ac, char **av, int array[], int *a)
  * @param info A pointer to the 'info' structure to store the converted
  * integer array.
  */
-void convert_argv_to_int(int ac, char **av, t_info *info)
+void	convert_argv_to_int(int ac, char **av, t_info *info)
 {
-	int a;
-	int array[MAX];
+	int	a;
+	int	array[MAX];
 
 	a = 0;
 	a = validate_and_convert(ac, av, array, &a);

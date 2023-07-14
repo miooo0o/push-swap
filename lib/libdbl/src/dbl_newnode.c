@@ -6,16 +6,16 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 14:10:36 by minakim           #+#    #+#             */
-/*   Updated: 2023/07/13 20:15:06 by minakim          ###   ########.fr       */
+/*   Updated: 2023/07/14 15:40:57 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/libdbl.h"
 #include "libdbl.h"
 
-t_doubly    *dbl_newnode(void *content)
+t_doubly	*dbl_newnode(void *content)
 {
-	t_doubly *new_node;
+	t_doubly	*new_node;
 
 	new_node = (t_doubly *)malloc(sizeof (t_doubly));
 	if (!new_node)

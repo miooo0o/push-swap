@@ -27,14 +27,16 @@ void	update_stack_size(t_stack *target_stack, int update)
 }
 
 /**
- * @brief Replaces the head node of the 'taken' stack with the head node of the 'put' stack.
+ * @brief Replaces the head node of the 'taken' stack with the head node
+ * of the 'put' stack.
  * @param taken Pointer to the 'taken' stack.
  * @param put Pointer to the 'put' stack.
- * @note The term "head node of a stack" refers to the topmost node of the stack.
+ * @note The term "head node of a stack" refers to the topmost node of
+ * the stack.
 */
 void	dbl_put_top(t_stack **taken, t_stack **put)
 {
-	t_doubly *node;
+	t_doubly	*node;
 
 	node = dbl_newnode((*taken)->list.head->data);
 	if (node == NULL)
@@ -61,12 +63,13 @@ void	dbl_put_top(t_stack **taken, t_stack **put)
  */
 void	pa(t_stack *stack_A, t_stack *stack_B)
 {
-	t_doubly *node;
+	t_doubly	*node;
+
 	if (stack_B->list.head == NULL && stack_B->list.last == NULL)
 		ft_error();
 	if (stack_A->list.head == NULL && stack_A->stack_size == 0)
 	{
-		node = dbl_newnode((void *)(intptr_t )stack_B->list.head->data);
+		node = dbl_newnode((void *)(intptr_t)stack_B->list.head->data);
 		if (node == NULL)
 			ft_error_lstfree(stack_A, stack_B);
 		stack_A->list.head = node;
@@ -89,12 +92,13 @@ void	pa(t_stack *stack_A, t_stack *stack_B)
  */
 void	pb(t_stack *stack_A, t_stack *stack_B)
 {
-	t_doubly *node;
+	t_doubly	*node;
+
 	if (stack_A->list.head == NULL && stack_A->list.last == NULL)
 		ft_error();
 	if (stack_B->list.head == NULL)
 	{
-		node = dbl_newnode((void *)(intptr_t )stack_A->list.head->data);
+		node = dbl_newnode((void *)(intptr_t)stack_A->list.head->data);
 		if (node == NULL)
 			ft_error_lstfree(stack_A, stack_B);
 		stack_B->list.head = node;

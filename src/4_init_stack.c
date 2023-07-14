@@ -23,7 +23,7 @@ void	init_stack_a_with_arr(t_stack *stack, t_info *info)
 {
 	t_doubly	*new_node;
 	t_doubly	*head_node;
-	int 		i;
+	int			i;
 
 	i = -1;
 	head_node = NULL;
@@ -47,7 +47,7 @@ void	init_stack_a_with_arr(t_stack *stack, t_info *info)
 
 int	get_stack_size(t_info *info)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (info->array[i] != '\0')

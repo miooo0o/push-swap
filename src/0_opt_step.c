@@ -21,14 +21,15 @@
  */
 void	find_step_from_bot(t_stack *stack, int target, int *step)
 {
-	t_doubly *node;
+	t_doubly	*node;
+
 	*step = 0;
 	node = stack->list.last;
 	while (node != NULL)
 	{
 		(*step)++;
 		if ((int)(intptr_t)node->data == target)
-			break;
+			break ;
 		node = node->prev;
 	}
 	if (node == NULL || (int)(intptr_t)node->data != target)
@@ -43,7 +44,7 @@ void	find_step_from_bot(t_stack *stack, int target, int *step)
  */
 void	find_step_from_top(t_stack *stack, int target, int *step)
 {
-	t_doubly *node;
+	t_doubly	*node;
 
 	node = stack->list.head;
 	*step = 0;
@@ -51,12 +52,13 @@ void	find_step_from_top(t_stack *stack, int target, int *step)
 	{
 		(*step)++;
 		if ((int)(intptr_t)node->data == target)
-			break;
+			break ;
 		node = node->next;
 	}
 	if (node == NULL || (int)(intptr_t)node->data != target)
 		(*step) = -1;
 }
+
 /**
  *
  * @param stack

@@ -13,9 +13,10 @@
 #include "push_swap.h"
 #include "../include/push_swap.h"
 
-void	divide_stack_by_ratio(t_stack *stack_A, t_stack *stack_B, t_group *target)
+void	divide_stack_by_ratio(t_stack *stack_A, t_stack *stack_B, \
+		t_group *target)
 {
-	int size;
+	int	size;
 
 	if (ft_issorted(stack_A))
 		return ;
@@ -30,13 +31,14 @@ void	divide_stack_by_ratio(t_stack *stack_A, t_stack *stack_B, t_group *target)
 		if ((int)(intptr_t) stack_B->list.head->data < target->min)
 			rb(stack_B);
 	}
-	if (stack_A->list.head == NULL || (int)(intptr_t) stack_A->list.head->data != stack_A->max_total)
+	if (stack_A->list.head == NULL || \
+	(int)(intptr_t) stack_A->list.head->data != stack_A->max_total)
 		push_till_get_max(stack_A, stack_B, target);
 }
 
 void	set_last_group(t_group *target, int size)
 {
-	int max;
+	int	max;
 
 	target->group_last = 0;
 	target->max = size - 1;
@@ -57,10 +59,9 @@ void	set_last_group(t_group *target, int size)
 
 void	range_group_to_stack(t_stack *stack_A, t_stack *stack_B, int range)
 {
-	int	size;
-	int i;
-	int	temp;
-	t_doubly *node;
+	int			size;
+	int			i;
+	int			temp;
 
 	temp = range;
 	while (range <= stack_A->max_total)
@@ -69,13 +70,14 @@ void	range_group_to_stack(t_stack *stack_A, t_stack *stack_B, int range)
 		i = 0;
 		while (++i < size)
 		{
-			node = stack_A->list.head;
-			if ((int)(intptr_t)node->data < range)
+			if ((int)(intptr_t)stack_A->list.head->data < range)
 			{
 				pb(stack_A, stack_B);
 				rb(stack_B);
 			}
-			else if ((int)(intptr_t)node->data >= (int)(range + temp) || (int)(intptr_t)node->data == stack_A->max_total)
+			else if \
+			((int)(intptr_t)stack_A->list.head->data >= (int)(range + temp) \
+			|| (int)(intptr_t)stack_A->list.head->data == stack_A->max_total)
 				ra(stack_A);
 			else
 				pb(stack_A, stack_B);
@@ -86,23 +88,21 @@ void	range_group_to_stack(t_stack *stack_A, t_stack *stack_B, int range)
 
 void	push_till_get_max(t_stack *stack_A, t_stack *stack_B, t_group *group)
 {
-	int swap_trigger;
-	int sec_max;
-	int cnt;
-	t_doubly *node;
+	int			swap_trigger;
+	int			sec_max;
+	int			cnt;
 
 	sec_max = stack_A->max_total - 1;
 	swap_trigger = 0;
 	cnt = 0;
-	node = stack_A->list.head;
 	while (++cnt < group->base_range)
 	{
-		if ((int)(intptr_t)node->data == sec_max)
+		if ((int)(intptr_t)stack_A->list.head->data == sec_max)
 		{
 			pa(stack_A, stack_B);
 			swap_trigger = 1;
 		}
-		else if ((int)(intptr_t)node->data == stack_A->max_total)
+		else if ((int)(intptr_t)stack_A->list.head->data == stack_A->max_total)
 		{
 			pa(stack_A, stack_B);
 			if (swap_trigger == 1)
@@ -116,9 +116,9 @@ void	push_till_get_max(t_stack *stack_A, t_stack *stack_B, t_group *group)
 
 int	set_range(int len)
 {
-	int	val;
-	int	range;
-	double ratio;
+	int		val;
+	int		range;
+	double	ratio;
 
 	ratio = 0.01;
 	val = 10;

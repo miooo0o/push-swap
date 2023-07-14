@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 21:04:15 by minakim           #+#    #+#             */
-/*   Updated: 2023/07/14 11:20:35 by minakim          ###   ########.fr       */
+/*   Updated: 2023/07/14 15:47:31 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@
 # define RUN_TOP 1
 # define RUN_BOT 0
 
-typedef struct 		s_group{
+typedef struct s_group{
 	int	name;
-	int max;
-	int min;
-	int range;
-	int base_range;
-	int group_last;
+	int	max;
+	int	min;
+	int	range;
+	int	base_range;
+	int	group_last;
 }					t_group;
 
 /**
@@ -42,27 +42,26 @@ typedef struct 		s_group{
  * It's incremented by 1 when an element is pushed,
  * and decremented by 1 when an element is popped.
  */
-typedef struct      s_stack{
-	t_dlst 	list;
+typedef struct s_stack{
+	t_dlst	list;
 	int		stack_size;
-	int 	max_total;
-	int 	min_total;
-}                   t_stack;
+	int		max_total;
+	int		min_total;
+}				t_stack;
 
-typedef struct 		s_info
+typedef struct s_info
 {
-	int		array[MAX];
-	int 	index[MAX];
-	int 	value[3];
-}					t_info;
+	int	array[MAX];
+	int	index[MAX];
+	int	value[3];
+}				t_info;
 
-typedef struct 		s_num
+typedef struct s_num
 {
-	int 	data;
-	int 	step_bot;
-	int 	step_top;
+	int	data;
+	int	step_bot;
+	int	step_top;
 }					t_num;
-
 
 /* [0] error */
 void	ft_error_lstfree(t_stack *stack_A, t_stack *stack_B);
@@ -75,76 +74,86 @@ int		ft_issorted(t_stack *stack);
 int		check_sorted(t_stack *stack);
 int		ft_atoi_from_to(const char *str, int from, int to);
 
-/* [1] push swap & main */
+/* [1] push swap */
+void	push_swap(t_stack *stack_a, t_stack *stack_b, t_group *target);
 
-/* [2] */
+/* [2] valid data */
 void	convert_argv_to_int(int ac, char **av, t_info *info);
 
-/* [2] parsing_data_to_index */
+/* [3] parsing_data_to_index */
 int		argv_check(char c);
 void	change_data_to_index(t_info *info, int length, int value[]);
 void	parsing_data_to_index(t_info *info, t_stack *stack);
 void	find_max_and_min(int array[], int value[], int length);
 
-/* [3] init stack */
+/* [4] init stack */
 void	init_stack_a_with_arr(t_stack *stack, t_info *info);
 int		get_stack_size(t_info *info);
 void	init_stack_b(t_stack *stack_A, t_stack *stack_B);
 void	initialize_stack(t_stack *stack);
 
-/* [4] divide_stack_by_ratio */
-void	divide_stack_by_ratio(t_stack *stack_A, t_stack *stack_B, t_group *target);
+/* [5] divide_stack_by_ratio */
+void	divide_stack_by_ratio(t_stack *stack_A, t_stack *stack_B, \
+		t_group *target);
 void	set_last_group(t_group *target, int size);
-void	range_group_to_stack(t_stack *stack_A, t_stack *stack_B, int range);
-void	push_till_get_max(t_stack *stack_A, t_stack *stack_B, t_group *group);
+void	range_group_to_stack(t_stack *stack_A, t_stack *stack_B, \
+		int range);
+void	push_till_get_max(t_stack *stack_A, t_stack *stack_B, \
+		t_group *group);
 int		set_range(int len);
 
-/* [5] sort by hard coding */
+/* [6] sort by hard coding */
 void	sort_by_hard_coding(t_stack *stack_A, t_stack *stack_B);
 void	sort_two(t_stack *stack);
 void	sort_three(t_stack *stack);
 void	sort_four(t_stack *stack_A, t_stack *stack_B);
 void	sort_five(t_stack *stack_A, t_stack *stack_B);
 
-/* [5] utility sort four */
+/* [6] utility sort four */
 void	find_min_and_bring_top(t_stack *stack);
-int 	navigate_min(t_stack *stack);
-int 	navigate_max(t_stack *stack);
+int		navigate_min(t_stack *stack);
+int		navigate_max(t_stack *stack);
 int		navigate_sec_min(t_stack *stack_A);
 
-/* [5] utility sort five */
-void	find_nums_and_check_step(t_stack *stack, t_num *min, t_num *sec_min);
+/* [6] utility sort five */
+void	find_nums_and_check_step(t_stack *stack, t_num *min, \
+		t_num *sec_min);
 int		check_special_case(t_stack *stack, int *trigger);
 void	if_sec_min_top(t_stack *stack_A, t_stack *stack_B);
 void	if_sec_min_bot(t_stack *stack_A, t_stack *stack_B);
 
+/* [7] sort loop */
+void	sort_loop(t_stack *stack_A, t_stack *stack_B, \
+		t_group *target);
+void	sort_in_range(t_stack *stack_A, t_stack *stack_B, \
+		t_group *target);
+void	take_next_node(t_stack *stack_A, t_stack *stack_B, \
+		t_group *target);
+int		count_remaining_nodes(t_stack *stack_A, t_group *target);
 
-/* [6] sort loop */
-void	sort_loop(t_stack *stack_A, t_stack *stack_B, t_group *target);
-void	sort_in_range(t_stack *stack_A, t_stack *stack_B, t_group *target);
-void	take_next_node(t_stack *stack_A, t_stack *stack_B, t_group *target);
-int 	count_remaining_nodes(t_stack *stack_A, t_group *target);
-
-/* [6] group update */
+/* [7] group utiliy */
 void	next_target_group(t_group *target);
+int		count_remaining_nodes(t_stack *stack_A, t_group *target);
+void	pa_ra(t_stack *stack_a, t_stack *stack_b);
+void	rrb_pa(t_stack *stack_a, t_stack *stack_b);
 
-/* swap */
+/* [8] swap */
 void	sa(t_stack *stack_A);
 void	sb(t_stack *stack_B);
 void	ss(t_stack *stack_A, t_stack *stack_B);
 
-/* push */
+/* [8] push */
 void	update_stack_size(t_stack *target_stack, int update);
 void	dbl_put_top(t_stack **taken, t_stack **put);
 void	pa(t_stack *stack_A, t_stack *stack_B);
 void	pb(t_stack *stack_A, t_stack *stack_B);
 
-/* rotate */
+/* [8] rotate */
 void	ra(t_stack *stack_A);
 void	rb(t_stack *stack_B);
 void	rr(t_stack *stack_A, t_stack *stack_B);
 
-/* reverse rotate */
+/* [8] reverse rotate */
 void	rra(t_stack *stack_A);
 void	rrb(t_stack *stack_B);
 void	rrr(t_stack *stack_A, t_stack *stack_B);
@@ -156,5 +165,4 @@ void	print_all_stack(t_stack *stack_A, t_stack *stack_B);
 void	find_step_from_bot(t_stack *stack, int target, int *step);
 void	find_step_from_top(t_stack *stack, int target, int *step);
 int		opt_by_step(t_stack *stack, t_num *num);
-
-# endif
+#endif
