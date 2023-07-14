@@ -22,8 +22,9 @@ void	sa(t_stack *stack_A)
 		ft_error();
 	if (stack_A->list.head->next == NULL)
 		ft_error_lstfree(stack_A, NULL);
-	dbl_swap_front_and_next(&(stack_A->list.head),
-							&(stack_A->list.head->next), &(stack_A->list));
+	if (!dbl_swap_front_and_next(&(stack_A->list.head),\
+	&(stack_A->list.head->next), &(stack_A->list)))
+		ft_error_lstfree(stack_A, NULL);
 	ft_putendl_fd("sa", 1);
 }
 
@@ -37,8 +38,9 @@ void	sb(t_stack *stack_B)
 		ft_error();
 	if (stack_B->list.head->next == NULL)
 		ft_error_lstfree(NULL, stack_B);
-	dbl_swap_front_and_next(&(stack_B->list.head), &(stack_B->list.head->next), \
-	&(stack_B->list));
+	if (!dbl_swap_front_and_next(&(stack_B->list.head), \
+	&(stack_B->list.head->next), &(stack_B->list)))
+		ft_error_lstfree(NULL, stack_B);
 	ft_putendl_fd("sb", 1);
 }
 

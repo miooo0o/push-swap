@@ -6,7 +6,7 @@
 /*   By: minakim <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 12:52:07 by minakim           #+#    #+#             */
-/*   Updated: 2023/06/06 22:56:38 by minakim          ###   ########.fr       */
+/*   Updated: 2023/07/13 20:03:38 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char	**do_split(char const *s, char c, char **split)
 
 int	is_contains_trigger(char const *str, char trigger)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (str[++i] != '\0')
@@ -75,8 +75,8 @@ int	is_contains_trigger(char const *str, char trigger)
 
 char	**ft_split(char const *s, char c)
 {
-	size_t count;
-	char **split;
+	size_t	count;
+	char	**split;
 
 	if (ft_isprint(c))
 	{

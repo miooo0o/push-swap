@@ -19,8 +19,8 @@
  */
 void	find_min_and_bring_top(t_stack *stack)
 {
-	t_num min;
-	t_doubly *node;
+	t_num		min;
+	t_doubly	*node;
 
 	min.data = navigate_min(stack);
 	node = stack->list.head;
@@ -49,8 +49,8 @@ void	find_min_and_bring_top(t_stack *stack)
  */
 int 	navigate_min(t_stack *stack)
 {
-	t_doubly *node;
-	int result;
+	t_doubly	*node;
+	int			result;
 
 	if (ft_issorted(stack))
 		return (-1);
@@ -75,8 +75,8 @@ int 	navigate_min(t_stack *stack)
  */
 int 	navigate_max(t_stack *stack)
 {
-	t_doubly *node;
-	int result;
+	t_doubly	*node;
+	int			result;
 
 	if (ft_issorted(stack))
 		return (-1);
@@ -101,10 +101,10 @@ int 	navigate_max(t_stack *stack)
  */
 int	navigate_sec_min(t_stack *stack_A)
 {
-	int min;
-	int	sec_min;
-	int	value;
-	t_doubly *node;
+	int			min;
+	int			sec_min;
+	int			value;
+	t_doubly	*node;
 
 	node = stack_A->list.head;
 	min = navigate_min(stack_A);

@@ -34,7 +34,8 @@ void	init_stack_a_with_arr(t_stack *stack, t_info *info)
 		new_node = dbl_newnode((void *)(intptr_t)info->index[i]);
 		if (!new_node)
 			ft_error_lstfree(stack, NULL);
-		dbl_add_back(&(stack->list), &new_node);
+		if (!dbl_add_back(&(stack->list), &new_node))
+			ft_error_lstfree(stack, NULL);
 		if (i == 0 && head_node == NULL)
 			head_node = new_node;
 	}

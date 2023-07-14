@@ -37,6 +37,17 @@ int argv_check(char c)
 	return (0);
 }
 
+/**
+ * @brief Validates and converts command line arguments into an integer array.
+ * This function truncates the string passed in as an argument and converts it to
+ * an int. It checks if the int is the same number as an already stored int,
+ * and if it is, it returns an error message and exits
+ * @return The updated value of the current index after converting the arguments.
+ * @param ac The number of command line arguments.
+ * @param av An array of command line argument strings.
+ * @param array The integer array to store the converted values.
+ * @param a A pointer to the current index of the array.
+ */
 int validate_and_convert(int ac, char **av, int array[], int *a)
 {
 	int i;
@@ -66,6 +77,14 @@ int validate_and_convert(int ac, char **av, int array[], int *a)
 	return (*a);
 }
 
+/**
+ * @brief Converts command line arguments into an integer array and stores it in
+ * the 'info' structure.
+ * @param ac The number of command line arguments.
+ * @param av An array of command line argument strings.
+ * @param info A pointer to the 'info' structure to store the converted
+ * integer array.
+ */
 void convert_argv_to_int(int ac, char **av, t_info *info)
 {
 	int a;

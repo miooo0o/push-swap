@@ -39,7 +39,7 @@ void	rotate(t_stack *stack)
 
 /**
  * @brief ra (rotate a): Shift up all elements of stack a by 1.
- * The first element becomes the last one.
+ * @param stack_A The first element becomes the last one.
  */
 void	ra(t_stack *stack_A)
 {
@@ -49,7 +49,7 @@ void	ra(t_stack *stack_A)
 
 /**
  * @brief rb (rotate b): Shift up all elements of stack b by 1.
- * The first element becomes the last one.
+ * @param stack_B The first element becomes the last one.
  */
 void	rb(t_stack *stack_B)
 {

@@ -11,19 +11,14 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
+#include "../include/push_swap.h"
 
-/**
- *
- * @param c
- * @return if c == ' ', return True, else return False.
- */
 int ft_isspace(int c)
 {
 	if (c == ' ')
 		return (1);
 	return (0);
 }
-
 
 /**
  * @brief

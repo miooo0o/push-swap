@@ -17,8 +17,7 @@
 
 /**
  * @brief rra (reverse rotate a): Shift down all elements of stack a by 1.
- * The last element becomes the first one.
- * @param stack_A
+ * @param stack_A The last element becomes the first one.
  */
 void	rra(t_stack *stack_A)
 {
@@ -39,7 +38,6 @@ void	rra(t_stack *stack_A)
 
 /**
  * @brief rrb (reverse rotate b): Shift down all elements of stack b by 1.
- * The last element becomes the first one.
  * @param stack_B The last element becomes the first one.
  */
 void	rrb(t_stack *stack_B)
@@ -62,8 +60,6 @@ void	rrb(t_stack *stack_B)
 
 /**
  * @brief rrr : rra and rrb at the same time.
- * @param stack_A
- * @param stack_B
  */
 void	rrr(t_stack *stack_A, t_stack *stack_B)
 {

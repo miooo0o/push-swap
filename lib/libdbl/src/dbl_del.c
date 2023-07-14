@@ -6,17 +6,17 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 16:04:37 by minakim           #+#    #+#             */
-/*   Updated: 2023/06/18 13:03:56 by minakim          ###   ########.fr       */
+/*   Updated: 2023/07/14 11:07:40 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/libdbl.h"
 #include "libdbl.h"
 
-void	dbl_del(t_lst *list, t_doubly *node_to_delete)
+int	dbl_del(t_dlst *list, t_doubly *node_to_delete)
 {
 	if (list == NULL || node_to_delete == NULL)
-		assert(!"Error: empty node input");
+		return (0);
 	if (list->head == node_to_delete)
 	{
 		list->head = node_to_delete->next;
@@ -36,4 +36,5 @@ void	dbl_del(t_lst *list, t_doubly *node_to_delete)
 	node_to_delete->prev = NULL;
 	node_to_delete->next = NULL;
 	free(node_to_delete);
+	return (1);
 }

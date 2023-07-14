@@ -37,10 +37,11 @@ CFLAGS		=	-Wall -Wextra -Werror
 # sources
 SRC_FILES	=	0_ft_error 0_opt_step 0_utility \
 			1_push_swap \
-			2_parsing_data_to_index 3_init_stack 4_divide_stack_by_ratio \
-			5_sort_by_hard_coding 5_utility_sort_five 5_utility_sort_four \
-			6_group_update 6_sort_loop \
-			7_push 7_reverse_rotate 7_rotate 7_swap \
+			2_valid_data 3_parsing_data_to_index \
+			4_init_stack 5_divide_stack_by_ratio \
+			6_sort_by_hard_coding 6_utility_sort_five 6_utility_sort_four \
+			7_group_update 7_sort_loop \
+			8_push 8_reverse_rotate 8_rotate 8_swap \
 			test
 
 SRCS		= 	$(addprefix $(SRCS_DIR), $(addsuffix .c, $(SRC_FILES)))

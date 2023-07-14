@@ -13,7 +13,7 @@
 #include "../../../include/libdbl.h"
 #include "libdbl.h"
 
-void	dbl_listfree(t_lst *list)
+void	dbl_listfree(t_dlst *list)
 {
 	t_doubly *current;
 	t_doubly *next_node;

@@ -13,11 +13,11 @@
 #include "push_swap.h"
 #include "../include/push_swap.h"
 
-/* TODO */
-
 void	push_swap(t_stack *stack_A, t_stack *stack_B, t_group *target)
 {
-	if (stack_A->stack_size < 6)
+	if (stack_A->stack_size < 1)
+		ft_error();
+	else if (stack_A->stack_size < 6)
 	{
 		sort_by_hard_coding(stack_A, stack_B);
 		push_swap_lstfree(stack_A, stack_B);

@@ -93,10 +93,8 @@ void	take_next_node(t_stack *stack_A, t_stack *stack_B, t_group *target)
 		{
 			dest.data = (int)(intptr_t)basis->data - 1;
 			result = opt_by_step(stack_B, &dest);
-			if (result == -1){
-				print_all_stack(stack_A, stack_B);
+			if (result == -1)
 				ft_error_lstfree(stack_A, stack_B);
-			}
 			if (result == RUN_TOP)
 			{
 				while ((int)(intptr_t)stack_B->list.head->data != dest.data)

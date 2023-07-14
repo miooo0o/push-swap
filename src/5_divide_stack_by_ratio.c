@@ -112,7 +112,6 @@ void	push_till_get_max(t_stack *stack_A, t_stack *stack_B, t_group *group)
 		else
 			rb(stack_B);
 	}
-
 }
 
 int	set_range(int len)

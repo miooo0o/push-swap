@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 21:04:15 by minakim           #+#    #+#             */
-/*   Updated: 2023/07/12 18:52:54 by minakim          ###   ########.fr       */
+/*   Updated: 2023/07/14 11:20:35 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@
 typedef struct 		s_group{
 	int	name;
 	int max;
-	int mid;
 	int min;
 	int range;
 	int base_range;
@@ -44,7 +43,7 @@ typedef struct 		s_group{
  * and decremented by 1 when an element is popped.
  */
 typedef struct      s_stack{
-	t_lst	list;
+	t_dlst 	list;
 	int		stack_size;
 	int 	max_total;
 	int 	min_total;
@@ -78,8 +77,10 @@ int		ft_atoi_from_to(const char *str, int from, int to);
 
 /* [1] push swap & main */
 
-/* [2] parsing_data_to_index */
+/* [2] */
 void	convert_argv_to_int(int ac, char **av, t_info *info);
+
+/* [2] parsing_data_to_index */
 int		argv_check(char c);
 void	change_data_to_index(t_info *info, int length, int value[]);
 void	parsing_data_to_index(t_info *info, t_stack *stack);

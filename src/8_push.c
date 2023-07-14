@@ -13,9 +13,6 @@
 #include "push_swap.h"
 #include "../include/push_swap.h"
 
-// TODO: finish usage
-
-
 /**
  * @param target_stack : target stack which hold total size of stack.
  * @param update : update total size value in target stack.
@@ -30,18 +27,22 @@ void	update_stack_size(t_stack *target_stack, int update)
 }
 
 /**
- * @brief taken 스택의 해드 노드를 put 스택의 해드 노드로 바꾸는 어쩌구
- * @param taken
- * @param put
- * @note "스택의 해드 노드"여야만 어쩌구
- */
+ * @brief Replaces the head node of the 'taken' stack with the head node of the 'put' stack.
+ * @param taken Pointer to the 'taken' stack.
+ * @param put Pointer to the 'put' stack.
+ * @note The term "head node of a stack" refers to the topmost node of the stack.
+*/
 void	dbl_put_top(t_stack **taken, t_stack **put)
 {
 	t_doubly *node;
 
 	node = dbl_newnode((*taken)->list.head->data);
-	dbl_add_front(&(*put)->list, &node);
-	dbl_del(&(*taken)->list, (*taken)->list.head);
+	if (node == NULL)
+		ft_error_lstfree(*taken, *put);
+	if (!dbl_add_front(&(*put)->list, &node))
+		ft_error_lstfree(*taken, *put);
+	if (!dbl_del(&(*taken)->list, (*taken)->list.head))
+		ft_error_lstfree(*taken, *put);
 	if ((*taken)->list.head == NULL)
 		(*taken)->list.last = NULL;
 	else
@@ -55,8 +56,8 @@ void	dbl_put_top(t_stack **taken, t_stack **put)
 /**
  * @brief pa (push a): Take the first element at the top of b and put it
  * at the top of a.
- * @param
- * @param
+ * @note Updates the stack sizes of both stack A and stack B.
+ * The stack size of stack A is increased by 1,
  */
 void	pa(t_stack *stack_A, t_stack *stack_B)
 {
@@ -66,9 +67,12 @@ void	pa(t_stack *stack_A, t_stack *stack_B)
 	if (stack_A->list.head == NULL && stack_A->stack_size == 0)
 	{
 		node = dbl_newnode((void *)(intptr_t )stack_B->list.head->data);
+		if (node == NULL)
+			ft_error_lstfree(stack_A, stack_B);
 		stack_A->list.head = node;
 		stack_A->list.last = node;
-		dbl_del(&(stack_B->list), stack_B->list.head);
+		if (!dbl_del(&(stack_B->list), stack_B->list.head))
+			ft_error_lstfree(stack_A, stack_B);
 	}
 	else
 		dbl_put_top(&stack_B, &stack_A);
@@ -80,8 +84,8 @@ void	pa(t_stack *stack_A, t_stack *stack_B)
 /**
  * @brief pb (push b): Take the first element at the top of a and put it
  * at the top of b.
- * @param
- * @param
+ * @note Updates the stack sizes of both stack A and stack B.
+ * The stack size of stack B is increased by 1,
  */
 void	pb(t_stack *stack_A, t_stack *stack_B)
 {
@@ -91,9 +95,12 @@ void	pb(t_stack *stack_A, t_stack *stack_B)
 	if (stack_B->list.head == NULL)
 	{
 		node = dbl_newnode((void *)(intptr_t )stack_A->list.head->data);
+		if (node == NULL)
+			ft_error_lstfree(stack_A, stack_B);
 		stack_B->list.head = node;
 		stack_B->list.last = node;
-		dbl_del(&(stack_A->list), stack_A->list.head);
+		if (!dbl_del(&(stack_A->list), stack_A->list.head))
+			ft_error_lstfree(stack_A, stack_B);
 	}
 	else
 		dbl_put_top(&stack_A, &stack_B);
