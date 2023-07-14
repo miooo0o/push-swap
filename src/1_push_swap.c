@@ -37,12 +37,14 @@ int	main(int ac, char **av)
 	t_info	info;
 	t_group	target;
 
-	if (ac < 2 || av[1][0] == '\0' || *av[0] == '\0')
+	if (ac < 2)
+		exit (1);
+	if (av[1][0] == '\0' || *av[0] == '\0')
 		ft_error();
 	else
 	{
 		ft_bzero(&info.array, MAX);
-		convert_argv_to_int(ac, av, &info);
+		convert_argv_to_int(ac, av, &info, &stack_a);
 		initialize_stack(&stack_a);
 		init_stack_a_with_arr(&stack_a, &info);
 		init_stack_b(&stack_a, &stack_b);

@@ -27,7 +27,6 @@ void	init_stack_a_with_arr(t_stack *stack, t_info *info)
 
 	i = -1;
 	head_node = NULL;
-	stack->stack_size = get_stack_size(info);
 	parsing_data_to_index(info, stack);
 	while (++i < stack->stack_size)
 	{
@@ -45,19 +44,10 @@ void	init_stack_a_with_arr(t_stack *stack, t_info *info)
 	stack->min_total = navigate_min(stack);
 }
 
-int	get_stack_size(t_info *info)
-{
-	int	i;
-
-	i = 0;
-	while (info->array[i] != '\0')
-		i++;
-	return (i);
-}
-
 void	init_stack_b(t_stack *stack_A, t_stack *stack_B)
 {
 	initialize_stack(stack_B);
+	stack_B->stack_size = 0;
 	stack_B->min_total = stack_A->min_total;
 	stack_B->max_total = stack_A->max_total;
 }
@@ -66,7 +56,6 @@ void	initialize_stack(t_stack *stack)
 {
 	stack->list.head = NULL;
 	stack->list.last = NULL;
-	stack->stack_size = 0;
 	stack->min_total = 0;
 	stack->max_total = 0;
 }

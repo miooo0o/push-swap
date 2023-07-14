@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 21:04:15 by minakim           #+#    #+#             */
-/*   Updated: 2023/07/14 15:47:31 by minakim          ###   ########.fr       */
+/*   Updated: 2023/07/14 16:26:57 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int		ft_atoi_from_to(const char *str, int from, int to);
 void	push_swap(t_stack *stack_a, t_stack *stack_b, t_group *target);
 
 /* [2] valid data */
-void	convert_argv_to_int(int ac, char **av, t_info *info);
+void	convert_argv_to_int(int ac, char **av, t_info *info, t_stack *stack);
 
 /* [3] parsing_data_to_index */
 int		argv_check(char c);

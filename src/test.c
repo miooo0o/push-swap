@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 17:59:35 by minakim           #+#    #+#             */
-/*   Updated: 2023/07/14 15:34:58 by minakim          ###   ########.fr       */
+/*   Updated: 2023/07/14 16:07:11 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "push_swap.h"
 #include <stdio.h>
 
-/* // commend out if need test
+// commend out if need test
 void	print_all_stack(t_stack *stack_A, t_stack *stack_B)
 {
 	t_doubly	*a;
@@ -42,4 +42,4 @@ void	print_all_stack(t_stack *stack_A, t_stack *stack_B)
 			b = b->next;
 		}
 	}
-}*/
+}

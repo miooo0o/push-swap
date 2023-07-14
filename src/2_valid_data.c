@@ -26,7 +26,7 @@ int	validate_same_num(int array[], int a)
 		while (j < a && j != i)
 		{
 			if (array[i] == array[j])
-				ft_error();
+				return (0);
 			j++;
 		}
 		i++;
@@ -49,6 +49,14 @@ int	argv_check(char c)
 		return (1);
 	return (0);
 }
+/* need to finish function
+from = j;
+while (argv_check(av[i][j]))
+j++;
+array[(*a)++] = ft_atoi_from_to(av[i], from, j);
+if (!validate_same_num(array, (*a)))
+ft_error();
+*/
 
 /**
  * @brief Validates and converts command line arguments into an integer array.
@@ -81,7 +89,8 @@ int	validate_and_convert(int ac, char **av, int array[], int *a)
 				while (argv_check(av[i][j]))
 					j++;
 				array[(*a)++] = ft_atoi_from_to(av[i], from, j);
-				validate_same_num(array, (*a));
+				if (!validate_same_num(array, (*a)))
+					ft_error();
 			}
 			else
 				j++;
@@ -98,7 +107,7 @@ int	validate_and_convert(int ac, char **av, int array[], int *a)
  * @param info A pointer to the 'info' structure to store the converted
  * integer array.
  */
-void	convert_argv_to_int(int ac, char **av, t_info *info)
+void	convert_argv_to_int(int ac, char **av, t_info *info, t_stack *stack)
 {
 	int	a;
 	int	array[MAX];
@@ -107,5 +116,6 @@ void	convert_argv_to_int(int ac, char **av, t_info *info)
 	a = validate_and_convert(ac, av, array, &a);
 	if (a < 1)
 		ft_error();
+	stack->stack_size = a;
 	ft_memcpy(info->array, array, a * sizeof(int));
 }
