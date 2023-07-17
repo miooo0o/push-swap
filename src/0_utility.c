@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utility.c                                          :+:      :+:    :+:   */
+/*   0_utility.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: mi■■■■■ <mi■■■■■@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 11:05:55 by minakim           #+#    #+#             */
-/*   Updated: 2023/07/12 17:58:02 by minakim          ###   ########.fr       */
+/*   Updated: 2023/07/17 17:17:13 by mi■■■■■          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,11 @@ int	ft_isspace(int c)
 	return (0);
 }
 
+/**
+ * @brief
+ * @param stack
+ * @return
+ */
 int	ft_issorted(t_stack *stack)
 {
 	t_doubly	*node;
@@ -41,6 +46,11 @@ int	ft_issorted(t_stack *stack)
 	return (1);
 }
 
+/**
+ *
+ * @param stack
+ * @return
+ */
 int	check_sorted(t_stack *stack)
 {
 	t_doubly	*node;
@@ -55,6 +65,11 @@ int	check_sorted(t_stack *stack)
 	return (1);
 }
 
+/**
+ *
+ * @param str
+ * @return
+ */
 int	ft_atoi_from_to(const char *str, int from, int to)
 {
 	long long	number;
@@ -68,8 +83,6 @@ int	ft_atoi_from_to(const char *str, int from, int to)
 		sign = -1;
 	if (str[from] == '+' || str[from] == '-')
 		from++;
-	if (!ft_isdigit(str[from]))
-		return (ft_error());
 	while (str[from] != '\0' && ft_isdigit(str[from]) && \
 			!ft_isspace(str[from]) && from < to)
 	{
