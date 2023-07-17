@@ -60,11 +60,11 @@ void	sort_in_range(t_stack *stack_A, t_stack *stack_B, t_group *target)
 			rra(stack_A);
 		else if ((int)(intptr_t)stack_A->list.last->data == stack_A->max_total \
 		&& (int)(intptr_t)stack_A->list.last->data \
-		< (int)(intptr_t)stack_B->list.head->data)
+			< (int)(intptr_t)stack_B->list.head->data)
 			pa_ra(stack_A, stack_B);
 		else if (stack_B->list.last != NULL && \
 		(int)(intptr_t)stack_A->list.head->data \
-		== (int)(intptr_t)stack_B->list.last->data + 1)
+			== (int)(intptr_t)stack_B->list.last->data + 1)
 			rrb_pa(stack_A, stack_B);
 		else
 			rb(stack_B);
@@ -94,22 +94,24 @@ void	bring_target_from_b(t_stack *stack_A, t_stack *stack_B, \
 
 void	take_next_node(t_stack *stack_A, t_stack *stack_B, t_group *target)
 {
+	t_doubly	*a_h;
+	t_doubly	*b_h;
 	t_num		dest;
 
-	while (stack_B->list.head != NULL && \
-	target->range - count_remaining_nodes(stack_A, target) != target->range)
+	while (stack_B->list.head != NULL \
+	&& target->range - count_remaining_nodes(stack_A, target) != target->range)
 	{
-		if ((int)(intptr_t)stack_A->list.head->data - 1 == \
-			(int)(intptr_t)stack_B->list.head->data)
+		a_h = stack_A->list.head;
+		b_h = stack_B->list.head;
+		if ((intptr_t)a_h->data - 1 == (intptr_t)b_h->data)
 			pa(stack_A, stack_B);
-		else if ((int)(intptr_t)stack_A->list.head->data - 1 == \
-			(int)(intptr_t)stack_B->list.last->data)
+		else if ((intptr_t)a_h->data - 1 == (intptr_t)stack_B->list.last->data)
 			rrb_pa(stack_A, stack_B);
-		else if ((int)(intptr_t)stack_A->list.head->data - 1 == \
-		(int)(intptr_t)stack_A->list.last->data)
+		else if ((intptr_t)a_h->data - 1 == (intptr_t)stack_A->list.last->data)
 			rra(stack_A);
-		else if ((int)(intptr_t)stack_A->list.last->data < \
-		(int)(intptr_t)stack_B->list.head->data)
+		else if ((intptr_t)stack_A->list.last->data == stack_A->max_total
+			|| ((intptr_t)stack_A->list.last->data != stack_A->max_total
+				&& (intptr_t)stack_A->list.last->data < (intptr_t)b_h->data))
 			pa_ra(stack_A, stack_B);
 		else
 		{
