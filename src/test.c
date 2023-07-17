@@ -12,6 +12,7 @@
 
 #include "push_swap.h"
 #include "push_swap.h"
+/* 
 #include <stdio.h>
 
 // commend out if need test
@@ -42,4 +43,4 @@ void	print_all_stack(t_stack *stack_A, t_stack *stack_B)
 			b = b->next;
 		}
 	}
-}
+}*/

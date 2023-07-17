@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   2_valid_data.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: mi■■■■■ <mi■■■■■@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 13:31:03 by minakim           #+#    #+#             */
-/*   Updated: 2023/07/14 13:31:07 by minakim          ###   ########.fr       */
+/*   Updated: 2023/07/17 12:56:20 by mi■■■■■          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	validate_same_num(int array[], int a)
 		while (j < a && j != i)
 		{
 			if (array[i] == array[j])
-				return (0);
+				ft_error();
 			j++;
 		}
 		i++;
@@ -49,14 +49,6 @@ int	argv_check(char c)
 		return (1);
 	return (0);
 }
-/* need to finish function
-from = j;
-while (argv_check(av[i][j]))
-j++;
-array[(*a)++] = ft_atoi_from_to(av[i], from, j);
-if (!validate_same_num(array, (*a)))
-ft_error();
-*/
 
 /**
  * @brief Validates and converts command line arguments into an integer array.
@@ -89,8 +81,7 @@ int	validate_and_convert(int ac, char **av, int array[], int *a)
 				while (argv_check(av[i][j]))
 					j++;
 				array[(*a)++] = ft_atoi_from_to(av[i], from, j);
-				if (!validate_same_num(array, (*a)))
-					ft_error();
+				validate_same_num(array, (*a));
 			}
 			else
 				j++;
