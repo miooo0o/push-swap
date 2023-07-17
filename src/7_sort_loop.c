@@ -94,25 +94,25 @@ void	bring_target_from_b(t_stack *stack_A, t_stack *stack_B, \
 
 void	take_next_node(t_stack *stack_A, t_stack *stack_B, t_group *target)
 {
-	t_doubly	*a_h;
-	t_doubly	*b_h;
-	t_num		dest;
+	t_num	dest;
 
-	while (stack_B->list.head != NULL \
-	&& target->range - count_remaining_nodes(stack_A, target) != target->range)
+	while (stack_B->list.head != NULL && \
+		target->range - count_remaining_nodes(stack_A, target) != target->range)
 	{
-		a_h = stack_A->list.head;
-		b_h = stack_B->list.head;
-		if ((intptr_t)a_h->data - 1 == (intptr_t)b_h->data)
+		if (target_is_b_head(stack_A, stack_B))
 			pa(stack_A, stack_B);
-		else if ((intptr_t)a_h->data - 1 == (intptr_t)stack_B->list.last->data)
-			rrb_pa(stack_A, stack_B);
-		else if ((intptr_t)a_h->data - 1 == (intptr_t)stack_A->list.last->data)
+		else if (target_is_b_bot(stack_A, stack_B))
+		{
+			rrb(stack_B);
+			pa(stack_A, stack_B);
+		}
+		else if (target_is_a_bot(stack_A, stack_B))
 			rra(stack_A);
-		else if ((intptr_t)stack_A->list.last->data == stack_A->max_total
-			|| ((intptr_t)stack_A->list.last->data != stack_A->max_total
-				&& (intptr_t)stack_A->list.last->data < (intptr_t)b_h->data))
-			pa_ra(stack_A, stack_B);
+		else if (push_to_a_bot(stack_A, stack_B))
+		{
+			pa(stack_A, stack_B);
+			ra(stack_A);
+		}
 		else
 		{
 			dest.data = (int)(intptr_t)stack_A->list.head->data - 1;

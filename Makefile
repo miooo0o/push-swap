@@ -40,7 +40,7 @@ SRC_FILES	=	0_ft_error 0_opt_step 0_utility \
 			2_valid_data 3_parsing_data_to_index \
 			4_init_stack 5_divide_stack_by_ratio \
 			6_sort_by_hard_coding 6_utility_sort_five 6_utility_sort_four \
-			7_sort_loop 7_utility_sort_loop \
+			7_sort_loop 7_utility_sort_loop 7_condition_loop \
 			8_push 8_reverse_rotate 8_rotate 8_swap \
 			test
 

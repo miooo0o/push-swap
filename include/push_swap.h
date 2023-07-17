@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 21:04:15 by minakim           #+#    #+#             */
-/*   Updated: 2023/07/14 16:26:57 by minakim          ###   ########.fr       */
+/*   Updated: 2023/07/17 14:36:40 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,12 @@ void	next_target_group(t_group *target);
 int		count_remaining_nodes(t_stack *stack_A, t_group *target);
 void	pa_ra(t_stack *stack_a, t_stack *stack_b);
 void	rrb_pa(t_stack *stack_a, t_stack *stack_b);
+
+/* [7] fuk norm :) */
+int		target_is_b_head(t_stack *stack_A, t_stack *stack_B);
+int		target_is_b_bot(t_stack *stack_A, t_stack *stack_B);
+int		target_is_a_bot(t_stack *stack_A, t_stack *stack_B);
+int		push_to_a_bot(t_stack *stack_A, t_stack *stack_B);
 
 /* [8] swap */
 void	sa(t_stack *stack_A);
